@@ -1,0 +1,90 @@
+mission	sample_name	host_name	host_nature	sample_nature	stage	with_blood	Borrelia.burgdorferi.sensu.stricto_rpoB	Borrelia.garinii_rpoB	Borrelia.afzelii_fla	Borrelia.valaisiana_ospA	Borrelia.lusitaniae_rpoB	Borrelia.spielmanii_fla	Borrelia.bissettii_rpoB	Borrelia.miyamotoi_glpQ	Borrelia.spp._23S	Anaplasma.marginale_msp.1	Anaplasma.platys_groEL	Anaplasma.phagocytophilum_msp2	Anaplasma.ovis_msp4	Anaplasma.centrale_groEL	Anaplasma.bovis_groEL	Anaplasma.spp._16S	Ehrlichia.spp..16S	Ehrlichia.canis_gltA	Candidatus.Neoehrlichia.mikurensis_groEL	Rickettsia.conorii_ITS	Rickettsia.slovaca_ITS	Rickettsia.massiliae_ITS	Rickettsia.helvetica_ITS	Rickettsia.aeschlimannii_ITS	Rickettsia.felis_orfB	Rickettsia.spp._gltA	Bartonella.henselae_pap31	Bartonella.spp._ssrA	Francisella.tularensis_tul4	Francisella.tularensis_fopA.	Coxiella.burnettii_IS1111	Coxiella.burnettii_icd	Apicomplexa_18S	Babesia.microti_CCTeta	Babesia.canis_3subspe_hsp70	Babesia.ovis_18S	Babesia.bovis_CCTeta	Babesia.caballi_rap1	Babesia.venatorum_18S	Babesia.divergens_hsp70	Babesia.canis_18S	Theileria.spp._18S	Hepatozoon.spp._18S	Ixodes.ricinus_ITS2	Tique.spp_16S	Dermacentor.reticulatus_ITS2	Dermacentor.marginatus_ITS2	E..coli.(temoin.PCR)
+FRA - BePrep - Juin 2023	NCHA100002-Ti1	NCHA100002	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100002-Ti2	NCHA100002	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100002-Ti3	NCHA100002	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100005-Ti1	NCHA100005	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100006-Ti1	NCHA100006	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100006-Ti2	NCHA100006	small_mammal	tick	nymph	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100010-Ti1	NCHA100010	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100010-Ti2	NCHA100010	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100012-Ti1	NCHA100012	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100013-Ti1	NCHA100013	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100013-Ti2	NCHA100013	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100013-Ti3	NCHA100013	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100013-Ti4	NCHA100013	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100016-Ti1	NCHA100016	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1
+FRA - BePrep - Juin 2023	NCHA100016-Ti2	NCHA100016	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	1
+FRA - BePrep - Juin 2023	NCHA100016-Ti3	NCHA100016	small_mammal	tick	larvae	no	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100016-Ti4	NCHA100016	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100017-Ti1	NCHA100017	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100017-Ti2	NCHA100017	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100017-Ti3	NCHA100017	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100017-Ti4	NCHA100017	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1
+FRA - BePrep - Juin 2023	NCHA100017-Ti5	NCHA100017	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100017-Ti6	NCHA100017	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100017-Ti7	NCHA100017	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100017-Ti8	NCHA100017	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100017-Ti9	NCHA100017	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100017-Ti10	NCHA100017	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1
+FRA - BePrep - Juin 2023	NCHA100017-Ti11	NCHA100017	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100017-Ti12	NCHA100017	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100017-Ti13	NCHA100017	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti1	NCHA100018	small_mammal	tick	nymph	no	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti2	NCHA100018	small_mammal	tick	nymph	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti3	NCHA100018	small_mammal	tick	nymph	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti4	NCHA100018	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti5	NCHA100018	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti6	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti7	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti8	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti9	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti10	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti11	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti12	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti13	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti14	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti15	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti16	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti17	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti18	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti19	NCHA100018	small_mammal	tick	larvae	no	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti20	NCHA100018	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100018-Ti21	NCHA100018	small_mammal	tick	larvae	no	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100019-Ti1	NCHA100019	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	1
+FRA - BePrep - Juin 2023	NCHA100019-Ti2	NCHA100019	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100019-Ti3	NCHA100019	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100019-Ti4	NCHA100019	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100019-Ti5	NCHA100019	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100019-Ti6	NCHA100019	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100019-Ti7	NCHA100019	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100019-Ti8	NCHA100019	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100019-Ti9	NCHA100019	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100019-Ti10	NCHA100019	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100019-Ti11	NCHA100019	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100019-Ti12	NCHA100019	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100019-Ti13	NCHA100019	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100020-Ti1	NCHA100020	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	1
+FRA - BePrep - Juin 2023	NCHA100020-Ti2	NCHA100020	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100020-Ti3	NCHA100020	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100020-Ti4	NCHA100020	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100020-Ti5	NCHA100020	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100021-Ti1	NCHA100021	small_mammal	tick	larvae	yes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100021-Ti2	NCHA100021	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100021-Ti3	NCHA100021	small_mammal	tick	larvae	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100022-Ti1	NCHA100022	small_mammal	tick	nymph	no	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100022-Ti2	NCHA100022	small_mammal	tick	larvae	yes	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100022-Ti3	NCHA100022	small_mammal	tick	larvae	no	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100022-Ti4	NCHA100022	small_mammal	tick	larvae	no	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	Max0TI1	Max	human	tick	nymph	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	Nath0TI1	Nath	human	tick	adult	no	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
+FRA - BePrep - Juin 2023	NCHA100005-EA	NCHA100005	small_mammal	ear			0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100010-EA	NCHA100010	small_mammal	ear			0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100012-EA	NCHA100012	small_mammal	ear			0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100013-EA	NCHA100013	small_mammal	ear			0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100016-EA	NCHA100016	small_mammal	ear			0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100017-EA	NCHA100017	small_mammal	ear			0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1
+FRA - BePrep - Juin 2023	NCHA100018-EA	NCHA100018	small_mammal	ear			0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	1	1
+FRA - BePrep - Juin 2023	NCHA100019-EA	NCHA100019	small_mammal	ear			0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100020-EA	NCHA100020	small_mammal	ear			0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+FRA - BePrep - Juin 2023	NCHA100021-EA	NCHA100021	small_mammal	ear			0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1
+FRA - BePrep - Juin 2023	NCHA100022-EA	NCHA100022	small_mammal	ear			0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1
