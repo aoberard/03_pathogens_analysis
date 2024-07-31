@@ -11,13 +11,10 @@ library("dplyr")
 host <- "147.99.64.40" ; port <- 5432 ; db   <- "rongeurs" ; user <- "mus" ; pwd  <- "musculus" # read-only account (safe !)
 conn <- dbConnect(PostgreSQL(), host=host, port=port, user=user, password=pwd, dbname=db)
 
-
-sql_rodent_fast_parasite <- "SELECT mi.code_mission, 
-lo.localite, 
-li.date_2 AS date_pose, li.numero_ligne,
-re.date_releve_2 AS date_releve,
-pi.code_resultat, dis.numero_centre,
-dis.sexe, dis.poids, par.effectif AS effectif_para, txp.taxon_name AS parasite
+sql_rodent_fast_parasite <- "SELECT
+dis.numero_centre, 
+par.effectif AS effectif_para, 
+txp.taxon_name AS parasite
 FROM t_missions AS mi
 LEFT JOIN t_lignes AS li ON li.id_mission = mi.id
 LEFT JOIN t_localites AS lo ON li.id_localite = lo.id
@@ -46,32 +43,20 @@ dbDisconnect(conn)
 
 
 
-# Data management ----
+# Data management macroparasites ----
 
 ## Import data file ---- 
 bpm_host_macroparasite <- data.table::fread(file = here::here( "data/", "raw-data/", "raw-ticks", "rodents_tick", "export_fast_parasite_alois20240328.csv"))
 
-
-
-
-
-
-
-
-
-
-# DELETE DUPLICATE (WOULD NOT HAVE TO BE DONE IF QUERY WORKED CORRECTLY)
-bpm_host_macroparasite <- bpm_host_macroparasite %>%
-  distinct()
-
 # Replace blank space in data
 bpm_host_macroparasite$parasite[bpm_host_macroparasite$parasite == ""] <- NA
 
-# Rename columns
+# Rename parasite names 
 bpm_host_macroparasite <- bpm_host_macroparasite %>%
   mutate( parasite = gsub(" ", "_", parasite))
 
-## Generate tidy dataframe with macroparasite (0/1) ----
+## Generate tidy dataframe ----
+# With macroparasite (0/1) 
 bpm_host_macroparasite_tidy <- bpm_host_macroparasite %>%
   filter( !is.na(parasite)) %>%
   mutate(value = 1) %>%
@@ -86,13 +71,8 @@ bpm_host_macroparasite_tidy <- bpm_host_macroparasite %>%
 bpm_host_macroparasite_tidy <- left_join( x = bpm_host_macroparasite_tidy,
                                           y = bpm_host_macroparasite %>%
                                             filter(parasite == "Ixodida") %>%
-                                            select( c("numero_centre", "effectif_para")),
+                                            select(numero_centre, effectif_para) %>%
+                                            rename(effectif_tick = effectif_para),
                                           by = "numero_centre")
 
-## Explore Macroparasite data from BPM ----
-
-# How many ticks per season for rodent in BPM 
-bpm_host_macroparasite %>%
-  group_by(mission) %>%
-  summarise(total_effectif_para = sum(effectif_para, na.rm = TRUE))
 
