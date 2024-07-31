@@ -5,7 +5,7 @@ library("data.table")
 library("dplyr")
 library("ggplot2")
 
-# EXTRACT BPM DATABASE DATA TICKS ----
+# EXTRACT BPM  ----
 
 # database and user parameters 
 host <- "147.99.64.40" ; port <- 5432 ; db   <- "rongeurs" ; user <- "mus" ; pwd  <- "musculus" # read-only account (safe !)

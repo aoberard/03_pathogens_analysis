@@ -1,4 +1,4 @@
-code_mission,localite,date_pose,numero_ligne,date_releve,numero_releve,numero_piege,latitude_piege,longitude_piege,code_resultat,abbrev_resultat,resultat,numero_terrain,commentaire,taxon_capture,numero_centre,date_dissection,observations,sexe,poids,longueur_tete_corps,longueur_queue,testicules,testicules_longueur,vesicule_seminale_taille,vulve_ouverte,lactation,cicatrices_placentaires_presentes,gestation,uterus,methode_identification,taxon_dissection,effectif_tique,parasite
+code_mission,localite,date_pose,numero_ligne,date_releve,numero_releve,numero_piege,latitude_piege,longitude_piege,code_resultat,abbrev_resultat,resultat,numero_terrain,commentaire,taxon_capture,numero_centre,date_dissection,observations,sexe,poids,longueur_tete_corps,longueur_queue,testicules,testicules_longueur,vesicule_seminale_taille,vulve_ouverte,lactation,cicatrices_placentaires_presentes,gestation,uterus,methode_identification,taxon_dissection,effectif_para,parasite
 FRA - BePrep - Juin 2023,FRA - BePrep - 1,2023-05-30,1,2023-05-31,1,1,44.6159719,-0.5593106,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 1,2023-05-30,1,2023-05-31,1,2,44.6159937,-0.5592962,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 1,2023-05-30,1,2023-05-31,1,3,44.6160355,-0.5592778,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -104,8 +104,8 @@ FRA - BePrep - Juin 2023,FRA - BePrep - 10,2023-05-30,10,2023-06-01,2,16,44.5978
 FRA - BePrep - Juin 2023,FRA - BePrep - 10,2023-05-30,10,2023-06-01,2,17,44.597932,-0.6419924,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 10,2023-05-30,10,2023-06-01,2,18,44.5980141,-0.6419532,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 10,2023-05-30,10,2023-06-01,2,19,44.5980129,-0.6418808,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Juin 2023,FRA - BePrep - 10,2023-05-30,10,2023-06-01,2,20,44.5980769,-0.6418122,1,capture,capture,NCHA100007,dead in trap,Apodemus,NCHA100007,2023-06-01,"Gestation, Morte dans le piege",F,17.9,81,85,,,,+,-,-,+,+,morphologie,Apodemus sylvaticus,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 10,2023-05-30,10,2023-06-01,2,20,44.5980769,-0.6418122,1,capture,capture,NCHA100007,dead in trap,Apodemus,NCHA100007,2023-06-01,"Gestation, Morte dans le piege",F,17.9,81,85,,,,+,-,-,+,+,metabarcoding - Illumina,Apodemus sylvaticus,,
+FRA - BePrep - Juin 2023,FRA - BePrep - 10,2023-05-30,10,2023-06-01,2,20,44.5980769,-0.6418122,1,capture,capture,NCHA100007,dead in trap,Apodemus,NCHA100007,2023-06-01,"Gestation, Morte dans le piege",F,17.9,81,85,,,,+,-,-,+,+,morphologie,Apodemus sylvaticus,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 10,2023-05-30,10,2023-06-01,2,21,44.5977621,-0.6425343,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 10,2023-05-30,10,2023-06-02,3,1,44.5972623,-0.643065,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 10,2023-05-30,10,2023-06-02,3,2,44.5973296,-0.6429497,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -846,8 +846,8 @@ FRA - BePrep - Juin 2023,FRA - BePrep - 21,2023-06-06,21,2023-06-07,1,19,44.5676
 FRA - BePrep - Juin 2023,FRA - BePrep - 21,2023-06-06,21,2023-06-07,1,20,44.5676669,-0.9779238,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 21,2023-06-06,21,2023-06-07,1,21,44.566963,-0.9780136,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 21,2023-06-06,21,2023-06-08,2,1,44.5670591,-0.9779246,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Juin 2023,FRA - BePrep - 21,2023-06-06,21,2023-06-08,2,2,44.5670833,-0.9779415,1,capture,capture,NCHA100018,Mulot,Apodemus sylvaticus,NCHA100018,2023-06-08,"fleas, tikcs, ecto",M,16.8,85,87,+,8,-,,,,,,morphologie,Apodemus sylvaticus,21,Ixodida
 FRA - BePrep - Juin 2023,FRA - BePrep - 21,2023-06-06,21,2023-06-08,2,2,44.5670833,-0.9779415,1,capture,capture,NCHA100018,Mulot,Apodemus sylvaticus,NCHA100018,2023-06-08,"fleas, tikcs, ecto",M,16.8,85,87,+,8,-,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,21,Ixodida
+FRA - BePrep - Juin 2023,FRA - BePrep - 21,2023-06-06,21,2023-06-08,2,2,44.5670833,-0.9779415,1,capture,capture,NCHA100018,Mulot,Apodemus sylvaticus,NCHA100018,2023-06-08,"fleas, tikcs, ecto",M,16.8,85,87,+,8,-,,,,,,morphologie,Apodemus sylvaticus,21,Ixodida
 FRA - BePrep - Juin 2023,FRA - BePrep - 21,2023-06-06,21,2023-06-08,2,3,44.5671109,-0.9779527,5,X,non tendu,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 21,2023-06-06,21,2023-06-08,2,4,44.5671836,-0.9779028,5,X,non tendu,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 21,2023-06-06,21,2023-06-08,2,5,44.5672311,-0.9778945,2,FV,fermé vide,,,,,,,,,,,,,,,,,,,,,,
@@ -941,8 +941,8 @@ FRA - BePrep - Juin 2023,FRA - BePrep - 22,2023-06-06,22,2023-06-09,3,8,44.57126
 FRA - BePrep - Juin 2023,FRA - BePrep - 22,2023-06-06,22,2023-06-09,3,9,44.5712911,-0.9489517,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 22,2023-06-06,22,2023-06-09,3,10,44.5713527,-0.9488894,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 22,2023-06-06,22,2023-06-09,3,11,44.5713744,-0.9488372,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Juin 2023,FRA - BePrep - 22,2023-06-06,22,2023-06-09,3,12,44.5713976,-0.9487719,1,capture,capture,NCHA100022,Mulot,Apodemus sylvaticus,NCHA100022,2023-06-09,5 tikcs,M,21.7,97,92,+,12,+,,,,,,morphologie,Apodemus sylvaticus,4,Ixodida
 FRA - BePrep - Juin 2023,FRA - BePrep - 22,2023-06-06,22,2023-06-09,3,12,44.5713976,-0.9487719,1,capture,capture,NCHA100022,Mulot,Apodemus sylvaticus,NCHA100022,2023-06-09,5 tikcs,M,21.7,97,92,+,12,+,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,4,Ixodida
+FRA - BePrep - Juin 2023,FRA - BePrep - 22,2023-06-06,22,2023-06-09,3,12,44.5713976,-0.9487719,1,capture,capture,NCHA100022,Mulot,Apodemus sylvaticus,NCHA100022,2023-06-09,5 tikcs,M,21.7,97,92,+,12,+,,,,,,morphologie,Apodemus sylvaticus,4,Ixodida
 FRA - BePrep - Juin 2023,FRA - BePrep - 22,2023-06-06,22,2023-06-09,3,13,44.5714199,-0.9487766,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 22,2023-06-06,22,2023-06-09,3,14,44.5714682,-0.9487466,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 22,2023-06-06,22,2023-06-09,3,15,44.5714906,-0.9486859,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -1035,8 +1035,8 @@ FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-07,1,16,44.5980
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-07,1,17,44.5980025,-0.9596919,2,FV,fermé vide,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-07,1,18,44.5980507,-0.9596524,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-07,1,19,44.5980354,-0.9596414,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-07,1,20,44.5980277,-0.9596438,1,capture,capture,JPRA000055,Insectivore,Soricidae,JPRA000055,2023-06-07,,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-07,1,20,44.5980277,-0.9596438,1,capture,capture,JPRA000055,Insectivore,Soricidae,JPRA000055,2023-06-07,,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
+FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-07,1,20,44.5980277,-0.9596438,1,capture,capture,JPRA000055,Insectivore,Soricidae,JPRA000055,2023-06-07,,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-07,1,21,44.5975011,-0.9602768,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-08,2,1,44.5973864,-0.9599218,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-08,2,2,44.5974428,-0.9598925,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -1054,8 +1054,8 @@ FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-08,2,13,44.5978
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-08,2,14,44.597902,-0.9597232,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-08,2,15,44.597986,-0.9597211,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-08,2,16,44.5980057,-0.9596941,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-08,2,17,44.5980025,-0.9596919,1,capture,capture,NCHA100017,Mulot,Apodemus,NCHA100017,2023-06-08,"fleas, ticks, ecto, necrotic lung",M,24.2,98,94,+,14,+,,,,,,morphologie,Apodemus sylvaticus,13,Ixodida
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-08,2,17,44.5980025,-0.9596919,1,capture,capture,NCHA100017,Mulot,Apodemus,NCHA100017,2023-06-08,"fleas, ticks, ecto, necrotic lung",M,24.2,98,94,+,14,+,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,13,Ixodida
+FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-08,2,17,44.5980025,-0.9596919,1,capture,capture,NCHA100017,Mulot,Apodemus,NCHA100017,2023-06-08,"fleas, ticks, ecto, necrotic lung",M,24.2,98,94,+,14,+,,,,,,morphologie,Apodemus sylvaticus,13,Ixodida
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-08,2,18,44.5980507,-0.9596524,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-08,2,19,44.5980354,-0.9596414,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 24,2023-06-06,24,2023-06-08,2,20,44.5980277,-0.9596438,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -1338,8 +1338,8 @@ FRA - BePrep - Juin 2023,FRA - BePrep - 28,2023-06-03,28,2023-06-06,3,19,44.5350
 FRA - BePrep - Juin 2023,FRA - BePrep - 28,2023-06-03,28,2023-06-06,3,20,44.5351056,-0.9081392,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 28,2023-06-03,28,2023-06-06,3,21,44.534634,-0.9071985,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 29,2023-06-03,29,2023-06-04,1,1,44.5248068,-0.8867349,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Juin 2023,FRA - BePrep - 29,2023-06-03,29,2023-06-04,1,2,44.5248244,-0.8866625,1,capture,capture,NCHA100009,mulot ,Apodemus,NCHA100009,2023-06-04,Ligne 29 piège 2,M,17.9,85,78,-,13,-,,,,,,morphologie,Apodemus sylvaticus,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 29,2023-06-03,29,2023-06-04,1,2,44.5248244,-0.8866625,1,capture,capture,NCHA100009,mulot ,Apodemus,NCHA100009,2023-06-04,Ligne 29 piège 2,M,17.9,85,78,-,13,-,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,,
+FRA - BePrep - Juin 2023,FRA - BePrep - 29,2023-06-03,29,2023-06-04,1,2,44.5248244,-0.8866625,1,capture,capture,NCHA100009,mulot ,Apodemus,NCHA100009,2023-06-04,Ligne 29 piège 2,M,17.9,85,78,-,13,-,,,,,,morphologie,Apodemus sylvaticus,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 29,2023-06-03,29,2023-06-04,1,3,44.5248131,-0.8865977,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 29,2023-06-03,29,2023-06-04,1,4,44.5247973,-0.8865187,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 29,2023-06-03,29,2023-06-04,1,5,44.5248154,-0.8864684,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -1465,9 +1465,9 @@ FRA - BePrep - Juin 2023,FRA - BePrep - 3,2023-05-30,3,2023-06-02,3,20,44.573132
 FRA - BePrep - Juin 2023,FRA - BePrep - 3,2023-05-30,3,2023-06-02,3,21,44.573132,-0.584433,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 30,2023-06-03,30,2023-06-04,1,1,44.517624,-0.8870069,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 30,2023-06-03,30,2023-06-04,1,2,44.5176869,-0.8869682,1,capture,capture,NCHA100011,mulot ,Apodemus,NCHA100011,2023-06-04,"Ligne 30 piège 2
-pas de parasites internes ni externes",F,11,70,66,,,,-,-,-,-,-,morphologie,Apodemus sylvaticus,,
-FRA - BePrep - Juin 2023,FRA - BePrep - 30,2023-06-03,30,2023-06-04,1,2,44.5176869,-0.8869682,1,capture,capture,NCHA100011,mulot ,Apodemus,NCHA100011,2023-06-04,"Ligne 30 piège 2
 pas de parasites internes ni externes",F,11,70,66,,,,-,-,-,-,-,metabarcoding - Illumina,Apodemus sylvaticus,,
+FRA - BePrep - Juin 2023,FRA - BePrep - 30,2023-06-03,30,2023-06-04,1,2,44.5176869,-0.8869682,1,capture,capture,NCHA100011,mulot ,Apodemus,NCHA100011,2023-06-04,"Ligne 30 piège 2
+pas de parasites internes ni externes",F,11,70,66,,,,-,-,-,-,-,morphologie,Apodemus sylvaticus,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 30,2023-06-03,30,2023-06-04,1,3,44.5177019,-0.8869938,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 30,2023-06-03,30,2023-06-04,1,4,44.5177565,-0.8869717,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 30,2023-06-03,30,2023-06-04,1,5,44.517802,-0.8869212,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -1572,8 +1572,8 @@ FRA - BePrep - Juin 2023,FRA - BePrep - 31,2023-06-03,31,2023-06-05,2,19,44.5194
 FRA - BePrep - Juin 2023,FRA - BePrep - 31,2023-06-03,31,2023-06-05,2,20,44.5194174,-0.9367487,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 31,2023-06-03,31,2023-06-05,2,21,44.5184983,-0.9367539,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 31,2023-06-03,31,2023-06-06,3,1,44.5184749,-0.9367814,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Juin 2023,FRA - BePrep - 31,2023-06-03,31,2023-06-06,3,2,44.5185326,-0.9367676,1,capture,capture,NCHA100015,mulot,Apodemus,NCHA100015,2023-07-04,"fleas , 1 ticks",M,20.1,95,92,+,9,-,,,,,,morphologie,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Juin 2023,FRA - BePrep - 31,2023-06-03,31,2023-06-06,3,2,44.5185326,-0.9367676,1,capture,capture,NCHA100015,mulot,Apodemus,NCHA100015,2023-07-04,"fleas , 1 ticks",M,20.1,95,92,+,9,-,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,1,Ixodida
+FRA - BePrep - Juin 2023,FRA - BePrep - 31,2023-06-03,31,2023-06-06,3,2,44.5185326,-0.9367676,1,capture,capture,NCHA100015,mulot,Apodemus,NCHA100015,2023-07-04,"fleas , 1 ticks",M,20.1,95,92,+,9,-,,,,,,morphologie,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Juin 2023,FRA - BePrep - 31,2023-06-03,31,2023-06-06,3,3,44.51858,-0.9367825,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 31,2023-06-03,31,2023-06-06,3,4,44.5186214,-0.9367595,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 31,2023-06-03,31,2023-06-06,3,5,44.5187069,-0.9367525,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -1732,9 +1732,9 @@ FRA - BePrep - Juin 2023,FRA - BePrep - 34,2023-06-03,34,2023-06-04,1,10,44.4913
 FRA - BePrep - Juin 2023,FRA - BePrep - 34,2023-06-03,34,2023-06-04,1,11,44.4914185,-0.8747705,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 34,2023-06-03,34,2023-06-04,1,12,44.4913779,-0.8747334,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 34,2023-06-03,34,2023-06-04,1,13,44.4913858,-0.8746379,1,capture,capture,NCHA100012,,Apodemus,NCHA100012,2023-06-04,"Ligne 34 piège 13
-puces & tiques",M,24.4,95,94,+,14,+,,,,,,morphologie,Apodemus sylvaticus,1,Ixodida
-FRA - BePrep - Juin 2023,FRA - BePrep - 34,2023-06-03,34,2023-06-04,1,13,44.4913858,-0.8746379,1,capture,capture,NCHA100012,,Apodemus,NCHA100012,2023-06-04,"Ligne 34 piège 13
 puces & tiques",M,24.4,95,94,+,14,+,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,1,Ixodida
+FRA - BePrep - Juin 2023,FRA - BePrep - 34,2023-06-03,34,2023-06-04,1,13,44.4913858,-0.8746379,1,capture,capture,NCHA100012,,Apodemus,NCHA100012,2023-06-04,"Ligne 34 piège 13
+puces & tiques",M,24.4,95,94,+,14,+,,,,,,morphologie,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Juin 2023,FRA - BePrep - 34,2023-06-03,34,2023-06-04,1,14,44.4913478,-0.8745666,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 34,2023-06-03,34,2023-06-04,1,15,44.4913093,-0.8745409,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Juin 2023,FRA - BePrep - 34,2023-06-03,34,2023-06-04,1,16,44.4912851,-0.874512,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -2229,8 +2229,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-17,2,3,44.6160
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-17,2,4,44.6160929,-0.5590476,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-17,2,5,44.6161159,-0.5589726,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-17,2,6,,,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-17,2,7,44.6162002,-0.5588028,1,capture,capture,NCHA100024,apodemus,Apodemus,NCHA100024,2023-10-17,3 Tiques,F,21.9,90,88,,,,-,+,+,-,+,metabarcoding - Illumina,Apodemus sylvaticus,3,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-17,2,7,44.6162002,-0.5588028,1,capture,capture,NCHA100024,apodemus,Apodemus,NCHA100024,2023-10-17,3 Tiques,F,21.9,90,88,,,,-,+,+,-,+,morphologie,Apodemus sylvaticus,3,Ixodida
+FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-17,2,7,44.6162002,-0.5588028,1,capture,capture,NCHA100024,apodemus,Apodemus,NCHA100024,2023-10-17,3 Tiques,F,21.9,90,88,,,,-,+,+,-,+,metabarcoding - Illumina,Apodemus sylvaticus,3,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-17,2,8,44.6162317,-0.5587666,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-17,2,9,44.6163142,-0.5587089,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-17,2,10,44.6163105,-0.5586435,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -2267,8 +2267,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-18,1,20,44.616
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,1,44.6160079,-0.5591742,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,2,44.616054,-0.5591653,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,3,44.6160321,-0.5590664,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,4,44.6160929,-0.5590476,1,capture,capture,NCHA100032,apodemus,Apodemus,NCHA100032,2023-10-19,2 tiques (1 seule gardée),M,16.2,80,89,+,7,-,,,,,,morphologie,Apodemus sylvaticus,2,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,4,44.6160929,-0.5590476,1,capture,capture,NCHA100032,apodemus,Apodemus,NCHA100032,2023-10-19,2 tiques (1 seule gardée),M,16.2,80,89,+,7,-,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,2,Ixodida
+FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,4,44.6160929,-0.5590476,1,capture,capture,NCHA100032,apodemus,Apodemus,NCHA100032,2023-10-19,2 tiques (1 seule gardée),M,16.2,80,89,+,7,-,,,,,,morphologie,Apodemus sylvaticus,2,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,5,44.6161159,-0.5589726,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,6,,,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,7,44.6162002,-0.5588028,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -2281,8 +2281,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,13,44.616
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,14,44.6164327,-0.5583936,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,15,44.6164687,-0.5582868,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,16,44.6164524,-0.5582153,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,17,44.6165123,-0.5581867,1,capture,capture,NCHA100033,apodemus,Apodemus,NCHA100033,2023-10-19,"2 tiques, 1 puce, acariens orange",F,22.4,89,80,,,,-,+,+,+,+,metabarcoding - Illumina,Apodemus sylvaticus,2,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,17,44.6165123,-0.5581867,1,capture,capture,NCHA100033,apodemus,Apodemus,NCHA100033,2023-10-19,"2 tiques, 1 puce, acariens orange",F,22.4,89,80,,,,-,+,+,+,+,morphologie,Apodemus sylvaticus,2,Ixodida
+FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,17,44.6165123,-0.5581867,1,capture,capture,NCHA100033,apodemus,Apodemus,NCHA100033,2023-10-19,"2 tiques, 1 puce, acariens orange",F,22.4,89,80,,,,-,+,+,+,+,metabarcoding - Illumina,Apodemus sylvaticus,2,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,18,44.6165081,-0.5581134,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,19,44.6165293,-0.5580701,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 1,2023-10-16,1,2023-10-19,3,20,44.6165115,-0.5580351,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -2315,8 +2315,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,5,44.59
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,6,44.5972855,-0.6431106,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,7,44.5973288,-0.6431117,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,8,44.5973162,-0.6430631,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,9,44.5973917,-0.6429959,1,capture,capture,JPRA000057,insectivore crotte,Soricidae,JPRA000057,2023-10-18,crotte congelée à sec,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,9,44.5973917,-0.6429959,1,capture,capture,JPRA000057,insectivore crotte,Soricidae,JPRA000057,2023-10-18,crotte congelée à sec,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,9,44.5973917,-0.6429959,1,capture,capture,JPRA000057,insectivore crotte,Soricidae,JPRA000057,2023-10-18,crotte congelée à sec,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,10,44.597399,-0.6429876,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,11,44.5974005,-0.6428508,1,capture,capture,JPRA000062,insctivore crotte,Soricidae,JPRA000062,2023-10-18,crotte congelée à sec,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,11,44.5974005,-0.6428508,1,capture,capture,JPRA000062,insctivore crotte,Soricidae,JPRA000062,2023-10-18,crotte congelée à sec,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
@@ -2326,10 +2326,10 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,13,44.5
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,14,44.5975123,-0.6428305,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,15,44.5975602,-0.642749,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,16,44.5975532,-0.6426146,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,17,44.5975872,-0.6426424,1,capture,capture,JPRA000060,insectivore crotte,Soricidae,JPRA000060,2023-10-18,crotte congelée à sec,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,17,44.5975872,-0.6426424,1,capture,capture,JPRA000060,insectivore crotte,Soricidae,JPRA000060,2023-10-18,crotte congelée à sec,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,18,44.5976199,-0.6426207,1,capture,capture,JPRA000058,insectivore crotte,Soricidae,JPRA000058,2023-10-18,crotte congelée à sec,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,17,44.5975872,-0.6426424,1,capture,capture,JPRA000060,insectivore crotte,Soricidae,JPRA000060,2023-10-18,crotte congelée à sec,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,18,44.5976199,-0.6426207,1,capture,capture,JPRA000058,insectivore crotte,Soricidae,JPRA000058,2023-10-18,crotte congelée à sec,,,,,,,,,,,,,morphologie,Soricidae,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,18,44.5976199,-0.6426207,1,capture,capture,JPRA000058,insectivore crotte,Soricidae,JPRA000058,2023-10-18,crotte congelée à sec,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,19,44.5976424,-0.6425655,2,FV,fermé vide,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-18,3,20,44.5976571,-0.6425368,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-19,2,1,44.5971918,-0.6433037,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -2340,8 +2340,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-19,2,5,44.59
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-19,2,6,44.5972855,-0.6431106,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-19,2,7,44.5973288,-0.6431117,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-19,2,8,44.5973162,-0.6430631,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-19,2,9,44.5973917,-0.6429959,1,capture,capture,NCHA100038,Apo,Apodemus,NCHA100038,2023-10-19,1 tique,F,13.9,75,75,,,,-,+,+,+,+,morphologie,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-19,2,9,44.5973917,-0.6429959,1,capture,capture,NCHA100038,Apo,Apodemus,NCHA100038,2023-10-19,1 tique,F,13.9,75,75,,,,-,+,+,+,+,metabarcoding - Illumina,Apodemus sylvaticus,1,Ixodida
+FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-19,2,9,44.5973917,-0.6429959,1,capture,capture,NCHA100038,Apo,Apodemus,NCHA100038,2023-10-19,1 tique,F,13.9,75,75,,,,-,+,+,+,+,morphologie,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-19,2,10,44.597399,-0.6429876,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-19,2,11,44.5974005,-0.6428508,2,FV,fermé vide,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 10,2023-10-16,10,2023-10-19,2,12,44.597418,-0.6428814,2,FV,fermé vide,,,,,,,,,,,,,,,,,,,,,,
@@ -2368,8 +2368,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 11,2023-10-19,11,2023-10-20,1,9,44.56
 FRA - BePrep - Octobre 2023,FRA - BePrep - 11,2023-10-19,11,2023-10-20,1,10,44.5644874,-0.6731633,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 11,2023-10-19,11,2023-10-20,1,11,44.5645203,-0.6731934,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 11,2023-10-19,11,2023-10-20,1,12,44.5645354,-0.6732586,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 11,2023-10-19,11,2023-10-20,1,13,44.5645201,-0.6732987,1,capture,capture,NCHA100040,Apodemus,Apodemus,NCHA100040,2023-10-20,2 tiques,F,29.6,104,88,,,,-,+,+,-,+,morphologie,Apodemus sylvaticus,2,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 11,2023-10-19,11,2023-10-20,1,13,44.5645201,-0.6732987,1,capture,capture,NCHA100040,Apodemus,Apodemus,NCHA100040,2023-10-20,2 tiques,F,29.6,104,88,,,,-,+,+,-,+,metabarcoding - Illumina,Apodemus sylvaticus,2,Ixodida
+FRA - BePrep - Octobre 2023,FRA - BePrep - 11,2023-10-19,11,2023-10-20,1,13,44.5645201,-0.6732987,1,capture,capture,NCHA100040,Apodemus,Apodemus,NCHA100040,2023-10-20,2 tiques,F,29.6,104,88,,,,-,+,+,-,+,morphologie,Apodemus sylvaticus,2,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 11,2023-10-19,11,2023-10-20,1,14,44.564529,-0.6733894,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 11,2023-10-19,11,2023-10-20,1,15,44.5645445,-0.6734369,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 11,2023-10-19,11,2023-10-20,1,16,44.5645374,-0.6734925,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -2451,8 +2451,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-20,1,10,44.5
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-20,1,11,44.5497184,-0.6847641,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-20,1,12,44.5496927,-0.6847821,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-20,1,13,44.5496859,-0.6848269,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-20,1,14,44.5496584,-0.6848675,1,capture,capture,JPRA000066,Musaraigne,Soricidae,JPRA000066,2023-10-20,crotte congelee à sec,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-20,1,14,44.5496584,-0.6848675,1,capture,capture,JPRA000066,Musaraigne,Soricidae,JPRA000066,2023-10-20,crotte congelee à sec,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-20,1,14,44.5496584,-0.6848675,1,capture,capture,JPRA000066,Musaraigne,Soricidae,JPRA000066,2023-10-20,crotte congelee à sec,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-20,1,15,44.5496224,-0.6848661,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-20,1,16,44.5495939,-0.6848923,2,FV,fermé vide,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-20,1,17,44.5495527,-0.6849053,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -2470,12 +2470,12 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,8,44.54
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,9,44.5498402,-0.6847484,1,capture,capture,JPRA000070,Musaraigne morte dans piège,Soricidae,JPRA000070,2023-10-21,patte dans l'alcool,,8.8,55,36,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,9,44.5498402,-0.6847484,1,capture,capture,JPRA000070,Musaraigne morte dans piège,Soricidae,JPRA000070,2023-10-21,patte dans l'alcool,,8.8,55,36,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,10,44.5498171,-0.6847399,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,11,44.5497184,-0.6847641,1,capture,capture,NCHA100047,Apodemus mort dans piège,Apodemus,NCHA100047,2023-10-21,"Mort dans le piège, Pas de crotte prelevee",F,20.8,80,97,,,,+,+,+,+,+,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,11,44.5497184,-0.6847641,1,capture,capture,NCHA100047,Apodemus mort dans piège,Apodemus,NCHA100047,2023-10-21,"Mort dans le piège, Pas de crotte prelevee",F,20.8,80,97,,,,+,+,+,+,+,morphologie,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,11,44.5497184,-0.6847641,1,capture,capture,NCHA100047,Apodemus mort dans piège,Apodemus,NCHA100047,2023-10-21,"Mort dans le piège, Pas de crotte prelevee",F,20.8,80,97,,,,+,+,+,+,+,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,12,44.5496927,-0.6847821,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,13,44.5496859,-0.6848269,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,14,44.5496584,-0.6848675,1,capture,capture,NCHA100048,Apodemus,Apodemus,NCHA100048,2023-10-21,,F,25.2,95,96,,,,+,+,+,+,+,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,14,44.5496584,-0.6848675,1,capture,capture,NCHA100048,Apodemus,Apodemus,NCHA100048,2023-10-21,,F,25.2,95,96,,,,+,+,+,+,+,morphologie,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,14,44.5496584,-0.6848675,1,capture,capture,NCHA100048,Apodemus,Apodemus,NCHA100048,2023-10-21,,F,25.2,95,96,,,,+,+,+,+,+,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,15,44.5496224,-0.6848661,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,16,44.5495939,-0.6848923,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 12,2023-10-19,12,2023-10-21,2,17,44.5495527,-0.6849053,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -2526,8 +2526,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-20,1,2,,,2,F
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-20,1,3,44.5205949,-0.7375308,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-20,1,4,44.5206087,-0.7376228,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-20,1,5,44.5206498,-0.7376542,2,FV,fermé vide,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-20,1,6,44.5207032,-0.7376984,1,capture,capture,JPRA000067,Musaraigne morte,Soricidae,JPRA000067,2023-10-20,patte dans l'alcool,,5.5,50,41,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-20,1,6,44.5207032,-0.7376984,1,capture,capture,JPRA000067,Musaraigne morte,Soricidae,JPRA000067,2023-10-20,patte dans l'alcool,,5.5,50,41,,,,,,,,,morphologie,Soricidae,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-20,1,6,44.5207032,-0.7376984,1,capture,capture,JPRA000067,Musaraigne morte,Soricidae,JPRA000067,2023-10-20,patte dans l'alcool,,5.5,50,41,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-20,1,7,44.5207082,-0.7377291,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-20,1,8,44.5207243,-0.737774,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-20,1,9,44.5207269,-0.7378048,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -2556,8 +2556,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-21,2,11,,,0,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-21,2,12,44.5208159,-0.7380097,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-21,2,13,44.5209246,-0.7380223,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-21,2,14,44.5208962,-0.7380801,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-21,2,15,44.5209094,-0.7381036,1,capture,capture,NCHA100044,Apodemus mort dans piège,Apodemus,NCHA100044,2023-10-21,"Mort dans le piège, Pas de crotte prelevee",F,9.5,55,66,,,,+,-,-,-,+,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-21,2,15,44.5209094,-0.7381036,1,capture,capture,NCHA100044,Apodemus mort dans piège,Apodemus,NCHA100044,2023-10-21,"Mort dans le piège, Pas de crotte prelevee",F,9.5,55,66,,,,+,-,-,-,+,morphologie,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-21,2,15,44.5209094,-0.7381036,1,capture,capture,NCHA100044,Apodemus mort dans piège,Apodemus,NCHA100044,2023-10-21,"Mort dans le piège, Pas de crotte prelevee",F,9.5,55,66,,,,+,-,-,-,+,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-21,2,16,44.5209193,-0.7381259,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-21,2,17,44.5209391,-0.7381981,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-21,2,18,44.5209597,-0.7382888,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -2589,16 +2589,16 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,3,44.52
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,4,44.5206087,-0.7376228,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,5,44.5206498,-0.7376542,2,FV,fermé vide,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,6,44.5207032,-0.7376984,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,7,44.5207082,-0.7377291,1,capture,capture,NCHA100063,Apodemus,Apodemus,NCHA100063,2023-10-23,1 tique,F,13.5,77,74,,,,+,-,-,-,+,morphologie,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,7,44.5207082,-0.7377291,1,capture,capture,NCHA100063,Apodemus,Apodemus,NCHA100063,2023-10-23,1 tique,F,13.5,77,74,,,,+,-,-,-,+,metabarcoding - Illumina,Apodemus sylvaticus,1,Ixodida
+FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,7,44.5207082,-0.7377291,1,capture,capture,NCHA100063,Apodemus,Apodemus,NCHA100063,2023-10-23,1 tique,F,13.5,77,74,,,,+,-,-,-,+,morphologie,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,8,44.5207243,-0.737774,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,9,44.5207269,-0.7378048,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,10,44.5207394,-0.7378637,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,11,,,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,12,44.5208159,-0.7380097,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,13,44.5209246,-0.7380223,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,14,44.5208962,-0.7380801,1,capture,capture,NCHA100062,Apodemus,Apodemus,NCHA100062,2023-10-23,1 tique,F,16.1,76,74,,,,+,-,-,-,+,metabarcoding - Illumina,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,14,44.5208962,-0.7380801,1,capture,capture,NCHA100062,Apodemus,Apodemus,NCHA100062,2023-10-23,1 tique,F,16.1,76,74,,,,+,-,-,-,+,morphologie,Apodemus sylvaticus,1,Ixodida
+FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,14,44.5208962,-0.7380801,1,capture,capture,NCHA100062,Apodemus,Apodemus,NCHA100062,2023-10-23,1 tique,F,16.1,76,74,,,,+,-,-,-,+,metabarcoding - Illumina,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,15,44.5209094,-0.7381036,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,16,44.5209193,-0.7381259,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 13,2023-10-19,13,2023-10-23,4,17,44.5209391,-0.7381981,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -2659,8 +2659,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 14,2023-10-19,14,2023-10-22,3,6,44.57
 FRA - BePrep - Octobre 2023,FRA - BePrep - 14,2023-10-19,14,2023-10-22,3,7,44.575672,-0.7916365,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 14,2023-10-19,14,2023-10-22,3,8,44.5756504,-0.7916533,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 14,2023-10-19,14,2023-10-22,3,9,44.5756165,-0.7916185,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 14,2023-10-19,14,2023-10-22,3,10,44.5755706,-0.7916188,1,capture,capture,JPRA000075,Musaraigne morte dans piège,Soricidae,JPRA000075,2023-10-22,patte dans l alcool,,7.3,55,37,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 14,2023-10-19,14,2023-10-22,3,10,44.5755706,-0.7916188,1,capture,capture,JPRA000075,Musaraigne morte dans piège,Soricidae,JPRA000075,2023-10-22,patte dans l alcool,,7.3,55,37,,,,,,,,,morphologie,Soricidae,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 14,2023-10-19,14,2023-10-22,3,10,44.5755706,-0.7916188,1,capture,capture,JPRA000075,Musaraigne morte dans piège,Soricidae,JPRA000075,2023-10-22,patte dans l alcool,,7.3,55,37,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 14,2023-10-19,14,2023-10-22,3,11,44.5755322,-0.7916083,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 14,2023-10-19,14,2023-10-22,3,12,44.5754811,-0.7916155,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 14,2023-10-19,14,2023-10-22,3,13,44.57544,-0.7916615,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -2773,8 +2773,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 15,2023-10-19,15,2023-10-23,4,17,44.5
 FRA - BePrep - Octobre 2023,FRA - BePrep - 15,2023-10-19,15,2023-10-23,4,18,44.5488792,-0.7419272,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 15,2023-10-19,15,2023-10-23,4,19,44.5489077,-0.7419899,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 15,2023-10-19,15,2023-10-23,4,20,44.5489194,-0.74203,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,1,44.5619564,-0.7641263,1,capture,capture,JPRA000068,Insectivore,Soricidae,JPRA000068,2023-10-20,patte dans alcool,,9.6,72,45,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,1,44.5619564,-0.7641263,1,capture,capture,JPRA000068,Insectivore,Soricidae,JPRA000068,2023-10-20,patte dans alcool,,9.6,72,45,,,,,,,,,morphologie,Soricidae,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,1,44.5619564,-0.7641263,1,capture,capture,JPRA000068,Insectivore,Soricidae,JPRA000068,2023-10-20,patte dans alcool,,9.6,72,45,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,2,44.5619707,-0.764207,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,3,44.5619959,-0.7643071,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,4,44.5619904,-0.7643134,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -2791,8 +2791,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,14,44.5
 FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,15,44.5622167,-0.7650574,2,FV,fermé vide,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,16,44.5622206,-0.7650954,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,17,44.5621849,-0.7651385,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,18,44.5621934,-0.7652503,1,capture,capture,NCHA100041,Apo,Apodemus,NCHA100041,2023-10-20,1 tique ?,M,23.7,94,81,+,10,+,,,,,,morphologie,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,18,44.5621934,-0.7652503,1,capture,capture,NCHA100041,Apo,Apodemus,NCHA100041,2023-10-20,1 tique ?,M,23.7,94,81,+,10,+,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,1,Ixodida
+FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,18,44.5621934,-0.7652503,1,capture,capture,NCHA100041,Apo,Apodemus,NCHA100041,2023-10-20,1 tique ?,M,23.7,94,81,+,10,+,,,,,,morphologie,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,19,44.5622143,-0.7653682,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-20,1,20,44.5622339,-0.7654843,2,FV,fermé vide,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 16,2023-10-19,16,2023-10-21,2,1,44.5619564,-0.7641263,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -3042,8 +3042,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 2,2023-10-16,2,2023-10-17,2,1,44.6057
 FRA - BePrep - Octobre 2023,FRA - BePrep - 2,2023-10-16,2,2023-10-17,2,2,44.6057495,-0.5670144,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 2,2023-10-16,2,2023-10-17,2,3,44.6056813,-0.5670392,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 2,2023-10-16,2,2023-10-17,2,4,44.605651,-0.567096,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 2,2023-10-16,2,2023-10-17,2,5,44.605598,-0.5672444,1,capture,capture,NCHA100023,apodemus,Apodemus,NCHA100023,2023-10-17,,M,20.4,95,93,-,10,+,,,,,,morphologie,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 2,2023-10-16,2,2023-10-17,2,5,44.605598,-0.5672444,1,capture,capture,NCHA100023,apodemus,Apodemus,NCHA100023,2023-10-17,,M,20.4,95,93,-,10,+,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 2,2023-10-16,2,2023-10-17,2,5,44.605598,-0.5672444,1,capture,capture,NCHA100023,apodemus,Apodemus,NCHA100023,2023-10-17,,M,20.4,95,93,-,10,+,,,,,,morphologie,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 2,2023-10-16,2,2023-10-17,2,6,44.6055354,-0.567264,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 2,2023-10-16,2,2023-10-17,2,7,44.6055046,-0.5672782,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 2,2023-10-16,2,2023-10-17,2,8,44.6053997,-0.5672775,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -3171,8 +3171,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-20,1,8,44.56
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-20,1,9,44.5675485,-0.9778997,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-20,1,10,44.5676201,-0.977889,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-20,1,11,44.5676839,-0.9778758,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-20,1,12,44.5677527,-0.9778951,1,capture,capture,NCHA100043,apodemus,Apodemus,NCHA100043,2023-10-20,1 tique,F,26,93,76,,,,-,+,+,-,+,metabarcoding - Illumina,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-20,1,12,44.5677527,-0.9778951,1,capture,capture,NCHA100043,apodemus,Apodemus,NCHA100043,2023-10-20,1 tique,F,26,93,76,,,,-,+,+,-,+,morphologie,Apodemus sylvaticus,1,Ixodida
+FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-20,1,12,44.5677527,-0.9778951,1,capture,capture,NCHA100043,apodemus,Apodemus,NCHA100043,2023-10-20,1 tique,F,26,93,76,,,,-,+,+,-,+,metabarcoding - Illumina,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-20,1,13,44.5678051,-0.9778963,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-20,1,14,44.5678372,-0.9778892,2,FV,fermé vide,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-20,1,15,44.5678883,-0.977932,2,FV,fermé vide,,,,,,,,,,,,,,,,,,,,,,
@@ -3191,8 +3191,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-21,2,5,44.56
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-21,2,6,44.5673445,-0.9778699,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-21,2,7,44.5674088,-0.9778825,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-21,2,8,44.567477,-0.977918,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-21,2,9,44.5675485,-0.9778997,1,capture,capture,NCHA100051,apodemus,Apodemus,NCHA100051,2023-10-21,,M,16.1,82,76,-,4,-,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-21,2,9,44.5675485,-0.9778997,1,capture,capture,NCHA100051,apodemus,Apodemus,NCHA100051,2023-10-21,,M,16.1,82,76,-,4,-,,,,,,morphologie,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-21,2,9,44.5675485,-0.9778997,1,capture,capture,NCHA100051,apodemus,Apodemus,NCHA100051,2023-10-21,,M,16.1,82,76,-,4,-,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-21,2,10,44.5676201,-0.977889,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-21,2,11,44.5676839,-0.9778758,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-21,2,12,44.5677527,-0.9778951,2,FV,fermé vide,,,,,,,,,,,,,,,,,,,,,,
@@ -3212,8 +3212,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-22,3,5,44.56
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-22,3,6,44.5673445,-0.9778699,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-22,3,7,44.5674088,-0.9778825,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-22,3,8,44.567477,-0.977918,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-22,3,9,44.5675485,-0.9778997,1,capture,capture,NCHA100057,apodemus,Apodemus,NCHA100057,2023-10-22,,M,16.7,86,74,-,4,-,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-22,3,9,44.5675485,-0.9778997,1,capture,capture,NCHA100057,apodemus,Apodemus,NCHA100057,2023-10-22,,M,16.7,86,74,-,4,-,,,,,,morphologie,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-22,3,9,44.5675485,-0.9778997,1,capture,capture,NCHA100057,apodemus,Apodemus,NCHA100057,2023-10-22,,M,16.7,86,74,-,4,-,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-22,3,10,44.5676201,-0.977889,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-22,3,11,44.5676839,-0.9778758,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 21,2023-10-19,21,2023-10-22,3,12,44.5677527,-0.9778951,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -3370,8 +3370,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-22,3,2,44.57
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-22,3,3,44.5777312,-0.9045894,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-22,3,4,44.5777638,-0.9046618,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-22,3,5,44.5777855,-0.9046647,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-22,3,6,44.5778174,-0.9047099,1,capture,capture,JPRA000074,soricidae,Soricidae,JPRA000074,2023-10-22,crotte  congelee à sec,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-22,3,6,44.5778174,-0.9047099,1,capture,capture,JPRA000074,soricidae,Soricidae,JPRA000074,2023-10-22,crotte  congelee à sec,,,,,,,,,,,,,morphologie,Soricidae,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-22,3,6,44.5778174,-0.9047099,1,capture,capture,JPRA000074,soricidae,Soricidae,JPRA000074,2023-10-22,crotte  congelee à sec,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-22,3,7,44.5779238,-0.904816,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-22,3,8,44.577983,-0.9049066,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-22,3,9,44.5780122,-0.9049548,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -3391,8 +3391,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-23,4,2,44.57
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-23,4,3,44.5777312,-0.9045894,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-23,4,4,44.5777638,-0.9046618,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-23,4,5,44.5777855,-0.9046647,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-23,4,6,44.5778174,-0.9047099,1,capture,capture,JPRA000077,,Sciuridae,JPRA000077,2023-10-23,patte dans alcool,,6.7,56,35,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-23,4,6,44.5778174,-0.9047099,1,capture,capture,JPRA000077,,Sciuridae,JPRA000077,2023-10-23,patte dans alcool,,6.7,56,35,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-23,4,6,44.5778174,-0.9047099,1,capture,capture,JPRA000077,,Sciuridae,JPRA000077,2023-10-23,patte dans alcool,,6.7,56,35,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-23,4,7,44.5779238,-0.904816,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-23,4,8,44.577983,-0.9049066,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 23,2023-10-19,23,2023-10-23,4,9,44.5780122,-0.9049548,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -3482,8 +3482,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 24,2023-10-19,24,2023-10-23,4,12,44.5
 FRA - BePrep - Octobre 2023,FRA - BePrep - 24,2023-10-19,24,2023-10-23,4,13,44.5975659,-0.9597894,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 24,2023-10-19,24,2023-10-23,4,14,44.5974875,-0.9597821,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 24,2023-10-19,24,2023-10-23,4,15,44.5974604,-0.9597651,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 24,2023-10-19,24,2023-10-23,4,16,44.5974197,-0.9597528,1,capture,capture,NCHA100061,,Apodemus,NCHA100061,2023-10-23,,F,17,82,74,,,,-,-,-,+,+,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 24,2023-10-19,24,2023-10-23,4,16,44.5974197,-0.9597528,1,capture,capture,NCHA100061,,Apodemus,NCHA100061,2023-10-23,,F,17,82,74,,,,-,-,-,+,+,morphologie,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 24,2023-10-19,24,2023-10-23,4,16,44.5974197,-0.9597528,1,capture,capture,NCHA100061,,Apodemus,NCHA100061,2023-10-23,,F,17,82,74,,,,-,-,-,+,+,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 24,2023-10-19,24,2023-10-23,4,17,44.5973888,-0.9597572,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 24,2023-10-19,24,2023-10-23,4,18,44.5973469,-0.9598013,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 24,2023-10-19,24,2023-10-23,4,19,44.5973478,-0.9598147,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -3517,8 +3517,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 25,2023-10-19,25,2023-10-21,2,6,44.57
 FRA - BePrep - Octobre 2023,FRA - BePrep - 25,2023-10-19,25,2023-10-21,2,7,44.5704647,-0.9101271,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 25,2023-10-19,25,2023-10-21,2,8,44.5704277,-0.9100868,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 25,2023-10-19,25,2023-10-21,2,9,44.5703659,-0.9101448,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 25,2023-10-19,25,2023-10-21,2,10,44.5703032,-0.9102274,1,capture,capture,JPRA000069,soricidae,Soricidae,JPRA000069,2023-10-21,crotte congelee à sec,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 25,2023-10-19,25,2023-10-21,2,10,44.5703032,-0.9102274,1,capture,capture,JPRA000069,soricidae,Soricidae,JPRA000069,2023-10-21,crotte congelee à sec,,,,,,,,,,,,,morphologie,Soricidae,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 25,2023-10-19,25,2023-10-21,2,10,44.5703032,-0.9102274,1,capture,capture,JPRA000069,soricidae,Soricidae,JPRA000069,2023-10-21,crotte congelee à sec,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 25,2023-10-19,25,2023-10-21,2,11,44.5702648,-0.9101935,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 25,2023-10-19,25,2023-10-21,2,12,44.5702179,-0.9102424,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 25,2023-10-19,25,2023-10-21,2,13,44.570118,-0.9102997,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -3610,8 +3610,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 26,2023-10-23,26,2023-10-25,2,15,44.5
 FRA - BePrep - Octobre 2023,FRA - BePrep - 26,2023-10-23,26,2023-10-25,2,15,44.5471677,-0.8934473,1,capture,capture,NCHA100068,rongeur,Clethrionomys glareolus,NCHA100068,2023-10-25,"acariens rouges (probablement Neotrombicula ?), 1 tique",M,27.3,105,42,+,12,+,,,,,,metabarcoding - Illumina,Clethrionomys glareolus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 26,2023-10-23,26,2023-10-25,2,16,44.547108,-0.8935052,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 26,2023-10-23,26,2023-10-25,2,17,44.5470547,-0.8935333,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 26,2023-10-23,26,2023-10-25,2,18,44.5469777,-0.89353,1,capture,capture,JPRA000085,musaraigne,Soricidae,JPRA000085,2023-10-25,crotte,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 26,2023-10-23,26,2023-10-25,2,18,44.5469777,-0.89353,1,capture,capture,JPRA000085,musaraigne,Soricidae,JPRA000085,2023-10-25,crotte,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 26,2023-10-23,26,2023-10-25,2,18,44.5469777,-0.89353,1,capture,capture,JPRA000085,musaraigne,Soricidae,JPRA000085,2023-10-25,crotte,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 26,2023-10-23,26,2023-10-25,2,19,44.5469026,-0.8935841,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 26,2023-10-23,26,2023-10-25,2,20,44.5468543,-0.8935892,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 26,2023-10-23,26,2023-10-26,3,1,44.547707,-0.893005,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -3708,8 +3708,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-24,1,8,44.53
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-24,1,9,44.5349269,-0.907682,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-24,1,10,44.5349384,-0.9076951,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-24,1,11,44.5349248,-0.9076633,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-24,1,12,44.5348752,-0.9076432,1,capture,capture,JPRA000079,musaraigne morte,Soricidae,JPRA000079,2023-10-24,patte alcool,,8.6,62,33,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-24,1,12,44.5348752,-0.9076432,1,capture,capture,JPRA000079,musaraigne morte,Soricidae,JPRA000079,2023-10-24,patte alcool,,8.6,62,33,,,,,,,,,morphologie,Soricidae,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-24,1,12,44.5348752,-0.9076432,1,capture,capture,JPRA000079,musaraigne morte,Soricidae,JPRA000079,2023-10-24,patte alcool,,8.6,62,33,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-24,1,13,44.5348655,-0.9075745,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-24,1,14,44.5348496,-0.9075522,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-24,1,15,44.5348093,-0.9074454,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -3735,8 +3735,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-25,2,14,44.5
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-25,2,15,44.5348093,-0.9074454,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-25,2,16,44.5347682,-0.9073938,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-25,2,17,44.534736,-0.9073557,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-25,2,18,44.5347087,-0.9072667,1,capture,capture,NCHA100072,mulot,Apodemus,NCHA100072,2023-10-25,,M,14.4,81,82,-,4,-,,,,,,morphologie,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-25,2,18,44.5347087,-0.9072667,1,capture,capture,NCHA100072,mulot,Apodemus,NCHA100072,2023-10-25,,M,14.4,81,82,-,4,-,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-25,2,18,44.5347087,-0.9072667,1,capture,capture,NCHA100072,mulot,Apodemus,NCHA100072,2023-10-25,,M,14.4,81,82,-,4,-,,,,,,morphologie,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-25,2,19,44.5346737,-0.9072435,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-25,2,20,44.5346469,-0.9071733,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 28,2023-10-23,28,2023-10-26,3,1,44.5351529,-0.9081271,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -3898,8 +3898,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-24,1,15,44.5
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-24,1,16,44.5179397,-0.8867221,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-24,1,17,44.5179686,-0.8867078,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-24,1,18,44.5180196,-0.886687,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-24,1,19,44.5180435,-0.8867275,1,capture,capture,JPRA000081,Insectivore mort dans le piège,Soricidae,JPRA000081,2023-10-24,patte alcool,,6.6,52,35,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-24,1,19,44.5180435,-0.8867275,1,capture,capture,JPRA000081,Insectivore mort dans le piège,Soricidae,JPRA000081,2023-10-24,patte alcool,,6.6,52,35,,,,,,,,,morphologie,Soricidae,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-24,1,19,44.5180435,-0.8867275,1,capture,capture,JPRA000081,Insectivore mort dans le piège,Soricidae,JPRA000081,2023-10-24,patte alcool,,6.6,52,35,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-24,1,20,44.5180997,-0.8867882,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-25,3,1,44.517484,-0.8867114,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-25,3,2,44.517512,-0.8867233,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -3919,8 +3919,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-25,3,15,44.5
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-25,3,16,44.5179397,-0.8867221,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-25,3,17,44.5179686,-0.8867078,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-25,3,18,44.5180196,-0.886687,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-25,3,19,44.5180435,-0.8867275,1,capture,capture,JPRA000086,musaraigne,Soricidae,JPRA000086,2023-10-25,patte en alcool,,7,51,40,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-25,3,19,44.5180435,-0.8867275,1,capture,capture,JPRA000086,musaraigne,Soricidae,JPRA000086,2023-10-25,patte en alcool,,7,51,40,,,,,,,,,metabarcoding - Illumina,Sorex coronatus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-25,3,19,44.5180435,-0.8867275,1,capture,capture,JPRA000086,musaraigne,Soricidae,JPRA000086,2023-10-25,patte en alcool,,7,51,40,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-25,3,20,44.5180997,-0.8867882,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-26,2,1,44.517484,-0.8867114,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 30,2023-10-23,30,2023-10-26,2,2,44.517512,-0.8867233,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -3975,8 +3975,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 31,2023-10-23,31,2023-10-25,3,10,44.5
 FRA - BePrep - Octobre 2023,FRA - BePrep - 31,2023-10-23,31,2023-10-25,3,11,44.5184363,-0.9368217,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 31,2023-10-23,31,2023-10-25,3,12,44.5184561,-0.9367962,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 31,2023-10-23,31,2023-10-25,3,13,44.5184677,-0.9368039,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 31,2023-10-23,31,2023-10-25,3,14,44.5186389,-0.9367299,1,capture,capture,NCHA100065,apodemus,Apodemus,NCHA100065,2023-10-25,,F,29.6,102,90,,,,+,+,,+,+,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 31,2023-10-23,31,2023-10-25,3,14,44.5186389,-0.9367299,1,capture,capture,NCHA100065,apodemus,Apodemus,NCHA100065,2023-10-25,,F,29.6,102,90,,,,+,+,,+,+,morphologie,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 31,2023-10-23,31,2023-10-25,3,14,44.5186389,-0.9367299,1,capture,capture,NCHA100065,apodemus,Apodemus,NCHA100065,2023-10-25,,F,29.6,102,90,,,,+,+,,+,+,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 31,2023-10-23,31,2023-10-25,3,15,44.5186569,-0.9369743,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 31,2023-10-23,31,2023-10-25,3,16,44.5186484,-0.9367595,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 31,2023-10-23,31,2023-10-25,3,17,44.5186821,-0.9367346,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -4038,15 +4038,15 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-25,3,11,44.5
 FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-25,3,12,44.5112044,-0.9291635,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-25,3,13,44.5112443,-0.9291807,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-25,3,14,44.5112561,-0.9291884,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-25,3,15,44.5112443,-0.929222,1,capture,capture,JPRA000084,musaraiigne,Soricidae,JPRA000084,2023-10-25,crotte,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-25,3,15,44.5112443,-0.929222,1,capture,capture,JPRA000084,musaraiigne,Soricidae,JPRA000084,2023-10-25,crotte,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-25,3,15,44.5112443,-0.929222,1,capture,capture,JPRA000084,musaraiigne,Soricidae,JPRA000084,2023-10-25,crotte,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-25,3,16,44.5112369,-0.9292548,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-25,3,17,44.5112205,-0.9292723,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-25,3,18,44.5112251,-0.9292835,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-25,3,19,44.511161,-0.9297271,3,FV*,appât volé,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-25,3,20,44.5111553,-0.9297066,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-26,2,1,44.5113398,-0.9283167,1,capture,capture,JPRA000092,,Soricidae,JPRA000092,2023-10-26,retrouvée morte dans piège fin de mission - patte alcool,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-26,2,1,44.5113398,-0.9283167,1,capture,capture,JPRA000092,,Soricidae,JPRA000092,2023-10-26,retrouvée morte dans piège fin de mission - patte alcool,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-26,2,1,44.5113398,-0.9283167,1,capture,capture,JPRA000092,,Soricidae,JPRA000092,2023-10-26,retrouvée morte dans piège fin de mission - patte alcool,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-26,2,2,44.5113454,-0.9283796,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-26,2,3,44.5113331,-0.9284712,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 32,2023-10-23,32,2023-10-26,2,4,44.5113323,-0.9285379,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -4082,8 +4082,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 33,2023-10-23,33,2023-10-24,1,12,44.4
 FRA - BePrep - Octobre 2023,FRA - BePrep - 33,2023-10-23,33,2023-10-24,1,13,44.4890445,-0.9002612,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 33,2023-10-23,33,2023-10-24,1,14,44.4890133,-0.9002938,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 33,2023-10-23,33,2023-10-24,1,15,44.4889588,-0.900315,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 33,2023-10-23,33,2023-10-24,1,16,44.4889188,-0.9003003,1,capture,capture,NCHA100064,Apodemus,Apodemus,NCHA100064,2023-10-24,3 tiques,M,12.8,76,68,+,7,-,,,,,,morphologie,Apodemus sylvaticus,4,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 33,2023-10-23,33,2023-10-24,1,16,44.4889188,-0.9003003,1,capture,capture,NCHA100064,Apodemus,Apodemus,NCHA100064,2023-10-24,3 tiques,M,12.8,76,68,+,7,-,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,4,Ixodida
+FRA - BePrep - Octobre 2023,FRA - BePrep - 33,2023-10-23,33,2023-10-24,1,16,44.4889188,-0.9003003,1,capture,capture,NCHA100064,Apodemus,Apodemus,NCHA100064,2023-10-24,3 tiques,M,12.8,76,68,+,7,-,,,,,,morphologie,Apodemus sylvaticus,4,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 33,2023-10-23,33,2023-10-24,1,17,44.4888704,-0.9002911,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 33,2023-10-23,33,2023-10-24,1,18,44.4888273,-0.9002752,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 33,2023-10-23,33,2023-10-24,1,19,44.4886601,-0.9002993,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -4164,8 +4164,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-25,3,13,44.4
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-25,3,14,44.4912937,-0.8744593,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-25,3,15,44.4913244,-0.8745272,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-25,3,16,44.4913332,-0.8745207,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-25,3,17,44.4912707,-0.8743375,1,capture,capture,JPRA000082,musaraigne,Soricidae,JPRA000082,2023-10-25,crotte,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-25,3,17,44.4912707,-0.8743375,1,capture,capture,JPRA000082,musaraigne,Soricidae,JPRA000082,2023-10-25,crotte,,,,,,,,,,,,,morphologie,Soricidae,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-25,3,17,44.4912707,-0.8743375,1,capture,capture,JPRA000082,musaraigne,Soricidae,JPRA000082,2023-10-25,crotte,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-25,3,18,44.4912843,-0.8743251,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-25,3,19,44.4913111,-0.874255,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-25,3,20,44.4913204,-0.8742085,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -4183,8 +4183,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-26,2,11,44.4
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-26,2,12,44.4913507,-0.8747925,1,capture,capture,NCHA100075,mulot,Apodemus,NCHA100075,2023-10-26,1 tique,M,21.2,85,81,-,11,-,,,,,,morphologie,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-26,2,12,44.4913507,-0.8747925,1,capture,capture,NCHA100075,mulot,Apodemus,NCHA100075,2023-10-26,1 tique,M,21.2,85,81,-,11,-,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-26,2,13,44.4913871,-0.8746409,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-26,2,14,44.4912937,-0.8744593,1,capture,capture,JPRA000090,musaraigne (crotte),Soricidae,JPRA000090,2023-10-26,crotte,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-26,2,14,44.4912937,-0.8744593,1,capture,capture,JPRA000090,musaraigne (crotte),Soricidae,JPRA000090,2023-10-26,crotte,,,,,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-26,2,14,44.4912937,-0.8744593,1,capture,capture,JPRA000090,musaraigne (crotte),Soricidae,JPRA000090,2023-10-26,crotte,,,,,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-26,2,15,44.4913244,-0.8745272,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-26,2,16,44.4913332,-0.8745207,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 34,2023-10-23,34,2023-10-26,2,17,44.4912707,-0.8743375,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -4212,8 +4212,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-24,1,18,44.4
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-24,1,19,44.4836968,-0.8560293,1,capture,capture,JPRA000080,Insectivore mort,Soricidae,JPRA000080,2023-10-24,patte alcool,,7.4,51,36,,,,,,,,,metabarcoding - Illumina,Crocidura russula,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-24,1,19,44.4836968,-0.8560293,1,capture,capture,JPRA000080,Insectivore mort,Soricidae,JPRA000080,2023-10-24,patte alcool,,7.4,51,36,,,,,,,,,morphologie,Soricidae,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-24,1,20,44.4837016,-0.8560445,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-25,3,1,44.48322,-0.8547372,1,capture,capture,NCHA100067,apodemus,Apodemus,NCHA100067,2023-10-25,,F,19.7,94,91,,,,-,+,+,-,+,morphologie,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-25,3,1,44.48322,-0.8547372,1,capture,capture,NCHA100067,apodemus,Apodemus,NCHA100067,2023-10-25,,F,19.7,94,91,,,,-,+,+,-,+,metabarcoding - Illumina,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-25,3,1,44.48322,-0.8547372,1,capture,capture,NCHA100067,apodemus,Apodemus,NCHA100067,2023-10-25,,F,19.7,94,91,,,,-,+,+,-,+,morphologie,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-25,3,2,44.4832845,-0.8549574,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-25,3,3,44.4832731,-0.8549044,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-25,3,4,44.4832764,-0.8549377,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -4244,13 +4244,13 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,6,44.48
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,7,44.483364,-0.8551839,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,8,44.4834079,-0.8553532,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,9,44.483424,-0.8553144,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,10,44.4834422,-0.8553922,1,capture,capture,NCHA100077,mulot,Apodemus,NCHA100077,2023-10-26,,M,14.6,83,79,-,5,-,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,10,44.4834422,-0.8553922,1,capture,capture,NCHA100077,mulot,Apodemus,NCHA100077,2023-10-26,,M,14.6,83,79,-,5,-,,,,,,morphologie,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,10,44.4834422,-0.8553922,1,capture,capture,NCHA100077,mulot,Apodemus,NCHA100077,2023-10-26,,M,14.6,83,79,-,5,-,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,11,44.4835005,-0.8554582,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,12,44.4835386,-0.8555383,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,13,44.4835957,-0.8558082,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,14,44.4835788,-0.8557638,1,capture,capture,NCHA100076,mulot,Apodemus,NCHA100076,2023-10-26,,M,24.6,91,92,-,10,+,,,,,,morphologie,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,14,44.4835788,-0.8557638,1,capture,capture,NCHA100076,mulot,Apodemus,NCHA100076,2023-10-26,,M,24.6,91,92,-,10,+,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,14,44.4835788,-0.8557638,1,capture,capture,NCHA100076,mulot,Apodemus,NCHA100076,2023-10-26,,M,24.6,91,92,-,10,+,,,,,,morphologie,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,15,44.4836324,-0.8558649,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,16,44.4836343,-0.8558734,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 35,2023-10-23,35,2023-10-26,2,17,44.4836833,-0.8559598,0,0,0,,,,,,,,,,,,,,,,,,,,,,
@@ -4274,16 +4274,16 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-17,1,14,44.6
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-17,1,15,44.644742,-0.6294568,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-17,1,16,44.6447741,-0.6294031,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-17,1,17,44.6448105,-0.629376,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-17,1,18,44.6448164,-0.6293988,1,capture,capture,NCHA100025,Apodemus,Apodemus,NCHA100025,2023-10-17,,M,26,98,84,-,15,+,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-17,1,18,44.6448164,-0.6293988,1,capture,capture,NCHA100025,Apodemus,Apodemus,NCHA100025,2023-10-17,,M,26,98,84,-,15,+,,,,,,morphologie,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-17,1,18,44.6448164,-0.6293988,1,capture,capture,NCHA100025,Apodemus,Apodemus,NCHA100025,2023-10-17,,M,26,98,84,-,15,+,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-17,1,19,44.6448696,-0.6293318,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-17,1,20,44.6449078,-0.6293041,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-18,3,1,44.6442013,-0.6298932,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-18,3,2,44.6442268,-0.6298829,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-18,3,3,44.6442973,-0.6298635,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-18,3,4,44.6443323,-0.6298059,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-18,3,5,44.644332,-0.629806,1,capture,capture,NCHA100030,mulot,Apodemus,NCHA100030,2023-10-18,,F,24.5,98,80,,,,-,-,+,+,+,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-18,3,5,44.644332,-0.629806,1,capture,capture,NCHA100030,mulot,Apodemus,NCHA100030,2023-10-18,,F,24.5,98,80,,,,-,-,+,+,+,morphologie,Apodemus sylvaticus,,
+FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-18,3,5,44.644332,-0.629806,1,capture,capture,NCHA100030,mulot,Apodemus,NCHA100030,2023-10-18,,F,24.5,98,80,,,,-,-,+,+,+,metabarcoding - Illumina,Apodemus sylvaticus,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-18,3,6,44.644363,-0.6297089,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-18,3,7,44.6443868,-0.629659,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 36,2023-10-16,36,2023-10-18,3,8,44.6444295,-0.6296652,4,D,disparu,,,,,,,,,,,,,,,,,,,,,,
@@ -4499,8 +4499,8 @@ FRA - BePrep - Octobre 2023,FRA - BePrep - 6,2023-10-16,6,2023-10-19,2,11,44.548
 FRA - BePrep - Octobre 2023,FRA - BePrep - 6,2023-10-16,6,2023-10-19,2,12,44.5482593,-0.6338915,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 6,2023-10-16,6,2023-10-19,2,13,44.5482855,-0.6338984,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 6,2023-10-16,6,2023-10-19,2,14,44.5482839,-0.6339446,0,0,0,,,,,,,,,,,,,,,,,,,,,,
-FRA - BePrep - Octobre 2023,FRA - BePrep - 6,2023-10-16,6,2023-10-19,2,16,44.5483988,-0.6338664,1,capture,capture,NCHA100034,Apo,Apodemus,NCHA100034,2023-10-19,1 tique (à vérifier !!!),M,16.1,84,78,-,12,+,,,,,,morphologie,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 6,2023-10-16,6,2023-10-19,2,16,44.5483988,-0.6338664,1,capture,capture,NCHA100034,Apo,Apodemus,NCHA100034,2023-10-19,1 tique (à vérifier !!!),M,16.1,84,78,-,12,+,,,,,,metabarcoding - Illumina,Apodemus sylvaticus,1,Ixodida
+FRA - BePrep - Octobre 2023,FRA - BePrep - 6,2023-10-16,6,2023-10-19,2,16,44.5483988,-0.6338664,1,capture,capture,NCHA100034,Apo,Apodemus,NCHA100034,2023-10-19,1 tique (à vérifier !!!),M,16.1,84,78,-,12,+,,,,,,morphologie,Apodemus sylvaticus,1,Ixodida
 FRA - BePrep - Octobre 2023,FRA - BePrep - 6,2023-10-16,6,2023-10-19,2,17,44.5484611,-0.6338659,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 6,2023-10-16,6,2023-10-19,2,18,44.5485123,-0.6338175,0,0,0,,,,,,,,,,,,,,,,,,,,,,
 FRA - BePrep - Octobre 2023,FRA - BePrep - 6,2023-10-16,6,2023-10-19,2,19,44.5485396,-0.6338034,0,0,0,,,,,,,,,,,,,,,,,,,,,,
