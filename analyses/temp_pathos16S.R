@@ -17,18 +17,20 @@ library(here)
 
 # GENERATE DATA ----
 
-## Import data
+## Import data ----
 # Import hosts and line modalities file
-hosts_d <- readr::read_csv( here::here("data/", "raw-data/", "host_data", "20240731_bpm_modalities.csv") )
+d_host <- readr::read_csv( here::here("data/", "raw-data/", "host_data", "20240731_bpm_modalities.csv") )
 
 # Import 16S filtered file
 file16s_run00_01 <- data.table::fread(file = here::here( "data","raw-data/","16s_run00-01","Run00-01_16S_filtered_postfrogs.txt"))
 
+# Import rodent macroparasite
+d_macroparasite <- fread(file = here::here("data/", "derived-data/", "raw-ticks", "rodents_tick", "20240731_macroparasite.csv") )
 
 ## Generate a file containing samples of interest ----
 
 # Extract id of small mammals caught in Beprep
-sm_id <- unique(hosts_d %>% 
+sm_id <- unique(d_host %>% 
                   filter(!is.na(numero_centre))%>%
                   pull(numero_centre)
 )
@@ -157,25 +159,25 @@ taxa_transposed <- taxa_transposed |>
 
 ## Join to macroparasite for complete pathogen data frame ----
 
-# Select columns for macroparasite of interest (data from temp_tique script) and transform NA to 0 i effectif_tique
-rodent_macroparasite <- bpm_host_macroparasite_tidy %>%
-  select( c("effectif_tique", "numero_centre", "Ixodida", "Siphonaptera"))
+# Select columns for macroparasite of interest (data from temp_tique script) and transform NA to 0 i effectif_tick
+d_macroparasite <- d_macroparasite %>%
+  select( c("effectif_tick", "numero_centre", "Ixodida", "Siphonaptera"))
 
 # Join macroparasite on host trapping data, keep every lines from trapping data
-rodent_macroparasite <- left_join(bpm_beprep, rodent_macroparasite, by = "numero_centre" )
+d_macroparasite <- left_join(d_host, d_macroparasite, by = "numero_centre" )
 
 # Transform NA to 0
-rodent_macroparasite <- rodent_macroparasite %>%
+d_macroparasite <- d_macroparasite %>%
   mutate( across(c("Ixodida", "Siphonaptera"), ~if_else(. == 0, NA, .) ) ) %>%
   mutate( across(c("Ixodida", "Siphonaptera"), ~if_else( is.na(.), 0, 1) ) ) %>%
-  mutate( effectif_tique = if_else( is.na(effectif_tique), 0, effectif_tique) )
+  mutate( effectif_tick = if_else( is.na(effectif_tick), 0, effectif_tick) )
 
 # Join 16s pathogens on host trapping/macroparasite data - complete join, keep only 16s screened individuals /!\
-rodent_pathos <- merge(x = rodent_macroparasite, y = taxa_transposed, by.x = "numero_centre",  by.y = "numero_centre_16s")
+rodent_pathos <- merge(x = d_macroparasite, y = taxa_transposed, by.x = "numero_centre",  by.y = "numero_centre_16s")
 
 # Extract Pathogens name
 pathos_name <- rodent_pathos |>
-  select(names(rodent_pathos)[(which(names(rodent_pathos) == "effectif_tique") + 1):ncol(rodent_pathos)]) %>%
+  select(names(rodent_pathos)[(which(names(rodent_pathos) == "effectif_tick") + 1):ncol(rodent_pathos)]) %>%
   colnames()
 pathos_name
 
@@ -189,18 +191,20 @@ pathos_name
 
 ### Generate data ----
 # Keep only Apodemus for analysis
-apo_pathos <- rodent_pathos %>%
-  filter(taxon_dissection == "Apodemus")
+d_apo_pathos_glm <- rodent_pathos %>%
+  filter(taxon_mamm == "Apodemus sylvaticus")
+
 
 # So filter empty pathogen for apodemus and change pathos name accordingly
-apo_pathos <- apo_pathos %>%
+d_apo_pathos_glm <- d_apo_pathos_glm %>%
   mutate(across(all_of(pathos_name), ~if(sum(.) != 0) . else NULL) )
-pathos_name_apo <- apo_pathos |>
-  select(names(apo_pathos)[(which(names(apo_pathos) == "effectif_tique") + 1):ncol(apo_pathos)]) %>%
+pathos_name_apo <- d_apo_pathos_glm |>
+  select(names(d_apo_pathos_glm)[(which(names(d_apo_pathos_glm) == "effectif_tick") + 1):ncol(d_apo_pathos_glm)]) %>%
   colnames()
+setdiff(pathos_name, pathos_name_apo)
 
 # Generate the dataframe for logistic analysis (0/1)
-data_for_m <- apo_pathos %>%
+data_for_m <- d_apo_pathos_glm %>%
   mutate(across(all_of(pathos_name_apo), ~ replace(., . > 0, 1)))
 
 # Add new variable : pathogen richness
@@ -208,7 +212,7 @@ data_for_m <- data_for_m %>%
   mutate(number_pathos = rowSums(across(all_of(pathos_name_apo))) ) 
 
 # Identify pathos with prevalence >=10 for whole data
-patho10_apo<- apo_pathos %>%
+patho10_apo<- d_apo_pathos_glm %>%
   summarise( across(all_of(pathos_name_apo), ~ sum(. > 0) / n() ))  %>%
   unlist()
 names(patho10_apo[patho10_apo >= 0.10])
@@ -231,13 +235,14 @@ ggplot(data_for_m, aes(x = as.factor(Haemobartonella_muris), y = poids)) +
 hist(data_for_m$number_pathos)
 
 
-### Model : Mycoplasma haemomuris----
+### Model : Mycoplasma haemomuris ----
+rm(m_mycoplasma_r)
 m_mycoplasma_r <- lme4::glmer(
   formula = Haemobartonella_muris ~ broadleaved_status * connectivity + code_mission + poids + sexe +(1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
-  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e7))
 )
 
 DHARMa::simulateResiduals(m_mycoplasma_r, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
@@ -326,9 +331,9 @@ summary(m_barto_r)
 
 
 ### Model : Neoehrlichia_mikurensis  ----
-# Pas d'integration dans le modele pour 2023 car segregation trop grande /!\
+# Pas d'interaction dans le modele pour 2023 car segregation trop grande /!\
 m_neoeh_r <- lme4::glmer(
-  formula = Neoehrlichia_mikurensis ~ broadleaved_status + connectivity + code_mission + poids + sexe +(1|numero_ligne),
+  formula = Neoehrlichia_mikurensis ~ broadleaved_status * connectivity + code_mission + poids + sexe +(1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -543,7 +548,7 @@ drop1(m_richness_zip,.~.,test="Chisq")
 #for line_treatment
 graph_sequence <- c("CT_LB", "CT_HB", "NC_LB", "NC_HB", "C_LB", "C_HB" )
 
-matrix_pathoss <- apo_pathos %>%
+matrix_pathoss <- d_apo_pathos_glm %>%
   group_by(connectivity, broadleaved_status) %>%
   summarise(
     across(all_of(pathos_name_apo), 
@@ -554,7 +559,7 @@ matrix_pathoss <- apo_pathos %>%
   select(all_of(pathos_name_apo)) |>
   as.matrix() 
 
-effectif_df <- apo_pathos %>%
+effectif_df <- d_apo_pathos_glm %>%
   mutate(combined_name = paste(connectivity, broadleaved_status, sep = "_")) %>%
   group_by(connectivity, broadleaved_status) %>%
   summarise(
@@ -623,10 +628,10 @@ ComplexHeatmap::Heatmap(matrix_pathoss,
 
 # TICK EFFECTIF ANALYSIS ----
 
-hist(rodent_pathos$effectif_tique)
+hist(rodent_pathos$effectif_tick)
 
 m_tiqueeff <- lme4::glmer.nb(
-  formula = effectif_tique ~ broadleaved_status * connectivity + (1|numero_ligne),
+  formula = effectif_tick ~ broadleaved_status * connectivity + (1|numero_ligne),
   data = rodent_pathos,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
