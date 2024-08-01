@@ -332,6 +332,7 @@ summary(m_barto_r)
 
 ### Model : Neoehrlichia_mikurensis  ----
 # Pas d'interaction dans le modele pour 2023 car segregation trop grande /!\
+rm(m_neoeh_r)
 m_neoeh_r <- lme4::glmer(
   formula = Neoehrlichia_mikurensis ~ broadleaved_status * connectivity + code_mission + poids + sexe +(1|numero_ligne),
   family = binomial(link = "logit"),
