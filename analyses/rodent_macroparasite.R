@@ -13,6 +13,7 @@ conn <- dbConnect(PostgreSQL(), host=host, port=port, user=user, password=pwd, d
 
 sql_rodent_fast_parasite <- "SELECT
 dis.numero_centre, 
+li.numero_ligne,
 par.effectif AS effectif_para, 
 txp.taxon_name AS parasite
 FROM t_missions AS mi
@@ -75,4 +76,13 @@ bpm_host_macroparasite_tidy <- left_join( x = bpm_host_macroparasite_tidy,
                                             rename(effectif_tick = effectif_para),
                                           by = "numero_centre")
 
+# Add tick line number
+bpm_host_macroparasite_tidy <- left_join (x = bpm_host_macroparasite_tidy,
+                                          y = bpm_host_macroparasite %>%
+                                            select(numero_centre, numero_ligne) %>%
+                                            distinct(),
+                                          by = "numero_centre")
+
+## Write file macroparasites ----
+data.table::fwrite(bpm_host_macroparasite_tidy, here::here("data/", "derived-data/", "raw-ticks", "rodents_tick", "20240731_macroparasite.csv") ) 
 

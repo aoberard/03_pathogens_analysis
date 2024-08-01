@@ -153,7 +153,8 @@ site_tique %>%
   labs(x = "Type de ligne", y = "Nbr de tiques collectées au drap par ligne") +
   guides(fill = guide_legend(title = "Type de ligne")) +
   theme_minimal()
-         
+
+
          
 
 # Statistical analysis ----
@@ -200,4 +201,5 @@ em
 plot(em, comparisons = TRUE)
 
 emmeans::contrast(em, "pairwise", adjust = "Tukey")
+
 
