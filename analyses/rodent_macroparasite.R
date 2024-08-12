@@ -84,5 +84,5 @@ bpm_host_macroparasite_tidy <- left_join (x = bpm_host_macroparasite_tidy,
                                           by = "numero_centre")
 
 ## Write file macroparasites ----
-data.table::fwrite(bpm_host_macroparasite_tidy, here::here("data/", "derived-data/", "raw-ticks", "rodents_tick", "20240731_macroparasite.csv") ) 
+data.table::fwrite(bpm_host_macroparasite_tidy, here::here("data/", "derived-data/", "ticks", "rodents_tick", "20240731_macroparasite.csv") ) 
 

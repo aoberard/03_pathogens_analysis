@@ -1,0 +1,1150 @@
+IQ-TREE 1.6.12 built Aug 15 2019
+
+Input file name: Mycoplasma_2016_run00-01.fas
+Type of analysis: ModelFinder + tree reconstruction + ultrafast bootstrap (1000 replicates)
+Random seed number: 202225
+
+REFERENCES
+----------
+
+To cite ModelFinder please use: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+To cite IQ-TREE please use:
+
+Lam-Tung Nguyen, Heiko A. Schmidt, Arndt von Haeseler, and Bui Quang Minh
+(2015) IQ-TREE: A fast and effective stochastic algorithm for estimating
+maximum likelihood phylogenies. Mol Biol Evol, 32:268-274.
+https://doi.org/10.1093/molbev/msu300
+
+Since you used ultrafast bootstrap (UFBoot) please also cite: 
+
+Diep Thi Hoang, Olga Chernomor, Arndt von Haeseler, Bui Quang Minh,
+and Le Sy Vinh (2017) UFBoot2: Improving the ultrafast bootstrap
+approximation. Mol Biol Evol, in press.
+https://doi.org/10.1093/molbev/msx281
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 226 sequences with 275 nucleotide sites
+Number of constant sites: 103 (= 37.4545% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 103 (= 37.4545% of all sites)
+Number of parsimony informative sites: 155
+Number of distinct site patterns: 187
+
+ModelFinder
+-----------
+
+Best-fit model according to BIC: GTR+F+I+G4
+
+List of models sorted by BIC scores: 
+
+Model             LogL          AIC      w-AIC      AICc     w-AICc       BIC      w-BIC
+GTR+F+I+G4       -6479.5874  13849.1748 + 1.0000 410789.1748 - 0.0000  15458.6379 + 0.9999
+TVM+F+I+G4       -6491.7022  13871.4045 - 0.0000 409031.4045 - 0.0000  15477.2509 - 0.0001
+TIM3+F+I+G4      -6499.1079  13884.2158 - 0.0000 407268.2158 - 0.0000  15486.4454 - 0.0000
+GTR+F+G4         -6498.6929  13885.3857 - 0.0000 409045.3857 - 0.0000  15491.2321 - 0.0000
+TVMe+I+G4        -6508.0023  13898.0046 - 0.0000 403742.0046 - 0.0000  15493.0006 - 0.0000
+SYM+I+G4         -6507.3230  13898.6461 - 0.0000 405510.6461 - 0.0000  15497.2589 - 0.0000
+TPM3u+F+I+G4     -6510.5574  13905.1148 - 0.0000 405517.1148 - 0.0000  15503.7277 - 0.0000
+TPM3+F+I+G4      -6510.5606  13905.1213 - 0.0000 405517.1213 - 0.0000  15503.7341 - 0.0000
+TIM2+F+I+G4      -6510.1934  13906.3867 - 0.0000 407290.3867 - 0.0000  15508.6163 - 0.0000
+TVM+F+G4         -6510.3521  13906.7043 - 0.0000 407290.7043 - 0.0000  15508.9338 - 0.0000
+TIM3+F+G4        -6519.0343  13922.0685 - 0.0000 405534.0685 - 0.0000  15520.6814 - 0.0000
+TIM3e+I+G4       -6527.5544  13935.1088 - 0.0000 402015.1088 - 0.0000  15526.4881 - 0.0000
+TVMe+G4          -6527.5681  13935.1361 - 0.0000 402015.1361 - 0.0000  15526.5154 - 0.0000
+TN+F+I+G4        -6523.0581  13930.1162 - 0.0000 405542.1162 - 0.0000  15528.7290 - 0.0000
+SYM+G4           -6527.0537  13936.1074 - 0.0000 403780.1074 - 0.0000  15531.1035 - 0.0000
+TPM2+F+I+G4      -6524.3226  13932.6451 - 0.0000 405544.6451 - 0.0000  15531.2579 - 0.0000
+TPM2u+F+I+G4     -6524.3228  13932.6457 - 0.0000 405544.6457 - 0.0000  15531.2585 - 0.0000
+TIM+F+I+G4       -6523.0479  13932.0959 - 0.0000 407316.0959 - 0.0000  15534.3255 - 0.0000
+TIM2+F+G4        -6527.6029  13939.2057 - 0.0000 405551.2057 - 0.0000  15537.8185 - 0.0000
+TPM3u+F+G4       -6530.6011  13943.2022 - 0.0000 403787.2022 - 0.0000  15538.1983 - 0.0000
+TPM3+F+G4        -6530.6017  13943.2034 - 0.0000 403787.2034 - 0.0000  15538.1995 - 0.0000
+HKY+F+I+G4       -6536.4239  13954.8477 - 0.0000 403798.8477 - 0.0000  15549.8438 - 0.0000
+K3Pu+F+I+G4      -6536.4141  13956.8282 - 0.0000 405568.8282 - 0.0000  15555.4411 - 0.0000
+TPM2u+F+G4       -6540.5696  13963.1393 - 0.0000 403807.1393 - 0.0000  15558.1353 - 0.0000
+TPM2+F+G4        -6540.5701  13963.1402 - 0.0000 403807.1402 - 0.0000  15558.1363 - 0.0000
+TN+F+G4          -6540.7826  13963.5652 - 0.0000 403807.5652 - 0.0000  15558.5612 - 0.0000
+TIM+F+G4         -6540.7774  13965.5548 - 0.0000 405577.5548 - 0.0000  15564.1676 - 0.0000
+TIM3e+G4         -6549.2977  13976.5953 - 0.0000 400296.5953 - 0.0000  15564.3578 - 0.0000
+HKY+F+G4         -6553.5806  13987.1612 - 0.0000 402067.1612 - 0.0000  15578.5404 - 0.0000
+K3Pu+F+G4        -6553.5809  13989.1617 - 0.0000 403833.1617 - 0.0000  15584.1578 - 0.0000
+TIM2e+I+G4       -6562.9866  14005.9731 - 0.0000 402085.9731 - 0.0000  15597.3524 - 0.0000
+K2P+I+G4         -6576.6417  14029.2834 - 0.0000 398593.2834 - 0.0000  15613.4291 - 0.0000
+TNe+I+G4         -6576.0612  14030.1224 - 0.0000 400350.1224 - 0.0000  15617.8849 - 0.0000
+K3P+I+G4         -6576.5439  14031.0878 - 0.0000 400351.0879 - 0.0000  15618.8504 - 0.0000
+TIMe+I+G4        -6575.9679  14031.9359 - 0.0000 402111.9359 - 0.0000  15623.3151 - 0.0000
+TIM2e+G4         -6581.8552  14041.7105 - 0.0000 400361.7105 - 0.0000  15629.4730 - 0.0000
+K2P+G4           -6597.6650  14069.3300 - 0.0000 396881.3300 - 0.0000  15649.8589 - 0.0000
+TNe+G4           -6596.9820  14069.9639 - 0.0000 398633.9639 - 0.0000  15654.1097 - 0.0000
+K3P+G4           -6597.6554  14071.3108 - 0.0000 398635.3108 - 0.0000  15655.4566 - 0.0000
+TIMe+G4          -6596.9665  14071.9330 - 0.0000 400391.9330 - 0.0000  15659.6955 - 0.0000
+GTR+F+I          -6822.9904  14533.9807 - 0.0000 409693.9807 - 0.0000  16139.8271 - 0.0000
+TIM3+F+I         -6836.4188  14556.8376 - 0.0000 406168.8376 - 0.0000  16155.4505 - 0.0000
+TVMe+I           -6846.6620  14573.3241 - 0.0000 402653.3241 - 0.0000  16164.7034 - 0.0000
+SYM+I            -6846.0704  14574.1408 - 0.0000 404418.1408 - 0.0000  16169.1368 - 0.0000
+TVM+F+I          -6846.5757  14579.1515 - 0.0000 407963.1515 - 0.0000  16181.3811 - 0.0000
+TIM3e+I          -6860.4493  14598.8986 - 0.0000 400918.8986 - 0.0000  16186.6611 - 0.0000
+TPM3u+F+I        -6860.0346  14602.0692 - 0.0000 404446.0692 - 0.0000  16197.0653 - 0.0000
+TPM3+F+I         -6860.0347  14602.0695 - 0.0000 404446.0695 - 0.0000  16197.0655 - 0.0000
+TIM2+F+I         -6860.6695  14605.3390 - 0.0000 406217.3390 - 0.0000  16203.9518 - 0.0000
+F81+F+I+G4       -6871.9866  14623.9733 - 0.0000 402703.9733 - 0.0000  16215.3525 - 0.0000
+TN+F+I           -6870.1012  14622.2025 - 0.0000 404466.2024 - 0.0000  16217.1985 - 0.0000
+TIM+F+I          -6870.0956  14624.1911 - 0.0000 406236.1911 - 0.0000  16222.8039 - 0.0000
+TPM2+F+I         -6883.2341  14648.4682 - 0.0000 404492.4682 - 0.0000  16243.4643 - 0.0000
+TPM2u+F+I        -6883.2349  14648.4699 - 0.0000 404492.4699 - 0.0000  16243.4659 - 0.0000
+F81+F+G4         -6889.0860  14656.1721 - 0.0000 400976.1721 - 0.0000  16243.9346 - 0.0000
+HKY+F+I          -6892.9176  14665.8353 - 0.0000 402745.8353 - 0.0000  16257.2146 - 0.0000
+K3Pu+F+I         -6892.9102  14667.8203 - 0.0000 404511.8203 - 0.0000  16262.8164 - 0.0000
+JC+I+G4          -6904.9539  14683.9078 - 0.0000 397495.9078 - 0.0000  16264.4368 - 0.0000
+TIM2e+I          -6905.3558  14688.7115 - 0.0000 401008.7115 - 0.0000  16276.4740 - 0.0000
+K2P+I            -6915.9214  14705.8428 - 0.0000 397517.8428 - 0.0000  16286.3718 - 0.0000
+TNe+I            -6915.4011  14706.8021 - 0.0000 399270.8021 - 0.0000  16290.9479 - 0.0000
+K3P+I            -6915.9160  14707.8320 - 0.0000 399271.8320 - 0.0000  16291.9778 - 0.0000
+TIMe+I           -6915.3921  14708.7841 - 0.0000 401028.7841 - 0.0000  16296.5466 - 0.0000
+JC+G4            -6924.2555  14720.5109 - 0.0000 395784.5109 - 0.0000  16297.4231 - 0.0000
+F81+F+I          -7182.9872  15243.9744 - 0.0000 401563.9744 - 0.0000  16831.7370 - 0.0000
+JC+I             -7216.6130  15305.2260 - 0.0000 396369.2260 - 0.0000  16882.1382 - 0.0000
+GTR+F            -7208.5089  15303.0177 - 0.0000 408687.0177 - 0.0000  16905.2473 - 0.0000
+TIM3+F           -7218.0610  15318.1219 - 0.0000 405162.1219 - 0.0000  16913.1180 - 0.0000
+TIM2+F           -7238.7919  15359.5838 - 0.0000 405203.5838 - 0.0000  16954.5799 - 0.0000
+SYM              -7243.2898  15366.5796 - 0.0000 403446.5796 - 0.0000  16957.9589 - 0.0000
+TN+F             -7245.5655  15371.1311 - 0.0000 403451.1311 - 0.0000  16962.5104 - 0.0000
+TIM3e            -7253.1052  15382.2104 - 0.0000 399946.2104 - 0.0000  16966.3562 - 0.0000
+TIM+F            -7245.5554  15373.1108 - 0.0000 405217.1108 - 0.0000  16968.1068 - 0.0000
+TVMe             -7252.3054  15382.6108 - 0.0000 401702.6108 - 0.0000  16970.3733 - 0.0000
+TVM+F            -7260.4036  15404.8073 - 0.0000 407016.8073 - 0.0000  17003.4201 - 0.0000
+TPM3u+F          -7269.8446  15419.6892 - 0.0000 403499.6892 - 0.0000  17011.0684 - 0.0000
+TPM3+F           -7269.8448  15419.6896 - 0.0000 403499.6896 - 0.0000  17011.0689 - 0.0000
+TPM2+F           -7289.6168  15459.2336 - 0.0000 403539.2336 - 0.0000  17050.6129 - 0.0000
+TPM2u+F          -7289.6171  15459.2343 - 0.0000 403539.2343 - 0.0000  17050.6136 - 0.0000
+TIM2e            -7297.9093  15471.8187 - 0.0000 400035.8187 - 0.0000  17055.9644 - 0.0000
+HKY+F            -7296.5492  15471.0985 - 0.0000 401791.0985 - 0.0000  17058.8610 - 0.0000
+TNe              -7304.6820  15483.3640 - 0.0000 398295.3640 - 0.0000  17063.8929 - 0.0000
+K3Pu+F           -7296.5321  15473.0643 - 0.0000 403553.0643 - 0.0000  17064.4436 - 0.0000
+TIMe             -7304.6804  15485.3609 - 0.0000 400049.3609 - 0.0000  17069.5066 - 0.0000
+K2P              -7313.3056  15498.6112 - 0.0000 396562.6112 - 0.0000  17075.5234 - 0.0000
+K3P              -7313.3026  15500.6053 - 0.0000 398312.6053 - 0.0000  17081.1342 - 0.0000
+F81+F            -7562.0134  16000.0267 - 0.0000 400564.0267 - 0.0000  17584.1725 - 0.0000
+JC               -7605.4021  16080.8041 - 0.0000 395400.8041 + 1.0000  17654.0995 - 0.0000
+
+AIC, w-AIC   : Akaike information criterion scores and weights.
+AICc, w-AICc : Corrected AIC scores and weights.
+BIC, w-BIC   : Bayesian information criterion scores and weights.
+
+Plus signs denote the 95% confidence sets.
+Minus signs denote significant exclusion.
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: GTR+F+I+G4
+
+Rate parameter R:
+
+  A-C: 0.7899
+  A-G: 4.0385
+  A-T: 1.5173
+  C-G: 0.1264
+  C-T: 6.2572
+  G-T: 1.0000
+
+State frequencies: (empirical counts from alignment)
+
+  pi(A) = 0.295
+  pi(C) = 0.1602
+  pi(G) = 0.2992
+  pi(T) = 0.2455
+
+Rate matrix Q:
+
+  A    -1.029    0.0763    0.7285    0.2246
+  C    0.1405    -1.089    0.0228    0.9261
+  G    0.7182   0.01221   -0.8784     0.148
+  T    0.2698    0.6044    0.1804    -1.055
+
+Model of rate heterogeneity: Invar+Gamma with 4 categories
+Proportion of invariable sites: 0.2464
+Gamma shape alpha: 0.7179
+
+ Category  Relative_rate  Proportion
+  0         0              0.2464
+  1         0.1035         0.1884
+  2         0.4934         0.1884
+  3         1.236          0.1884
+  4         3.475          0.1884
+Relative rates are computed as MEAN of the portion of the Gamma distribution falling in the category.
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -6411.4624 (s.e. 426.9819)
+Unconstrained log-likelihood (without tree): -1269.8876
+Number of free parameters (#branches + #model parameters): 445
+Akaike information criterion (AIC) score: 13712.9248
+Corrected Akaike information criterion (AICc) score: 410652.9248
+Bayesian information criterion (BIC) score: 15322.3879
+
+**************************** WARNING ****************************
+Number of parameters (K, model parameters and branch lengths): 445
+Sample size (n, alignment length): 275
+
+Given that K>=n, the parameter estimates might be inaccurate.
+Thus, phylogenetic estimates should be interpreted with caution.
+
+Ideally, it is desirable that n >> K. When selecting optimal models,
+1. use AIC or BIC if n > 40K;
+2. use AICc or BIC if 40K >= n > K;
+3. be extremely cautious if n <= K
+
+To improve the situation (3), consider the following options:
+  1. Increase the sample size (n)
+  2. Decrease the number of parameters (K) to be estimated. If
+     possible:
+     a. Remove the least important sequences from the alignment
+     b. Specify some of the parameter values for the substitution
+        model (e.g., the nucleotide or amino acid frequencies)
+     c. Specify some of the parameter values for the rates-across-
+        sites model (e.g., the shape parameter for the discrete
+        Gamma distribution, the proportion of invariable sites, or
+        the rates of change for different rate categories under
+        the FreeRate model)
+
+Reference:
+Burnham KR, Anderson DR (2002). Model Selection and Multimodel
+Inference: A Practical Information-Theoretic Approach. Springer,
+New York.
+************************ END OF WARNING ***********************
+
+Total tree length (sum of branch lengths): 9.3530
+Sum of internal branch lengths: 4.9279 (52.6881% of tree length)
+
+WARNING: 68 near-zero internal branches (<0.0036) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Mycoplasma_wenyonii_HM538187' is drawn at root
+Numbers in parentheses are SH-aLRT support (%) / ultrafast bootstrap support (%)
+
++--Mycoplasma_wenyonii_HM538187
+|
+|  +--Mycoplasma_parvum_str_Indiana_CP006771
++--| (92.9/100)
+|  +--Mycoplasma_suis_EU603330
+|
+|                      +**Mycoplasma_haemocanis_str_Illinois_CP003199
+|                  +---| (100/100)
+|                  |   +--Mycoplasma_haemofelis_EU145745
+|              +---| (97.7/100)
+|              |   |                 +**Mycoplasma_coco_Cluster_41
+|              |   |              +**| (0/80)
+|              |   |              |  +**ASV_M_coccoides_50
+|              |   |           +--| (99.4/99)
+|              |   |           |  +--ASV_M_coccoides_54
+|              |   |        +--| (83.7/22)
+|              |   |        |  +**ASV_M_coccoides_63
+|              |   |     +--| (78.1/20)
+|              |   |     |  |                 +--Cluster_2703
+|              |   |     |  |              +**| (0/18)
+|              |   |     |  |              |  +--ASV_M_coccoides_60
+|              |   |     |  |           +**| (0/6)
+|              |   |     |  |           |  |        +--Cluster_7638
+|              |   |     |  |           |  |     +**| (0/32)
+|              |   |     |  |           |  |     |  +--ASV_M_coccoides_64
+|              |   |     |  |           |  |  +**| (0/6)
+|              |   |     |  |           |  |  |  +**ASV_M_coccoides_45
+|              |   |     |  |           |  +**| (0/18)
+|              |   |     |  |           |     +**Mycoplasma_coco_Cluster_5
+|              |   |     |  |        +**| (0/6)
+|              |   |     |  |        |  |  +--ASV_M_coccoides_62
+|              |   |     |  |        |  +--| (83.4/79)
+|              |   |     |  |        |     +**ASV_M_coccoides_58
+|              |   |     |  |     +--| (84.6/51)
+|              |   |     |  |     |  +--Cluster_4775
+|              |   |     |  |  +**| (0/29)
+|              |   |     |  |  |  |  +--ASV_M_coccoides_57
+|              |   |     |  |  |  +--| (42.6/82)
+|              |   |     |  |  |     +**ASV_M_coccoides_56
+|              |   |     |  +**| (0/20)
+|              |   |     |     |  +**ASV_M_coccoides_46
+|              |   |     |     +**| (0/83)
+|              |   |     |        +**Cluster_149
+|              |   |  +--| (77.3/64)
+|              |   |  |  |     +**Mycoplasma_coccoides_AY171918
+|              |   |  |  |  +--| (83.9/70)
+|              |   |  |  |  |  |     +--ASV_M_coccoides_53
+|              |   |  |  |  |  |  +--| (79/97)
+|              |   |  |  |  |  |  |  |  +--ASV_M_coccoides_55
+|              |   |  |  |  |  |  |  +**| (0/90)
+|              |   |  |  |  |  |  |     |  +**Mycoplasma_coco_Cluster_12
+|              |   |  |  |  |  |  |     +**| (0/82)
+|              |   |  |  |  |  |  |        +**ASV_M_coccoides_47
+|              |   |  |  |  |  +--| (94/83)
+|              |   |  |  |  |     |        +**Mycoplasma_coco_Cluster_30
+|              |   |  |  |  |     |     +**| (0/96)
+|              |   |  |  |  |     |     |  +**ASV_M_coccoides_49
+|              |   |  |  |  |     |  +--| (89.3/94)
+|              |   |  |  |  |     |  |  +--ASV_M_coccoides_59
+|              |   |  |  |  |     +--| (89.4/84)
+|              |   |  |  |  |        |  +**ASV_M_coccoides_51
+|              |   |  |  |  |        +**| (0/88)
+|              |   |  |  |  |           +--ASV_M_coccoides_61
+|              |   |  |  +**| (0/64)
+|              |   |  |     +**ASV_M_coccoides_52
+|              |   +**| (0/25)
+|              |      |     +**Mycoplasma_haemo_Cluster_14
+|              |      |  +--| (99.9/100)
+|              |      |  |  +**ASV_M_coccoides_48
+|              |      +--| (96/57)
+|              |         |                 +**Mycoplasma_haemo_Cluster_10
+|              |         |              +**| (0/93)
+|              |         |              |  +**ASV_M_haemo_05
+|              |         |           +--| (100/100)
+|              |         |           |  +--ASV_M_haemo_17
+|              |         |        +--| (83.4/100)
+|              |         |        |  |                                      +--ASV_M_haemo_24
+|              |         |        |  |                                   +--| (78.8/100)
+|              |         |        |  |                                   |  |     +--ASV_M_haemo_16
+|              |         |        |  |                                   |  |  +**| (0/99)
+|              |         |        |  |                                   |  |  |  +--ASV_M_haemo_18
+|              |         |        |  |                                   |  +--| (77.6/100)
+|              |         |        |  |                                   |     |  +**Mycoplasma_haemo_Cluster_7
+|              |         |        |  |                                   |     +**| (0/98)
+|              |         |        |  |                                   |        +**ASV_M_haemo_02
+|              |         |        |  |                                +--| (81.8/100)
+|              |         |        |  |                                |  +**ASV_M_haemo_29
+|              |         |        |  |                             +--| (99.7/100)
+|              |         |        |  |                             |  +**ASV_M_haemo_30
+|              |         |        |  |                          +--| (74.8/100)
+|              |         |        |  |                          |  |     +--ASV_M_haemo_23
+|              |         |        |  |                          |  |  +**| (0/69)
+|              |         |        |  |                          |  |  |  |  +**Mycoplasma_haemo_Cluster_11
+|              |         |        |  |                          |  |  |  +**| (0/96)
+|              |         |        |  |                          |  |  |     +**ASV_M_haemo_06
+|              |         |        |  |                          |  +--| (78.4/92)
+|              |         |        |  |                          |     +--ASV_M_haemo_25
+|              |         |        |  |                       +--| (97.4/100)
+|              |         |        |  |                       |  +--ASV_M_haemo_26
+|              |         |        |  |                    +**| (0/49)
+|              |         |        |  |                    |  +--ASV_M_haemo_19
+|              |         |        |  |                 +**| (0/28)
+|              |         |        |  |                 |  +--ASV_M_haemo_08
+|              |         |        |  |              +**| (0/12)
+|              |         |        |  |              |  +**ASV_M_haemo_03
+|              |         |        |  |           +**| (0/25)
+|              |         |        |  |           |  +**Mycoplasma_haemo_Cluster_6
+|              |         |        |  |        +**| (0/26)
+|              |         |        |  |        |  |  +--ASV_M_haemo_21
+|              |         |        |  |        |  +**| (0/29)
+|              |         |        |  |        |     +--ASV_M_haemo_27
+|              |         |        |  |     +--| (78.6/83)
+|              |         |        |  |     |  +--ASV_M_haemo_20
+|              |         |        |  |  +--| (76.7/82)
+|              |         |        |  |  |  +--ASV_M_haemo_12
+|              |         |        |  +--| (76.2/81)
+|              |         |        |     |  +--ASV_M_haemo_15
+|              |         |        |     +**| (0/81)
+|              |         |        |        |     +--ASV_M_haemo_22
+|              |         |        |        |  +**| (0/17)
+|              |         |        |        |  |  +--Cluster_644
+|              |         |        |        +**| (0/16)
+|              |         |        |           +**ASV_M_haemo_09
+|              |         |     +--| (85.3/100)
+|              |         |     |  |     +--Mycoplasma_haemomuris_AB758436
+|              |         |     |  |  +--| (77.9/98)
+|              |         |     |  |  |  |  +--ASV_M_haemo_13
+|              |         |     |  |  |  +**| (0/94)
+|              |         |     |  |  |     |  +**ASV_M_haemo_04
+|              |         |     |  |  |     +**| (0/93)
+|              |         |     |  |  |        +**Cluster_1
+|              |         |     |  +--| (96.5/100)
+|              |         |     |     |  +--ASV_M_haemo_10
+|              |         |     |     +**| (0/70)
+|              |         |     |        |     +--ASV_M_haemo_11
+|              |         |     |        |  +**| (0/27)
+|              |         |     |        |  |  +--ASV_M_haemo_28
+|              |         |     |        +**| (0/5)
+|              |         |     |           |        +--ASV_M_haemo_14
+|              |         |     |           |     +**| (0/21)
+|              |         |     |           |     |  +--ASV_M_haemo_31
+|              |         |     |           |  +**| (0/5)
+|              |         |     |           |  |  +**ASV_M_haemo_01
+|              |         |     |           +**| (0/14)
+|              |         |     |              +**Mycoplasma_haemo_Cluster_2
+|              |         |  +--| (90.1/100)
+|              |         |  |  |  +**Mycoplasma_haemo_Cluster_20
+|              |         |  |  +--| (95.4/100)
+|              |         |  |     +**ASV_M_haemo_07
+|              |         +--| (38.3/97)
+|              |            |  +**Mycoplasma_haemo_Cluster_3
+|              |            +--| (95.9/100)
+|              |               +**ASV_M_unknown_65
++--------------| (100/100)
+               |     +--Mycoplasma_insons_Cluster_156
+               |  +--| (92.4/77)
+               |  |  |     +--Mycoplasma_insons_EU859974
+               |  |  |  +--| (0/24)
+               |  |  |  |  +--Mycoplasma_fastidiosum_AF125878
+               |  |  +--| (83.1/80)
+               |  |     +--Mycoplasma_cavipharyngis_AF125879
+               +--| (71.1/73)
+                  |           +--ASV_M_unknown_76
+                  |        +--| (51.5/53)
+                  |        |  |           +**Mycoplasma_penetrans_JN935872
+                  |        |  |        +**| (0/83)
+                  |        |  |        |  +**ASV_M_penetrans_40
+                  |        |  |     +--| (77.7/94)
+                  |        |  |     |  +--ASV_M_penetrans_42
+                  |        |  |  +--| (99.9/100)
+                  |        |  |  |  |     +**Mycoplasma_penetrans_Cluster_90
+                  |        |  |  |  |  +**| (0/85)
+                  |        |  |  |  |  |  +**ASV_M_penetrans_39
+                  |        |  |  |  +--| (77.8/100)
+                  |        |  |  |     +--ASV_M_penetrans_41
+                  |        |  +**| (0/18)
+                  |        |     |              +**Mycoplasma_microti_AF212859
+                  |        |     |           +--| (81.9/100)
+                  |        |     |           |  +**ASV_M_microti_35
+                  |        |     |        +--| (99.4/100)
+                  |        |     |        |  +**ASV_M_microti_34
+                  |        |     |     +--| (76.3/48)
+                  |        |     |     |  |     +**Mycoplasma_muris_M23939
+                  |        |     |     |  |  +--| (79.7/96)
+                  |        |     |     |  |  |  +**ASV_M_muris_37
+                  |        |     |     |  +--| (75.4/82)
+                  |        |     |     |     +--ASV_M_muris_38
+                  |        |     |  +--| (76.5/41)
+                  |        |     |  |  |  +**ASV_M_microti_36
+                  |        |     |  |  +--| (97.5/59)
+                  |        |     |  |     |     +**Mycoplasma_microti_Cluster_182
+                  |        |     |  |     |  +**| (0/71)
+                  |        |     |  |     |  |  +**ASV_M_microti_32
+                  |        |     |  |     +--| (97/100)
+                  |        |     |  |        +--ASV_M_microti_33
+                  |        |     +**| (0/24)
+                  |        |        +--Mycoplasma_iowae_U29676
+                  |     +--| (87/93)
+                  |     |  |            +------Asteroleplasma
+                  |     |  +------------| (100/100)
+                  |     |               |               +----------Anaeroplasma
+                  |     |               |           +---| (92.5/94)
+                  |     |               |           |   |   +--Phytoplasma
+                  |     |               |           |   +---| (86.6/100)
+                  |     |               |           |       +---Acholeplasma
+                  |     |               |        +--| (76.3/80)
+                  |     |               |        |  +--Erysipelothrix
+                  |     |               |     +--| (75.2/81)
+                  |     |               |     |  |        +----------Escherichia
+                  |     |               |     |  |     +--| (60.9/92)
+                  |     |               |     |  |     |  +------Clostridium
+                  |     |               |     |  +-----| (96.7/99)
+                  |     |               |     |        +----Bacillus
+                  |     |               |  +--| (43.6/79)
+                  |     |               |  |  |  +--Mycoplasma_monodon_AF042194
+                  |     |               |  |  +--| (96.7/100)
+                  |     |               |  |     |        +**Mycoplasma_cottewii_JN935874
+                  |     |               |  |     |     +--| (76.7/93)
+                  |     |               |  |     |     |  +**Mycoplasma_yeatsii_JN935862
+                  |     |               |  |     |  +--| (0/36)
+                  |     |               |  |     |  |  |  +**Mycoplasma_putrefaciens_U26055
+                  |     |               |  |     |  |  +--| (92.8/100)
+                  |     |               |  |     |  |     +**OTU_Entomoplasmataceae_M_putrefaciens
+                  |     |               |  |     +--| (78.8/98)
+                  |     |               |  |        |  +**Mycoplasma_mycoides_subsp_capri_U26036
+                  |     |               |  |        +**| (0/98)
+                  |     |               |  |           +**OTU_Entomoplasmataceae_M_mycoides
+                  |     |               +--| (71.3/86)
+                  |     |                  |                                    +--Mycoplasma_pulmonis_AB680694
+                  |     |                  |                                 +--| (97.2/100)
+                  |     |                  |                                 |  |  +--ASV_M_lago_43
+                  |     |                  |                                 |  +--| (56.9/72)
+                  |     |                  |                                 |     |              +**Mycoplasma_hyorhinis_AB680688
+                  |     |                  |                                 |     |           +--| (99.3/100)
+                  |     |                  |                                 |     |           |  |     +--Mycoplasma_bovoculi_U44768
+                  |     |                  |                                 |     |           |  |  +--| (78.5/99)
+                  |     |                  |                                 |     |           |  |  |  +--Mycoplasma_conjunctivae_FJ226571
+                  |     |                  |                                 |     |           |  +--| (95.3/100)
+                  |     |                  |                                 |     |           |     |  +--Mycoplasma_ovipneumoniae_EF687778
+                  |     |                  |                                 |     |           |     +--| (81.6/100)
+                  |     |                  |                                 |     |           |        |  +**Mycoplasma_dispar_AF412979
+                  |     |                  |                                 |     |           |        +**| (0/67)
+                  |     |                  |                                 |     |           |           |  +--Mycoplasma_flocculare_GU227403
+                  |     |                  |                                 |     |           |           +--| (89.6/100)
+                  |     |                  |                                 |     |           |              +--Mycoplasma_hyopneumoniae_GU227406
+                  |     |                  |                                 |     |        +--| (75.2/29)
+                  |     |                  |                                 |     |        |  |  +--Mycoplasma_lagogenitalium_AF412983
+                  |     |                  |                                 |     |        |  +--| (74.4/98)
+                  |     |                  |                                 |     |        |     +**Mycoplasma_molare_AF412985
+                  |     |                  |                                 |     |     +--| (50.4/20)
+                  |     |                  |                                 |     |     |  |  +**ASV_M_molare_44
+                  |     |                  |                                 |     |     |  +--| (99.9/100)
+                  |     |                  |                                 |     |     |     +**Cluster_4443
+                  |     |                  |                                 |     |  +--| (88.5/77)
+                  |     |                  |                                 |     |  |  |  +--Mycoplasma_collis_AF412974
+                  |     |                  |                                 |     |  |  +--| (97.4/100)
+                  |     |                  |                                 |     |  |     +**Mycoplasma_neurolyticum_AB680668
+                  |     |                  |                                 |     +--| (91.2/82)
+                  |     |                  |                                 |        +--Mycoplasma_iguanae_AY714305
+                  |     |                  |                              +--| (78.7/36)
+                  |     |                  |                              |  |  +--Mycoplasma_agassizii_U09786
+                  |     |                  |                              |  +--| (92.3/97)
+                  |     |                  |                              |     +--Mycoplasma_testudineum_U19768
+                  |     |                  |                           +--| (56.4/31)
+                  |     |                  |                           |  |     +--Mycoplasma_elephantis_AF221121
+                  |     |                  |                           |  |  +--| (95.6/100)
+                  |     |                  |                           |  |  |  +**Mycoplasma_equigenitalium_AF221120
+                  |     |                  |                           |  +--| (94.3/97)
+                  |     |                  |                           |     |                                         +--Mycoplasma_sturni_U22013
+                  |     |                  |                           |     |                                      +**| (0/39)
+                  |     |                  |                           |     |                                      |  +--Mycoplasma_citelli_AF412973
+                  |     |                  |                           |     |                                   +**| (0/40)
+                  |     |                  |                           |     |                                   |  +**Mycoplasma_columborale_AF412975
+                  |     |                  |                           |     |                                +--| (98.6/97)
+                  |     |                  |                           |     |                                |  |  +--Mycoplasma_cricetuli_EF036469
+                  |     |                  |                           |     |                                |  +--| (96.8/94)
+                  |     |                  |                           |     |                                |     +**Mycoplasma_oxoniensis_AF412987
+                  |     |                  |                           |     |                             +**| (0/33)
+                  |     |                  |                           |     |                             |  |     +--Mycoplasma_synoviae_X52083
+                  |     |                  |                           |     |                             |  |  +--| (91.2/90)
+                  |     |                  |                           |     |                             |  |  |  +--Mycoplasma_gallinaceum_JN935878
+                  |     |                  |                           |     |                             |  +--| (97.7/85)
+                  |     |                  |                           |     |                             |     |           +--Mycoplasma_leonicaptivi_U16759
+                  |     |                  |                           |     |                             |     |        +--| (75.1/81)
+                  |     |                  |                           |     |                             |     |        |  +--Mycoplasma_felis_U09787
+                  |     |                  |                           |     |                             |     |     +--| (86.6/74)
+                  |     |                  |                           |     |                             |     |     |  |     +--Mycoplasma_mustelae_AF412986
+                  |     |                  |                           |     |                             |     |     |  |  +--| (85/81)
+                  |     |                  |                           |     |                             |     |     |  |  |  +**Mycoplasma_corogypsi_L08054
+                  |     |                  |                           |     |                             |     |     |  +**| (0/40)
+                  |     |                  |                           |     |                             |     |     |     |     +--Mycoplasma_buteonis_AF412971
+                  |     |                  |                           |     |                             |     |     |     |  +--| (94.7/99)
+                  |     |                  |                           |     |                             |     |     |     |  |  +**Mycoplasma_gallopavonis_AF412980
+                  |     |                  |                           |     |                             |     |     |     +--| (86.6/97)
+                  |     |                  |                           |     |                             |     |     |        +**Mycoplasma_glycophilum_AF412981
+                  |     |                  |                           |     |                             |     |  +--| (88.7/96)
+                  |     |                  |                           |     |                             |     |  |  |     +--Mycoplasma_bovirhinis_AB680687
+                  |     |                  |                           |     |                             |     |  |  |  +--| (79.3/84)
+                  |     |                  |                           |     |                             |     |  |  |  |  |  +**Mycoplasma_canis_AB680678
+                  |     |                  |                           |     |                             |     |  |  |  |  +--| (79/99)
+                  |     |                  |                           |     |                             |     |  |  |  |     +--Mycoplasma_cynos_AF412978
+                  |     |                  |                           |     |                             |     |  |  +--| (63.8/82)
+                  |     |                  |                           |     |                             |     |  |     +**Mycoplasma_edwardii_JX843737
+                  |     |                  |                           |     |                             |     +**| (0/62)
+                  |     |                  |                           |     |                             |        |  +--Mycoplasma_aquilae_ATCC_BAA-1896_FM196532
+                  |     |                  |                           |     |                             |        +--| (95.9/100)
+                  |     |                  |                           |     |                             |           +**Mycoplasma_verecundum_AF412989
+                  |     |                  |                           |     |                          +**| (0/20)
+                  |     |                  |                           |     |                          |  |  +--Mycoplasma_anatis_AB680691
+                  |     |                  |                           |     |                          |  +--| (76.4/80)
+                  |     |                  |                           |     |                          |     |        +**Mycoplasma_alligatoris_AF412969
+                  |     |                  |                           |     |                          |     |     +--| (84.9/100)
+                  |     |                  |                           |     |                          |     |     |  +--Mycoplasma_crocodyli_AF412977
+                  |     |                  |                           |     |                          |     |  +--| (44.3/60)
+                  |     |                  |                           |     |                          |     |  |  +--Mycoplasma_lipofaciens_AF221115
+                  |     |                  |                           |     |                          |     +--| (66.5/73)
+                  |     |                  |                           |     |                          |        +--Mycoplasma_pullorum_JN935880
+                  |     |                  |                           |     |                       +--| (95.9/69)
+                  |     |                  |                           |     |                       |  |  +--Mycoplasma_meleagridis_AB680683
+                  |     |                  |                           |     |                       |  +--| (41.6/31)
+                  |     |                  |                           |     |                       |     |  +--Mycoplasma_columbinasale_AF221112
+                  |     |                  |                           |     |                       |     +--| (79.6/81)
+                  |     |                  |                           |     |                       |        +--Mycoplasma_iners_AB680684
+                  |     |                  |                           |     |                    +--| (84.5/57)
+                  |     |                  |                           |     |                    |  |     +--Mycoplasma_columbinum_AF221113
+                  |     |                  |                           |     |                    |  |  +**| (0/20)
+                  |     |                  |                           |     |                    |  |  |  +--Mycoplasma_felifaucium_U15795
+                  |     |                  |                           |     |                    |  +**| (0/10)
+                  |     |                  |                           |     |                    |     +--Mycoplasma_adleri_U67943
+                  |     |                  |                           |     |                 +**| (0/30)
+                  |     |                  |                           |     |                 |  |  +--Mycoplasma_simbae_U16323
+                  |     |                  |                           |     |                 |  +--| (71.5/65)
+                  |     |                  |                           |     |                 |     |  +**Mycoplasma_zalophidermidis_DQ840512
+                  |     |                  |                           |     |                 |     +**| (0/70)
+                  |     |                  |                           |     |                 |        +--Mycoplasma_phocirhinis_AF304324
+                  |     |                  |                           |     |              +**| (0/21)
+                  |     |                  |                           |     |              |  |        +--Mycoplasma_spermatophilum_AF221119
+                  |     |                  |                           |     |              |  |     +**| (0/46)
+                  |     |                  |                           |     |              |  |     |  |  +**Mycoplasma_caviae_AF221111
+                  |     |                  |                           |     |              |  |     |  +--| (94.2/100)
+                  |     |                  |                           |     |              |  |     |     +--Mycoplasma_fermentans_FJ226565
+                  |     |                  |                           |     |              |  |  +--| (81.6/68)
+                  |     |                  |                           |     |              |  |  |  |     +**Mycoplasma_bovis_JN644755
+                  |     |                  |                           |     |              |  |  |  |  +--| (86.5/100)
+                  |     |                  |                           |     |              |  |  |  |  |  +--Mycoplasma_primatum_AF221118
+                  |     |                  |                           |     |              |  |  |  +--| (77.4/88)
+                  |     |                  |                           |     |              |  |  |     |  +--Mycoplasma_leopharyngis_U16760
+                  |     |                  |                           |     |              |  |  |     +--| (86.9/100)
+                  |     |                  |                           |     |              |  |  |        +--Mycoplasma_maculosum_AB680679
+                  |     |                  |                           |     |              |  +--| (84.3/68)
+                  |     |                  |                           |     |              |     +**Mycoplasma_bovigenitalium_AB680692
+                  |     |                  |                           |     |           +--| (76.3/62)
+                  |     |                  |                           |     |           |  +--Mycoplasma_californicum_M24582
+                  |     |                  |                           |     |        +--| (74.1/66)
+                  |     |                  |                           |     |        |  +--Mycoplasma_opalescens_AF221117
+                  |     |                  |                           |     |     +--| (82.5/69)
+                  |     |                  |                           |     |     |  |  +--Mycoplasma_sphenisci_AY756171
+                  |     |                  |                           |     |     |  +--| (75.2/84)
+                  |     |                  |                           |     |     |     +--Mycoplasma_mucosicanis_AM774638
+                  |     |                  |                           |     |  +--| (63.8/78)
+                  |     |                  |                           |     |  |  +--Mycoplasma_hyopharyngis_U58997
+                  |     |                  |                           |     +--| (95.1/99)
+                  |     |                  |                           |        +--Mycoplasma_lipophilum_AB680693
+                  |     |                  |                        +--| (97.6/99)
+                  |     |                  |                        |  |  +---Mycoplasma_vulturii_AY191226
+                  |     |                  |                        |  +--| (91/46)
+                  |     |                  |                        |     |  +--Mycoplasma_ravipulmonis_Cluster_195
+                  |     |                  |                        |     +--| (92.7/100)
+                  |     |                  |                        |        +--Mycoplasma_ravipulmonis_Cluster_99
+                  |     |                  |                     +--| (92.7/78)
+                  |     |                  |                     |  |  +--Mycoplasma_zalophi_AF493543
+                  |     |                  |                     |  +--| (75.4/82)
+                  |     |                  |                     |     +--Mycoplasma_gypis_AF125589
+                  |     |                  |                  +--| (62.5/76)
+                  |     |                  |                  |  +--Mycoplasma_hominis_AB680681
+                  |     |                  |               +--| (90.9/62)
+                  |     |                  |               |  +--Mycoplasma_equirhinis_AF125585
+                  |     |                  |            +**| (0/18)
+                  |     |                  |            |  |  +--Mycoplasma_phocidae_AF304325
+                  |     |                  |            |  +--| (15.7/70)
+                  |     |                  |            |     |                       +--Mycoplasma_alkalescens_U44764
+                  |     |                  |            |     |                    +--| (40/84)
+                  |     |                  |            |     |                    |  +--Mycoplasma_auris_U67944
+                  |     |                  |            |     |                 +**| (0/63)
+                  |     |                  |            |     |                 |  +--Mycoplasma_buccale_AB680682
+                  |     |                  |            |     |              +**| (0/45)
+                  |     |                  |            |     |              |  |  +**Mycoplasma_falconis_AF125591
+                  |     |                  |            |     |              |  +**| (0/65)
+                  |     |                  |            |     |              |     +**Mycoplasma_faucium_AF125590
+                  |     |                  |            |     |           +--| (83.9/75)
+                  |     |                  |            |     |           |  +--Mycoplasma_salivarium_AB680625
+                  |     |                  |            |     |        +**| (0/13)
+                  |     |                  |            |     |        |  |  +--Mycoplasma_arthritidis_AB680690
+                  |     |                  |            |     |        |  +--| (86.5/99)
+                  |     |                  |            |     |        |     +**Mycoplasma_gateae_U15796
+                  |     |                  |            |     |     +**| (0/8)
+                  |     |                  |            |     |     |  +--Mycoplasma_subdolum_AF125588
+                  |     |                  |            |     |  +**| (0/5)
+                  |     |                  |            |     |  |  +**Mycoplasma_arginini_AF125581
+                  |     |                  |            |     +**| (0/43)
+                  |     |                  |            |        |     +--Mycoplasma_anseris_AF125584
+                  |     |                  |            |        |  +--| (78.9/86)
+                  |     |                  |            |        |  |  +--Mycoplasma_cloacale_AF125592
+                  |     |                  |            |        +**| (0/9)
+                  |     |                  |            |           |  +**Mycoplasma_indiense_AF125593
+                  |     |                  |            |           +--| (84.3/99)
+                  |     |                  |            |              +**Mycoplasma_orale_AB680624
+                  |     |                  |         +**| (0/33)
+                  |     |                  |         |  +**Mycoplasma_phocicerebrale_AF304323
+                  |     |                  |      +--| (82.2/78)
+                  |     |                  |      |  |  +--Mycoplasma_neophronis_FR682077
+                  |     |                  |      |  +--| (43.9/95)
+                  |     |                  |      |     +**Mycoplasma_spumans_AB680680
+                  |     |                  +------| (99.8/100)
+                  |     |                         |     +--Mycoplasma_moatsii_AF412984
+                  |     |                         |  +--| (99.1/100)
+                  |     |                         |  |  |  +**Mycoplasma_sualvi_AF412988
+                  |     |                         |  |  +--| (94.1/100)
+                  |     |                         |  |     +**Cluster_74
+                  |     |                         +--| (79.2/99)
+                  |     |                            +--Mycoplasma_mobile_M24480
+                  |  +--| (70.1/63)
+                  |  |  |     +**Mycoplasma_gallisepticum_AB680686
+                  |  |  |  +--| (100/100)
+                  |  |  |  |  +**Mycoplasma_imitans_L24103
+                  |  |  +--| (74/95)
+                  |  |     |     +**Mycoplasma_alvi_FJ655918
+                  |  |     |  +**| (0/92)
+                  |  |     |  |  +--Mycoplasma_pirum_M23940
+                  |  |     +--| (5.9/68)
+                  |  |        |  +--Mycoplasma_amphoriforme_AY531655
+                  |  |        +--| (92.9/100)
+                  |  |           +--Mycoplasma_testudinis_U09788
+                  +--| (90.8/94)
+                     |  +--Mycoplasma_genitalium_X77334
+                     +--| (94/100)
+                        +--Mycoplasma_pneumoniae_AB680604
+
+Tree in newick format:
+
+(Mycoplasma_wenyonii_HM538187:0.1044802502,(Mycoplasma_parvum_str_Indiana_CP006771:0.0121293162,Mycoplasma_suis_EU603330:0.0701635798)92.9/100:0.1128304994,(((Mycoplasma_haemocanis_str_Illinois_CP003199:0.0000023071,Mycoplasma_haemofelis_EU145745:0.0052657222)100/100:0.1313461775,((((((Mycoplasma_coco_Cluster_41:0.0000028088,ASV_M_coccoides_50:0.0000028088)0/80:0.0000023986,ASV_M_coccoides_54:0.0053033550)99.4/99:0.0325918817,ASV_M_coccoides_63:0.0000029908)83.7/22:0.0052397520,((((((Cluster_2703:0.0159570173,ASV_M_coccoides_60:0.0052233275)0/18:0.0000022956,(((Cluster_7638:0.0105195012,ASV_M_coccoides_64:0.0052221383)0/32:0.0000028088,ASV_M_coccoides_45:0.0000028088)0/6:0.0000021203,Mycoplasma_coco_Cluster_5:0.0000028088)0/18:0.0000022229)0/6:0.0000020951,(ASV_M_coccoides_62:0.0052481174,ASV_M_coccoides_58:0.0000026808)83.4/79:0.0052858155)0/6:0.0000028088,Cluster_4775:0.0105183714)84.6/51:0.0052313807,(ASV_M_coccoides_57:0.0052308094,ASV_M_coccoides_56:0.0000021073)42.6/82:0.0052365537)0/29:0.0000021588,(ASV_M_coccoides_46:0.0000028088,Cluster_149:0.0000028088)0/83:0.0000028088)0/20:0.0000027543)78.1/20:0.0052417370,((Mycoplasma_coccoides_AY171918:0.0000024527,((ASV_M_coccoides_53:0.0052423050,(ASV_M_coccoides_55:0.0053116699,(Mycoplasma_coco_Cluster_12:0.0000028088,ASV_M_coccoides_47:0.0000028088)0/82:0.0000025463)0/90:0.0000021125)79/97:0.0083803608,(((Mycoplasma_coco_Cluster_30:0.0000024234,ASV_M_coccoides_49:0.0000024235)0/96:0.0000024166,ASV_M_coccoides_59:0.0053037858)89.3/94:0.0105770324,(ASV_M_coccoides_51:0.0000023917,ASV_M_coccoides_61:0.0053221693)0/88:0.0000026302)89.4/84:0.0185252722)94/83:0.0220375678)83.9/70:0.0052448223,ASV_M_coccoides_52:0.0000020061)0/64:0.0000021464)77.3/64:0.0089193310,((Mycoplasma_haemo_Cluster_14:0.0000022241,ASV_M_coccoides_48:0.0000028088)99.9/100:0.0800460984,((((((Mycoplasma_haemo_Cluster_10:0.0000024040,ASV_M_haemo_05:0.0000020652)0/93:0.0000021486,ASV_M_haemo_17:0.0053431437)100/100:0.0743883725,(((((((((((((ASV_M_haemo_24:0.0159050998,((ASV_M_haemo_16:0.0052318095,ASV_M_haemo_18:0.0052956877)0/99:0.0000028088,(Mycoplasma_haemo_Cluster_7:0.0000028088,ASV_M_haemo_02:0.0000028088)0/98:0.0000028088)77.6/100:0.0052357780)78.8/100:0.0053107245,ASV_M_haemo_29:0.0000028112)81.8/100:0.0052421433,ASV_M_haemo_30:0.0000020368)99.7/100:0.0631384655,((ASV_M_haemo_23:0.0052947470,(Mycoplasma_haemo_Cluster_11:0.0000028088,ASV_M_haemo_06:0.0000028088)0/96:0.0000023441)0/69:0.0000028088,ASV_M_haemo_25:0.0052308983)78.4/92:0.0112321542)74.8/100:0.0105631112,ASV_M_haemo_26:0.0219441740)97.4/100:0.0304403466,ASV_M_haemo_19:0.0053081810)0/49:0.0000028088,ASV_M_haemo_08:0.0052547112)0/28:0.0000028088,ASV_M_haemo_03:0.0000028088)0/12:0.0000028088,Mycoplasma_haemo_Cluster_6:0.0000028088)0/25:0.0000021274,(ASV_M_haemo_21:0.0052913844,ASV_M_haemo_27:0.0052440374)0/29:0.0000028088)0/26:0.0000027218,ASV_M_haemo_20:0.0053018220)78.6/83:0.0053920391,ASV_M_haemo_12:0.0107413286)76.7/82:0.0052794633,(ASV_M_haemo_15:0.0052658065,((ASV_M_haemo_22:0.0052670972,Cluster_644:0.0052704024)0/17:0.0000023311,ASV_M_haemo_09:0.0000028088)0/16:0.0000021127)0/81:0.0000023168)76.2/81:0.0082591075)83.4/100:0.0123578164,((Mycoplasma_haemomuris_AB758436:0.0052707513,(ASV_M_haemo_13:0.0053362701,(ASV_M_haemo_04:0.0000028088,Cluster_1:0.0000028088)0/93:0.0000023077)0/94:0.0000028088)77.9/98:0.0106122218,(ASV_M_haemo_10:0.0053082307,((ASV_M_haemo_11:0.0052605803,ASV_M_haemo_28:0.0052640099)0/27:0.0000028088,(((ASV_M_haemo_14:0.0053251664,ASV_M_haemo_31:0.0052594366)0/21:0.0000028088,ASV_M_haemo_01:0.0000028088)0/5:0.0000023957,Mycoplasma_haemo_Cluster_2:0.0000028088)0/14:0.0000028088)0/5:0.0000023389)0/70:0.0000028088)96.5/100:0.0369954059)85.3/100:0.0212862117,(Mycoplasma_haemo_Cluster_20:0.0000028088,ASV_M_haemo_07:0.0000020245)95.4/100:0.0379821052)90.1/100:0.0264428751,(Mycoplasma_haemo_Cluster_3:0.0000028088,ASV_M_unknown_65:0.0000023134)95.9/100:0.0406254025)38.3/97:0.0093129992)96/57:0.0479638398)0/25:0.0024010083)97.7/100:0.1364046019,((Mycoplasma_insons_Cluster_156:0.0100221503,((Mycoplasma_insons_EU859974:0.0447724442,Mycoplasma_fastidiosum_AF125878:0.0055720413)0/24:0.0125240012,Mycoplasma_cavipharyngis_AF125879:0.0174975451)83.1/80:0.0225870611)92.4/77:0.0674402577,((((ASV_M_unknown_76:0.1006696945,((((Mycoplasma_penetrans_JN935872:0.0000028088,ASV_M_penetrans_40:0.0000028088)0/83:0.0000028088,ASV_M_penetrans_42:0.0052855740)77.7/94:0.0053606309,((Mycoplasma_penetrans_Cluster_90:0.0000028088,ASV_M_penetrans_39:0.0000028088)0/85:0.0000028110,ASV_M_penetrans_41:0.0052490379)77.8/100:0.0052291579)99.9/100:0.0575498782,(((((Mycoplasma_microti_AF212859:0.0000022639,ASV_M_microti_35:0.0000028112)81.9/100:0.0052967542,ASV_M_microti_34:0.0000020085)99.4/100:0.0443009064,((Mycoplasma_muris_M23939:0.0000028088,ASV_M_muris_37:0.0000028088)79.7/96:0.0054001554,ASV_M_muris_38:0.0051827114)75.4/82:0.0061689033)76.3/48:0.0055973305,(ASV_M_microti_36:0.0000029662,((Mycoplasma_microti_Cluster_182:0.0000028088,ASV_M_microti_32:0.0000028088)0/71:0.0000022356,ASV_M_microti_33:0.0052214240)97/100:0.0213530254)97.5/59:0.0318534106)76.5/41:0.0058018230,Mycoplasma_iowae_U29676:0.0469657889)0/24:0.0000020186)0/18:0.0000027895)51.5/53:0.0195774523,(Asteroleplasma:0.2539745670,(((((Anaeroplasma:0.3530068948,(Phytoplasma:0.0306910897,Acholeplasma:0.1353595238)86.6/100:0.1292742861)92.5/94:0.1344383583,Erysipelothrix:0.0911880808)76.3/80:0.0574069310,((Escherichia:0.3682326152,Clostridium:0.2432512292)60.9/92:0.0829000970,Bacillus:0.1628431992)96.7/99:0.2069102687)75.2/81:0.0422631663,(Mycoplasma_monodon_AF042194:0.0682699147,(((Mycoplasma_cottewii_JN935874:0.0000022269,Mycoplasma_yeatsii_JN935862:0.0000028088)76.7/93:0.0051838926,(Mycoplasma_putrefaciens_U26055:0.0000022658,OTU_Entomoplasmataceae_M_putrefaciens:0.0000027214)92.8/100:0.0164495398)0/36:0.0053992003,(Mycoplasma_mycoides_subsp_capri_U26036:0.0000028088,OTU_Entomoplasmataceae_M_mycoides:0.0000020704)0/98:0.0000021236)78.8/98:0.0170047940)96.7/100:0.0930997931)43.6/79:0.0251152579,(((((((((((Mycoplasma_pulmonis_AB680694:0.0770087790,(ASV_M_lago_43:0.1085675259,(((((Mycoplasma_hyorhinis_AB680688:0.0029751401,((Mycoplasma_bovoculi_U44768:0.0101623081,Mycoplasma_conjunctivae_FJ226571:0.0081332360)78.5/99:0.0120886580,(Mycoplasma_ovipneumoniae_EF687778:0.0208169989,(Mycoplasma_dispar_AF412979:0.0000028088,(Mycoplasma_flocculare_GU227403:0.0103541512,Mycoplasma_hyopneumoniae_GU227406:0.0050215014)89.6/100:0.0103483817)0/67:0.0000022493)81.6/100:0.0114391981)95.3/100:0.0484543462)99.3/100:0.0801982392,(Mycoplasma_lagogenitalium_AF412983:0.0051333405,Mycoplasma_molare_AF412985:0.0000023047)74.4/98:0.0085729596)75.2/29:0.0069315937,(ASV_M_molare_44:0.0000020632,Cluster_4443:0.0000023322)99.9/100:0.0782960448)50.4/20:0.0038453109,(Mycoplasma_collis_AF412974:0.0207593767,Mycoplasma_neurolyticum_AB680668:0.0000023306)97.4/100:0.0479491903)88.5/77:0.0213994341,Mycoplasma_iguanae_AY714305:0.0261665088)91.2/82:0.0307764911)56.9/72:0.0139337658)97.2/100:0.0540791608,(Mycoplasma_agassizii_U09786:0.0507413936,Mycoplasma_testudineum_U19768:0.0583163204)92.3/97:0.0472700869)78.7/36:0.0234286102,((Mycoplasma_elephantis_AF221121:0.0052542434,Mycoplasma_equigenitalium_AF221120:0.0000024907)95.6/100:0.0544197097,((((((((((((((Mycoplasma_sturni_U22013:0.0556182951,Mycoplasma_citelli_AF412973:0.0153288231)0/39:0.0000020842,Mycoplasma_columborale_AF412975:0.0000025352)0/40:0.0000029695,(Mycoplasma_cricetuli_EF036469:0.0101559219,Mycoplasma_oxoniensis_AF412987:0.0000028088)96.8/94:0.0206327148)98.6/97:0.0394867194,((Mycoplasma_synoviae_X52083:0.0283799326,Mycoplasma_gallinaceum_JN935878:0.0218593960)91.2/90:0.0260150148,((((Mycoplasma_leonicaptivi_U16759:0.0322888703,Mycoplasma_felis_U09787:0.0151953637)75.1/81:0.0054570897,((Mycoplasma_mustelae_AF412986:0.0207554093,Mycoplasma_corogypsi_L08054:0.0000021232)85/81:0.0051048316,((Mycoplasma_buteonis_AF412971:0.0213683531,Mycoplasma_gallopavonis_AF412980:0.0000020209)94.7/99:0.0153987683,Mycoplasma_glycophilum_AF412981:0.0000025057)86.6/97:0.0050632267)0/40:0.0000022412)86.6/74:0.0105335036,((Mycoplasma_bovirhinis_AB680687:0.0103628557,(Mycoplasma_canis_AB680678:0.0000029629,Mycoplasma_cynos_AF412978:0.0050950199)79/99:0.0051434886)79.3/84:0.0104933882,Mycoplasma_edwardii_JX843737:0.0000027125)63.8/82:0.0167829004)88.7/96:0.0105732199,(Mycoplasma_aquilae_ATCC_BAA-1896_FM196532:0.0155354903,Mycoplasma_verecundum_AF412989:0.0000021519)95.9/100:0.0156694412)0/62:0.0000022086)97.7/85:0.0273092989)0/33:0.0000021086,(Mycoplasma_anatis_AB680691:0.0242146973,(((Mycoplasma_alligatoris_AF412969:0.0000028088,Mycoplasma_crocodyli_AF412977:0.0103629556)84.9/100:0.0209070146,Mycoplasma_lipofaciens_AF221115:0.0287895909)44.3/60:0.0088344799,Mycoplasma_pullorum_JN935880:0.0204420019)66.5/73:0.0128322789)76.4/80:0.0168960009)0/20:0.0000022763,(Mycoplasma_meleagridis_AB680683:0.0336444123,(Mycoplasma_columbinasale_AF221112:0.0108445186,Mycoplasma_iners_AB680684:0.0159451358)79.6/81:0.0087002457)41.6/31:0.0053847486)95.9/69:0.0199279651,((Mycoplasma_columbinum_AF221113:0.0315200621,Mycoplasma_felifaucium_U15795:0.0156789303)0/20:0.0000022870,Mycoplasma_adleri_U67943:0.0050416836)0/10:0.0000020925)84.5/57:0.0051282698,(Mycoplasma_simbae_U16323:0.0101346731,(Mycoplasma_zalophidermidis_DQ840512:0.0000025912,Mycoplasma_phocirhinis_AF304324:0.0055650018)0/70:0.0000025958)71.5/65:0.0101469187)0/30:0.0000021815,(((Mycoplasma_spermatophilum_AF221119:0.0369528356,(Mycoplasma_caviae_AF221111:0.0000021973,Mycoplasma_fermentans_FJ226565:0.0103709313)94.2/100:0.0154917536)0/46:0.0000025389,((Mycoplasma_bovis_JN644755:0.0000021320,Mycoplasma_primatum_AF221118:0.0102176901)86.5/100:0.0102834011,(Mycoplasma_leopharyngis_U16760:0.0106640691,Mycoplasma_maculosum_AB680679:0.0046907253)86.9/100:0.0111387234)77.4/88:0.0102245321)81.6/68:0.0053665530,Mycoplasma_bovigenitalium_AB680692:0.0000023320)84.3/68:0.0050508297)0/21:0.0000021634,Mycoplasma_californicum_M24582:0.0050446425)76.3/62:0.0052221312,Mycoplasma_opalescens_AF221117:0.0102592224)74.1/66:0.0054479239,(Mycoplasma_sphenisci_AY756171:0.0105965173,Mycoplasma_mucosicanis_AM774638:0.0209030502)75.2/84:0.0052349295)82.5/69:0.0138434707,Mycoplasma_hyopharyngis_U58997:0.0469480375)63.8/78:0.0191723075,Mycoplasma_lipophilum_AB680693:0.0101206934)95.1/99:0.0570033321)94.3/97:0.0565064746)56.4/31:0.0039813252,(Mycoplasma_vulturii_AY191226:0.1600963818,(Mycoplasma_ravipulmonis_Cluster_195:0.0331413621,Mycoplasma_ravipulmonis_Cluster_99:0.1108737082)92.7/100:0.0357792532)91/46:0.0256037516)97.6/99:0.0401499115,(Mycoplasma_zalophi_AF493543:0.0530888133,Mycoplasma_gypis_AF125589:0.0353000290)75.4/82:0.0045219530)92.7/78:0.0226131032,Mycoplasma_hominis_AB680681:0.0066588169)62.5/76:0.0039826596,Mycoplasma_equirhinis_AF125585:0.0053371048)90.9/62:0.0107345132,(Mycoplasma_phocidae_AF304325:0.0213746604,((((((((Mycoplasma_alkalescens_U44764:0.0105523564,Mycoplasma_auris_U67944:0.0053445883)40/84:0.0052727321,Mycoplasma_buccale_AB680682:0.0105481513)0/63:0.0000021404,(Mycoplasma_falconis_AF125591:0.0000028088,Mycoplasma_faucium_AF125590:0.0000028088)0/65:0.0000020626)0/45:0.0000021066,Mycoplasma_salivarium_AB680625:0.0105571756)83.9/75:0.0052355196,(Mycoplasma_arthritidis_AB680690:0.0052324554,Mycoplasma_gateae_U15796:0.0000022249)86.5/99:0.0052292032)0/13:0.0000029938,Mycoplasma_subdolum_AF125588:0.0052291806)0/8:0.0000020353,Mycoplasma_arginini_AF125581:0.0000022113)0/5:0.0000020104,((Mycoplasma_anseris_AF125584:0.0106703286,Mycoplasma_cloacale_AF125592:0.0053293707)78.9/86:0.0051308110,(Mycoplasma_indiense_AF125593:0.0000023360,Mycoplasma_orale_AB680624:0.0000022683)84.3/99:0.0052295030)0/9:0.0000025937)0/43:0.0000021366)15.7/70:0.0105437701)0/18:0.0000021257,Mycoplasma_phocicerebrale_AF304323:0.0000023155)0/33:0.0000021317,(Mycoplasma_neophronis_FR682077:0.0052338661,Mycoplasma_spumans_AB680680:0.0000027836)43.9/95:0.0052334771)82.2/78:0.0339446256,((Mycoplasma_moatsii_AF412984:0.0274757033,(Mycoplasma_sualvi_AF412988:0.0000028088,Cluster_74:0.0000028088)94.1/100:0.0521432629)99.1/100:0.0993066898,Mycoplasma_mobile_M24480:0.0474871693)79.2/99:0.0429159470)99.8/100:0.2545593846)71.3/86:0.1052058288)100/100:0.4325822824)87/93:0.0481367619,((Mycoplasma_gallisepticum_AB680686:0.0000028074,Mycoplasma_imitans_L24103:0.0000028096)100/100:0.0625673918,((Mycoplasma_alvi_FJ655918:0.0000022895,Mycoplasma_pirum_M23940:0.0053116404)0/92:0.0000021151,(Mycoplasma_amphoriforme_AY531655:0.0052677239,Mycoplasma_testudinis_U09788:0.0106543380)92.9/100:0.0165702782)5.9/68:0.0069242161)74/95:0.0134992672)70.1/63:0.0390793394,(Mycoplasma_genitalium_X77334:0.0065119885,Mycoplasma_pneumoniae_AB680604:0.0041312653)94/100:0.0565915195)90.8/94:0.0531942902)71.1/73:0.0318943672)100/100:0.4877443658);
+
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000bootstrap trees
+Log-likelihood of consensus tree: -6414.044457
+Robinson-Foulds distance between ML tree and consensus tree: 64
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
++--Mycoplasma_wenyonii_HM538187
+|
+|  +--Mycoplasma_parvum_str_Indiana_CP006771
++--| (100)
+|  +--Mycoplasma_suis_EU603330
+|
+|                       +--Mycoplasma_haemocanis_str_Illinois_CP003199
+|                    +--| (100)
+|                    |  +--Mycoplasma_haemofelis_EU145745
+|                 +--| (31)
+|                 |  |        +--Mycoplasma_coco_Cluster_41
+|                 |  |     +--| (80)
+|                 |  |     |  +--ASV_M_coccoides_50
+|                 |  |  +--| (99)
+|                 |  |  |  +--ASV_M_coccoides_54
+|                 |  +--| (64)
+|                 |     |              +--Cluster_2703
+|                 |     |           +--| (51)
+|                 |     |           |  |        +--Cluster_4775
+|                 |     |           |  |     +--| (35)
+|                 |     |           |  |     |  +--ASV_M_coccoides_60
+|                 |     |           |  |  +--| (27)
+|                 |     |           |  |  |  |     +--Cluster_7638
+|                 |     |           |  |  |  |  +--| (32)
+|                 |     |           |  |  |  |  |  +--ASV_M_coccoides_64
+|                 |     |           |  |  |  +--| (18)
+|                 |     |           |  |  |     |  +--Mycoplasma_coco_Cluster_5
+|                 |     |           |  |  |     +--| (28)
+|                 |     |           |  |  |        +--ASV_M_coccoides_45
+|                 |     |           |  +--| (32)
+|                 |     |           |     |  +--ASV_M_coccoides_62
+|                 |     |           |     +--| (79)
+|                 |     |           |        +--ASV_M_coccoides_58
+|                 |     |        +--| (29)
+|                 |     |        |  |  +--ASV_M_coccoides_57
+|                 |     |        |  +--| (82)
+|                 |     |        |     +--ASV_M_coccoides_56
+|                 |     |     +--| (20)
+|                 |     |     |  |  +--ASV_M_coccoides_46
+|                 |     |     |  +--| (83)
+|                 |     |     |     +--Cluster_149
+|                 |     |  +--| (52)
+|                 |     |  |  |     +--Mycoplasma_coccoides_AY171918
+|                 |     |  |  |  +--| (70)
+|                 |     |  |  |  |  |     +--ASV_M_coccoides_53
+|                 |     |  |  |  |  |  +--| (97)
+|                 |     |  |  |  |  |  |  |  +--ASV_M_coccoides_55
+|                 |     |  |  |  |  |  |  +--| (90)
+|                 |     |  |  |  |  |  |     |     +**Mycoplasma_coco_Cluster_12
+|                 |     |  |  |  |  |  |     |  +--|
+|                 |     |  |  |  |  |  |     |  |  +**Cluster_24
+|                 |     |  |  |  |  |  |     +--| (82)
+|                 |     |  |  |  |  |  |        +--ASV_M_coccoides_47
+|                 |     |  |  |  |  +--| (83)
+|                 |     |  |  |  |     |        +--Mycoplasma_coco_Cluster_30
+|                 |     |  |  |  |     |     +--| (96)
+|                 |     |  |  |  |     |     |  +--ASV_M_coccoides_49
+|                 |     |  |  |  |     |  +--| (94)
+|                 |     |  |  |  |     |  |  +--ASV_M_coccoides_59
+|                 |     |  |  |  |     +--| (84)
+|                 |     |  |  |  |        |  +--ASV_M_coccoides_51
+|                 |     |  |  |  |        +--| (88)
+|                 |     |  |  |  |           +--ASV_M_coccoides_61
+|                 |     |  |  +--| (64)
+|                 |     |  |     +--ASV_M_coccoides_52
+|                 |     +--| (51)
+|                 |        +--ASV_M_coccoides_63
+|             +---| (100)
+|             |   |     +--Mycoplasma_haemo_Cluster_14
+|             |   |  +--| (100)
+|             |   |  |  +--ASV_M_coccoides_48
+|             |   +--| (57)
+|             |      |                 +--Mycoplasma_haemo_Cluster_10
+|             |      |              +--| (93)
+|             |      |              |  +--ASV_M_haemo_05
+|             |      |           +--| (100)
+|             |      |           |  +--ASV_M_haemo_17
+|             |      |        +--| (100)
+|             |      |        |  |                                   +--ASV_M_haemo_24
+|             |      |        |  |                                +--| (100)
+|             |      |        |  |                                |  |     +--ASV_M_haemo_16
+|             |      |        |  |                                |  |  +--| (99)
+|             |      |        |  |                                |  |  |  +--ASV_M_haemo_18
+|             |      |        |  |                                |  +--| (100)
+|             |      |        |  |                                |     |     +**Mycoplasma_haemo_Cluster_7
+|             |      |        |  |                                |     |  +--|
+|             |      |        |  |                                |     |  |  +**Cluster_68
+|             |      |        |  |                                |     +--| (98)
+|             |      |        |  |                                |        +--ASV_M_haemo_02
+|             |      |        |  |                             +--| (100)
+|             |      |        |  |                             |  +--ASV_M_haemo_29
+|             |      |        |  |                          +--| (100)
+|             |      |        |  |                          |  +--ASV_M_haemo_30
+|             |      |        |  |                       +--| (100)
+|             |      |        |  |                       |  |     +--ASV_M_haemo_23
+|             |      |        |  |                       |  |  +--| (69)
+|             |      |        |  |                       |  |  |  |  +--Mycoplasma_haemo_Cluster_11
+|             |      |        |  |                       |  |  |  +--| (96)
+|             |      |        |  |                       |  |  |     +--ASV_M_haemo_06
+|             |      |        |  |                       |  +--| (92)
+|             |      |        |  |                       |     +--ASV_M_haemo_25
+|             |      |        |  |                    +--| (100)
+|             |      |        |  |                    |  +--ASV_M_haemo_26
+|             |      |        |  |                 +--| (49)
+|             |      |        |  |                 |  +--ASV_M_haemo_19
+|             |      |        |  |              +--| (28)
+|             |      |        |  |              |  +--ASV_M_haemo_08
+|             |      |        |  |           +--| (25)
+|             |      |        |  |           |  |     +**Mycoplasma_haemo_Cluster_6
+|             |      |        |  |           |  |  +--|
+|             |      |        |  |           |  |  |  +**Cluster_52
+|             |      |        |  |           |  +--| (29)
+|             |      |        |  |           |     +--ASV_M_haemo_03
+|             |      |        |  |        +--| (26)
+|             |      |        |  |        |  |  +--ASV_M_haemo_21
+|             |      |        |  |        |  +--| (29)
+|             |      |        |  |        |     +--ASV_M_haemo_27
+|             |      |        |  |     +--| (83)
+|             |      |        |  |     |  +--ASV_M_haemo_20
+|             |      |        |  |  +--| (82)
+|             |      |        |  |  |  +--ASV_M_haemo_12
+|             |      |        |  +--| (81)
+|             |      |        |     |        +--ASV_M_haemo_15
+|             |      |        |     |     +--| (57)
+|             |      |        |     |     |  +--Cluster_644
+|             |      |        |     |  +--| (53)
+|             |      |        |     |  |  +--ASV_M_haemo_09
+|             |      |        |     +--| (81)
+|             |      |        |        +--ASV_M_haemo_22
+|             |      |     +--| (100)
+|             |      |     |  |     +--Mycoplasma_haemomuris_AB758436
+|             |      |     |  |  +--| (98)
+|             |      |     |  |  |  |  +--ASV_M_haemo_13
+|             |      |     |  |  |  +--| (94)
+|             |      |     |  |  |     |  +--ASV_M_haemo_04
+|             |      |     |  |  |     +--| (93)
+|             |      |     |  |  |        +--Cluster_1
+|             |      |     |  +--| (100)
+|             |      |     |     |        +--ASV_M_haemo_10
+|             |      |     |     |     +--| (22)
+|             |      |     |     |     |  +--ASV_M_haemo_14
+|             |      |     |     |  +--| (9)
+|             |      |     |     |  |  +--ASV_M_haemo_31
+|             |      |     |     +--| (70)
+|             |      |     |        |     +--ASV_M_haemo_11
+|             |      |     |        |  +--| (27)
+|             |      |     |        |  |  +--ASV_M_haemo_28
+|             |      |     |        +--| (11)
+|             |      |     |           |     +**Mycoplasma_haemo_Cluster_2
+|             |      |     |           |  +--|
+|             |      |     |           |  |  +**Cluster_3
+|             |      |     |           +--| (28)
+|             |      |     |              +--ASV_M_haemo_01
+|             |      |  +--| (100)
+|             |      |  |  |  +--Mycoplasma_haemo_Cluster_20
+|             |      |  |  +--| (100)
+|             |      |  |     +--ASV_M_haemo_07
+|             |      +--| (97)
+|             |         |     +**Mycoplasma_haemo_Cluster_3
+|             |         |  +--|
+|             |         |  |  +**Cluster_54
+|             |         +--| (100)
+|             |            +--ASV_M_unknown_65
++-------------| (100)
+              |     +--Mycoplasma_insons_Cluster_156
+              |  +--| (77)
+              |  |  |  +--Mycoplasma_insons_EU859974
+              |  |  +--| (80)
+              |  |     |  +--Mycoplasma_cavipharyngis_AF125879
+              |  |     +--| (69)
+              |  |        +--Mycoplasma_fastidiosum_AF125878
+              +--| (73)
+                 |           +--ASV_M_unknown_76
+                 |        +--| (53)
+                 |        |  |              +--Mycoplasma_penetrans_JN935872
+                 |        |  |           +--| (83)
+                 |        |  |           |  +--ASV_M_penetrans_40
+                 |        |  |        +--| (94)
+                 |        |  |        |  +--ASV_M_penetrans_42
+                 |        |  |     +--| (100)
+                 |        |  |     |  |        +**Mycoplasma_penetrans_Cluster_90
+                 |        |  |     |  |     +--|
+                 |        |  |     |  |     |  +**Cluster_191
+                 |        |  |     |  |  +--| (85)
+                 |        |  |     |  |  |  +--ASV_M_penetrans_39
+                 |        |  |     |  +--| (100)
+                 |        |  |     |     +--ASV_M_penetrans_41
+                 |        |  |  +--| (32)
+                 |        |  |  |  +--Mycoplasma_iowae_U29676
+                 |        |  +--| (18)
+                 |        |     |           +--Mycoplasma_microti_AF212859
+                 |        |     |        +--| (100)
+                 |        |     |        |  +--ASV_M_microti_35
+                 |        |     |     +--| (100)
+                 |        |     |     |  +--ASV_M_microti_34
+                 |        |     |  +--| (48)
+                 |        |     |  |  |     +--Mycoplasma_muris_M23939
+                 |        |     |  |  |  +--| (96)
+                 |        |     |  |  |  |  +--ASV_M_muris_37
+                 |        |     |  |  +--| (82)
+                 |        |     |  |     +--ASV_M_muris_38
+                 |        |     +--| (41)
+                 |        |        |  +--ASV_M_microti_36
+                 |        |        +--| (59)
+                 |        |           |     +--Mycoplasma_microti_Cluster_182
+                 |        |           |  +--| (71)
+                 |        |           |  |  +--ASV_M_microti_32
+                 |        |           +--| (100)
+                 |        |              +--ASV_M_microti_33
+                 |     +--| (93)
+                 |     |  |            +------Asteroleplasma
+                 |     |  +------------| (100)
+                 |     |               |               +---------Anaeroplasma
+                 |     |               |           +---| (94)
+                 |     |               |           |   |   +--Phytoplasma
+                 |     |               |           |   +---| (100)
+                 |     |               |           |       +---Acholeplasma
+                 |     |               |        +--| (80)
+                 |     |               |        |  +--Erysipelothrix
+                 |     |               |     +--| (81)
+                 |     |               |     |  |        +----------Escherichia
+                 |     |               |     |  |     +--| (92)
+                 |     |               |     |  |     |  +------Clostridium
+                 |     |               |     |  +-----| (99)
+                 |     |               |     |        +----Bacillus
+                 |     |               |  +--| (79)
+                 |     |               |  |  |  +--Mycoplasma_monodon_AF042194
+                 |     |               |  |  +--| (100)
+                 |     |               |  |     |     +--Mycoplasma_cottewii_JN935874
+                 |     |               |  |     |  +--| (93)
+                 |     |               |  |     |  |  +--Mycoplasma_yeatsii_JN935862
+                 |     |               |  |     +--| (98)
+                 |     |               |  |        |     +--Mycoplasma_mycoides_subsp_capri_U26036
+                 |     |               |  |        |  +--| (98)
+                 |     |               |  |        |  |  +--OTU_Entomoplasmataceae_M_mycoides
+                 |     |               |  |        +--| (61)
+                 |     |               |  |           |  +--Mycoplasma_putrefaciens_U26055
+                 |     |               |  |           +--| (100)
+                 |     |               |  |              +--OTU_Entomoplasmataceae_M_putrefaciens
+                 |     |               +--| (86)
+                 |     |                  |                                 +--Mycoplasma_pulmonis_AB680694
+                 |     |                  |                              +--| (100)
+                 |     |                  |                              |  |  +--ASV_M_lago_43
+                 |     |                  |                              |  +--| (72)
+                 |     |                  |                              |     |              +--Mycoplasma_hyorhinis_AB680688
+                 |     |                  |                              |     |           +--| (100)
+                 |     |                  |                              |     |           |  |     +--Mycoplasma_bovoculi_U44768
+                 |     |                  |                              |     |           |  |  +--| (99)
+                 |     |                  |                              |     |           |  |  |  +--Mycoplasma_conjunctivae_FJ226571
+                 |     |                  |                              |     |           |  +--| (100)
+                 |     |                  |                              |     |           |     |  +--Mycoplasma_ovipneumoniae_EF687778
+                 |     |                  |                              |     |           |     +--| (100)
+                 |     |                  |                              |     |           |        |  +--Mycoplasma_dispar_AF412979
+                 |     |                  |                              |     |           |        +--| (67)
+                 |     |                  |                              |     |           |           |  +--Mycoplasma_flocculare_GU227403
+                 |     |                  |                              |     |           |           +--| (100)
+                 |     |                  |                              |     |           |              +--Mycoplasma_hyopneumoniae_GU227406
+                 |     |                  |                              |     |        +--| (36)
+                 |     |                  |                              |     |        |  |  +--ASV_M_molare_44
+                 |     |                  |                              |     |        |  +--| (100)
+                 |     |                  |                              |     |        |     +--Cluster_4443
+                 |     |                  |                              |     |     +--| (53)
+                 |     |                  |                              |     |     |  |  +--Mycoplasma_collis_AF412974
+                 |     |                  |                              |     |     |  +--| (100)
+                 |     |                  |                              |     |     |     +--Mycoplasma_neurolyticum_AB680668
+                 |     |                  |                              |     |  +--| (77)
+                 |     |                  |                              |     |  |  |  +--Mycoplasma_lagogenitalium_AF412983
+                 |     |                  |                              |     |  |  +--| (98)
+                 |     |                  |                              |     |  |     +--Mycoplasma_molare_AF412985
+                 |     |                  |                              |     +--| (82)
+                 |     |                  |                              |        +--Mycoplasma_iguanae_AY714305
+                 |     |                  |                           +--| (53)
+                 |     |                  |                           |  |  +---Mycoplasma_vulturii_AY191226
+                 |     |                  |                           |  +--| (54)
+                 |     |                  |                           |     |  +--Mycoplasma_agassizii_U09786
+                 |     |                  |                           |     +--| (97)
+                 |     |                  |                           |        +--Mycoplasma_testudineum_U19768
+                 |     |                  |                        +--| (30)
+                 |     |                  |                        |  |     +--Mycoplasma_elephantis_AF221121
+                 |     |                  |                        |  |  +--| (100)
+                 |     |                  |                        |  |  |  +--Mycoplasma_equigenitalium_AF221120
+                 |     |                  |                        |  +--| (97)
+                 |     |                  |                        |     |                                            +--Mycoplasma_sturni_U22013
+                 |     |                  |                        |     |                                         +--| (39)
+                 |     |                  |                        |     |                                         |  +--Mycoplasma_citelli_AF412973
+                 |     |                  |                        |     |                                      +--| (40)
+                 |     |                  |                        |     |                                      |  +--Mycoplasma_columborale_AF412975
+                 |     |                  |                        |     |                                   +--| (97)
+                 |     |                  |                        |     |                                   |  |  +--Mycoplasma_cricetuli_EF036469
+                 |     |                  |                        |     |                                   |  +--| (94)
+                 |     |                  |                        |     |                                   |     +--Mycoplasma_oxoniensis_AF412987
+                 |     |                  |                        |     |                                +--| (44)
+                 |     |                  |                        |     |                                |  |  +--Mycoplasma_meleagridis_AB680683
+                 |     |                  |                        |     |                                |  +--| (43)
+                 |     |                  |                        |     |                                |     |     +--Mycoplasma_synoviae_X52083
+                 |     |                  |                        |     |                                |     |  +--| (90)
+                 |     |                  |                        |     |                                |     |  |  +--Mycoplasma_gallinaceum_JN935878
+                 |     |                  |                        |     |                                |     +--| (85)
+                 |     |                  |                        |     |                                |        |           +--Mycoplasma_leonicaptivi_U16759
+                 |     |                  |                        |     |                                |        |        +--| (81)
+                 |     |                  |                        |     |                                |        |        |  +--Mycoplasma_felis_U09787
+                 |     |                  |                        |     |                                |        |     +--| (74)
+                 |     |                  |                        |     |                                |        |     |  |     +--Mycoplasma_mustelae_AF412986
+                 |     |                  |                        |     |                                |        |     |  |  +--| (81)
+                 |     |                  |                        |     |                                |        |     |  |  |  +--Mycoplasma_corogypsi_L08054
+                 |     |                  |                        |     |                                |        |     |  +--| (40)
+                 |     |                  |                        |     |                                |        |     |     |     +--Mycoplasma_buteonis_AF412971
+                 |     |                  |                        |     |                                |        |     |     |  +--| (99)
+                 |     |                  |                        |     |                                |        |     |     |  |  +--Mycoplasma_gallopavonis_AF412980
+                 |     |                  |                        |     |                                |        |     |     +--| (97)
+                 |     |                  |                        |     |                                |        |     |        +--Mycoplasma_glycophilum_AF412981
+                 |     |                  |                        |     |                                |        |  +--| (96)
+                 |     |                  |                        |     |                                |        |  |  |     +--Mycoplasma_bovirhinis_AB680687
+                 |     |                  |                        |     |                                |        |  |  |  +--| (84)
+                 |     |                  |                        |     |                                |        |  |  |  |  |  +--Mycoplasma_canis_AB680678
+                 |     |                  |                        |     |                                |        |  |  |  |  +--| (99)
+                 |     |                  |                        |     |                                |        |  |  |  |     +--Mycoplasma_cynos_AF412978
+                 |     |                  |                        |     |                                |        |  |  +--| (82)
+                 |     |                  |                        |     |                                |        |  |     +--Mycoplasma_edwardii_JX843737
+                 |     |                  |                        |     |                                |        +--| (62)
+                 |     |                  |                        |     |                                |           |  +--Mycoplasma_aquilae_ATCC_BAA-1896_FM196532
+                 |     |                  |                        |     |                                |           +--| (100)
+                 |     |                  |                        |     |                                |              +--Mycoplasma_verecundum_AF412989
+                 |     |                  |                        |     |                             +--| (69)
+                 |     |                  |                        |     |                             |  |     +--Mycoplasma_anatis_AB680691
+                 |     |                  |                        |     |                             |  |  +--| (80)
+                 |     |                  |                        |     |                             |  |  |  |        +--Mycoplasma_alligatoris_AF412969
+                 |     |                  |                        |     |                             |  |  |  |     +--| (100)
+                 |     |                  |                        |     |                             |  |  |  |     |  +--Mycoplasma_crocodyli_AF412977
+                 |     |                  |                        |     |                             |  |  |  |  +--| (60)
+                 |     |                  |                        |     |                             |  |  |  |  |  +--Mycoplasma_lipofaciens_AF221115
+                 |     |                  |                        |     |                             |  |  |  +--| (73)
+                 |     |                  |                        |     |                             |  |  |     +--Mycoplasma_pullorum_JN935880
+                 |     |                  |                        |     |                             |  +--| (36)
+                 |     |                  |                        |     |                             |     |  +--Mycoplasma_columbinasale_AF221112
+                 |     |                  |                        |     |                             |     +--| (81)
+                 |     |                  |                        |     |                             |        +--Mycoplasma_iners_AB680684
+                 |     |                  |                        |     |                          +--| (45)
+                 |     |                  |                        |     |                          |  +--Mycoplasma_columbinum_AF221113
+                 |     |                  |                        |     |                       +--| (36)
+                 |     |                  |                        |     |                       |  +--Mycoplasma_felifaucium_U15795
+                 |     |                  |                        |     |                    +--| (57)
+                 |     |                  |                        |     |                    |  +--Mycoplasma_adleri_U67943
+                 |     |                  |                        |     |                 +--| (30)
+                 |     |                  |                        |     |                 |  |  +--Mycoplasma_simbae_U16323
+                 |     |                  |                        |     |                 |  +--| (65)
+                 |     |                  |                        |     |                 |     |  +--Mycoplasma_zalophidermidis_DQ840512
+                 |     |                  |                        |     |                 |     +--| (70)
+                 |     |                  |                        |     |                 |        +--Mycoplasma_phocirhinis_AF304324
+                 |     |                  |                        |     |              +--| (24)
+                 |     |                  |                        |     |              |  +--Mycoplasma_californicum_M24582
+                 |     |                  |                        |     |           +--| (62)
+                 |     |                  |                        |     |           |  |        +--Mycoplasma_spermatophilum_AF221119
+                 |     |                  |                        |     |           |  |     +--| (46)
+                 |     |                  |                        |     |           |  |     |  |  +--Mycoplasma_caviae_AF221111
+                 |     |                  |                        |     |           |  |     |  +--| (100)
+                 |     |                  |                        |     |           |  |     |     +--Mycoplasma_fermentans_FJ226565
+                 |     |                  |                        |     |           |  |  +--| (68)
+                 |     |                  |                        |     |           |  |  |  |     +--Mycoplasma_bovis_JN644755
+                 |     |                  |                        |     |           |  |  |  |  +--| (100)
+                 |     |                  |                        |     |           |  |  |  |  |  +--Mycoplasma_primatum_AF221118
+                 |     |                  |                        |     |           |  |  |  +--| (88)
+                 |     |                  |                        |     |           |  |  |     |  +--Mycoplasma_leopharyngis_U16760
+                 |     |                  |                        |     |           |  |  |     +--| (100)
+                 |     |                  |                        |     |           |  |  |        +--Mycoplasma_maculosum_AB680679
+                 |     |                  |                        |     |           |  +--| (68)
+                 |     |                  |                        |     |           |     +--Mycoplasma_bovigenitalium_AB680692
+                 |     |                  |                        |     |        +--| (66)
+                 |     |                  |                        |     |        |  +--Mycoplasma_opalescens_AF221117
+                 |     |                  |                        |     |     +--| (69)
+                 |     |                  |                        |     |     |  |  +--Mycoplasma_sphenisci_AY756171
+                 |     |                  |                        |     |     |  +--| (84)
+                 |     |                  |                        |     |     |     +--Mycoplasma_mucosicanis_AM774638
+                 |     |                  |                        |     |  +--| (78)
+                 |     |                  |                        |     |  |  +--Mycoplasma_hyopharyngis_U58997
+                 |     |                  |                        |     +--| (99)
+                 |     |                  |                        |        +--Mycoplasma_lipophilum_AB680693
+                 |     |                  |                     +--| (99)
+                 |     |                  |                     |  |  +--Mycoplasma_ravipulmonis_Cluster_195
+                 |     |                  |                     |  +--| (100)
+                 |     |                  |                     |     +--Mycoplasma_ravipulmonis_Cluster_99
+                 |     |                  |                  +--| (78)
+                 |     |                  |                  |  |  +--Mycoplasma_zalophi_AF493543
+                 |     |                  |                  |  +--| (82)
+                 |     |                  |                  |     +--Mycoplasma_gypis_AF125589
+                 |     |                  |               +--| (76)
+                 |     |                  |               |  +--Mycoplasma_hominis_AB680681
+                 |     |                  |            +--| (62)
+                 |     |                  |            |  +--Mycoplasma_equirhinis_AF125585
+                 |     |                  |         +--| (33)
+                 |     |                  |         |  |     +--Mycoplasma_phocidae_AF304325
+                 |     |                  |         |  |  +--| (70)
+                 |     |                  |         |  |  |  |                          +--Mycoplasma_alkalescens_U44764
+                 |     |                  |         |  |  |  |                       +--| (84)
+                 |     |                  |         |  |  |  |                       |  +--Mycoplasma_auris_U67944
+                 |     |                  |         |  |  |  |                    +--| (63)
+                 |     |                  |         |  |  |  |                    |  +--Mycoplasma_buccale_AB680682
+                 |     |                  |         |  |  |  |                 +--| (45)
+                 |     |                  |         |  |  |  |                 |  |     +**Mycoplasma_falconis_AF125591
+                 |     |                  |         |  |  |  |                 |  |  +--|
+                 |     |                  |         |  |  |  |                 |  |  |  +**Mycoplasma_hyosynoviae_JFKH01000034
+                 |     |                  |         |  |  |  |                 |  +--| (65)
+                 |     |                  |         |  |  |  |                 |     +--Mycoplasma_faucium_AF125590
+                 |     |                  |         |  |  |  |              +--| (75)
+                 |     |                  |         |  |  |  |              |  +--Mycoplasma_salivarium_AB680625
+                 |     |                  |         |  |  |  |           +--| (15)
+                 |     |                  |         |  |  |  |           |  +--Mycoplasma_subdolum_AF125588
+                 |     |                  |         |  |  |  |        +--| (8)
+                 |     |                  |         |  |  |  |        |  |  +--Mycoplasma_arthritidis_AB680690
+                 |     |                  |         |  |  |  |        |  +--| (99)
+                 |     |                  |         |  |  |  |        |     +--Mycoplasma_gateae_U15796
+                 |     |                  |         |  |  |  |     +--| (9)
+                 |     |                  |         |  |  |  |     |  |  +--Mycoplasma_indiense_AF125593
+                 |     |                  |         |  |  |  |     |  +--| (99)
+                 |     |                  |         |  |  |  |     |     +--Mycoplasma_orale_AB680624
+                 |     |                  |         |  |  |  |  +--| (16)
+                 |     |                  |         |  |  |  |  |  +--Mycoplasma_arginini_AF125581
+                 |     |                  |         |  |  |  +--| (43)
+                 |     |                  |         |  |  |     |  +--Mycoplasma_anseris_AF125584
+                 |     |                  |         |  |  |     +--| (86)
+                 |     |                  |         |  |  |        +--Mycoplasma_cloacale_AF125592
+                 |     |                  |         |  +--| (19)
+                 |     |                  |         |     +--Mycoplasma_phocicerebrale_AF304323
+                 |     |                  |      +--| (78)
+                 |     |                  |      |  |  +--Mycoplasma_neophronis_FR682077
+                 |     |                  |      |  +--| (95)
+                 |     |                  |      |     +--Mycoplasma_spumans_AB680680
+                 |     |                  +------| (100)
+                 |     |                         |     +--Mycoplasma_moatsii_AF412984
+                 |     |                         |  +--| (100)
+                 |     |                         |  |  |  +--Mycoplasma_sualvi_AF412988
+                 |     |                         |  |  +--| (100)
+                 |     |                         |  |     +--Cluster_74
+                 |     |                         +--| (99)
+                 |     |                            +--Mycoplasma_mobile_M24480
+                 |  +--| (63)
+                 |  |  |     +--Mycoplasma_gallisepticum_AB680686
+                 |  |  |  +--| (100)
+                 |  |  |  |  +--Mycoplasma_imitans_L24103
+                 |  |  +--| (95)
+                 |  |     |     +--Mycoplasma_alvi_FJ655918
+                 |  |     |  +--| (92)
+                 |  |     |  |  +--Mycoplasma_pirum_M23940
+                 |  |     +--| (68)
+                 |  |        |  +--Mycoplasma_amphoriforme_AY531655
+                 |  |        +--| (100)
+                 |  |           +--Mycoplasma_testudinis_U09788
+                 +--| (94)
+                    |  +--Mycoplasma_genitalium_X77334
+                    +--| (100)
+                       +--Mycoplasma_pneumoniae_AB680604
+
+
+Consensus tree in newick format: 
+
+(Mycoplasma_wenyonii_HM538187:0.1045457115,(Mycoplasma_parvum_str_Indiana_CP006771:0.0122984838,Mycoplasma_suis_EU603330:0.0695661936)100:0.1115244277,((((Mycoplasma_haemocanis_str_Illinois_CP003199:0.0052439712,Mycoplasma_haemofelis_EU145745:0.0000027794)100:0.1230184602,(((Mycoplasma_coco_Cluster_41:0.0000027794,ASV_M_coccoides_50:0.0000027794)80:0.0000027794,ASV_M_coccoides_54:0.0052808605)99:0.0271756207,(((((Cluster_2703:0.0158918160,(((Cluster_4775:0.0104754148,ASV_M_coccoides_60:0.0052022685)35:0.0000027794,((Cluster_7638:0.0104766154,ASV_M_coccoides_64:0.0052011006)32:0.0000027794,(Mycoplasma_coco_Cluster_5:0.0000027794,ASV_M_coccoides_45:0.0000027794)28:0.0000027794)18:0.0000027794)27:0.0000027794,(ASV_M_coccoides_62:0.0052268501,ASV_M_coccoides_58:0.0000027794)79:0.0052642539)32:0.0000027794)51:0.0052101792,(ASV_M_coccoides_57:0.0052096393,ASV_M_coccoides_56:0.0000027794)82:0.0052153590)29:0.0000027076,(ASV_M_coccoides_46:0.0000027794,Cluster_149:0.0000027794)83:0.0000027794)20:0.0000027794,((Mycoplasma_coccoides_AY171918:0.0000027794,((ASV_M_coccoides_53:0.0052236197,(ASV_M_coccoides_55:0.0052925234,((Mycoplasma_coco_Cluster_12:0.0000000000,Cluster_24:0.0000000000):0.0000027794,ASV_M_coccoides_47:0.0000027794)82:0.0000027794)90:0.0000027794)97:0.0083504926,(((Mycoplasma_coco_Cluster_30:0.0000027794,ASV_M_coccoides_49:0.0000027794)96:0.0000027794,ASV_M_coccoides_59:0.0052846973)94:0.0105388267,(ASV_M_coccoides_51:0.0000027794,ASV_M_coccoides_61:0.0053029324)88:0.0000027794)84:0.0184538958)83:0.0219601381)70:0.0052262621,ASV_M_coccoides_52:0.0000027794)64:0.0052224597)52:0.0052184246,ASV_M_coccoides_63:0.0000027794)51:0.0052191570)64:0.0097214798)31:0.0000021088,((Mycoplasma_haemo_Cluster_14:0.0000027794,ASV_M_coccoides_48:0.0000027794)100:0.0787085979,((((((Mycoplasma_haemo_Cluster_10:0.0000027794,ASV_M_haemo_05:0.0000027794)93:0.0000027794,ASV_M_haemo_17:0.0053248393)100:0.0739276586,((((((((((((ASV_M_haemo_24:0.0158519843,((ASV_M_haemo_16:0.0052144417,ASV_M_haemo_18:0.0052779180)99:0.0000027794,((Mycoplasma_haemo_Cluster_7:0.0000000000,Cluster_68:0.0000000000):0.0000027794,ASV_M_haemo_02:0.0000027794)98:0.0000027794)100:0.0052178927)100:0.0052927450,ASV_M_haemo_29:0.0000027794)100:0.0052245847,ASV_M_haemo_30:0.0000027794)100:0.0628543976,((ASV_M_haemo_23:0.0052737852,(Mycoplasma_haemo_Cluster_11:0.0000027794,ASV_M_haemo_06:0.0000027794)96:0.0000027794)69:0.0000027794,ASV_M_haemo_25:0.0052104141)92:0.0111892621)100:0.0105467682,ASV_M_haemo_26:0.0218503165)100:0.0303117974,ASV_M_haemo_19:0.0052872031)49:0.0000027794,ASV_M_haemo_08:0.0052342111)28:0.0000027794,((Mycoplasma_haemo_Cluster_6:0.0000000000,Cluster_52:0.0000000000):0.0000027794,ASV_M_haemo_03:0.0000027794)29:0.0000027794)25:0.0000027794,(ASV_M_haemo_21:0.0052705077,ASV_M_haemo_27:0.0052235343)29:0.0000027794)26:0.0000027794,ASV_M_haemo_20:0.0052818741)83:0.0053433105,ASV_M_haemo_12:0.0107309107)82:0.0052902569,(((ASV_M_haemo_15:0.0052478968,Cluster_644:0.0052524817)57:0.0000027794,ASV_M_haemo_09:0.0000027794)53:0.0000027794,ASV_M_haemo_22:0.0052491787)81:0.0000027794)81:0.0083741317)100:0.0122820273,((Mycoplasma_haemomuris_AB758436:0.0052526101,(ASV_M_haemo_13:0.0053176977,(ASV_M_haemo_04:0.0000027794,Cluster_1:0.0000027794)93:0.0000027794)94:0.0000027794)98:0.0105753378,(((ASV_M_haemo_10:0.0052898357,ASV_M_haemo_14:0.0053066861)22:0.0000027794,ASV_M_haemo_31:0.0052413733)9:0.0000027794,((ASV_M_haemo_11:0.0052425250,ASV_M_haemo_28:0.0052459436)27:0.0000027794,((Mycoplasma_haemo_Cluster_2:0.0000000000,Cluster_3:0.0000000000):0.0000027794,ASV_M_haemo_01:0.0000027794)28:0.0000027794)11:0.0000027794)70:0.0000027794)100:0.0366421433)100:0.0215976878,(Mycoplasma_haemo_Cluster_20:0.0000027794,ASV_M_haemo_07:0.0000027794)100:0.0375267505)100:0.0266781408,((Mycoplasma_haemo_Cluster_3:0.0000000000,Cluster_54:0.0000000000):0.0000027794,ASV_M_unknown_65:0.0000027794)100:0.0401002219)97:0.0093587987)57:0.0495831395)100:0.1391203385,((Mycoplasma_insons_Cluster_156:0.0108666207,(Mycoplasma_insons_EU859974:0.0371362269,(Mycoplasma_cavipharyngis_AF125879:0.0190463958,Mycoplasma_fastidiosum_AF125878:0.0137728648)69:0.0172621217)80:0.0073045808)77:0.0691045723,((((ASV_M_unknown_76:0.1003532214,(((((Mycoplasma_penetrans_JN935872:0.0000027794,ASV_M_penetrans_40:0.0000027794)83:0.0000027794,ASV_M_penetrans_42:0.0052656365)94:0.0053464675,(((Mycoplasma_penetrans_Cluster_90:0.0000000000,Cluster_191:0.0000000000):0.0000027794,ASV_M_penetrans_39:0.0000027794)85:0.0000027794,ASV_M_penetrans_41:0.0052294287)100:0.0052039353)100:0.0572743211,Mycoplasma_iowae_U29676:0.0466849354)32:0.0000023413,((((Mycoplasma_microti_AF212859:0.0000027794,ASV_M_microti_35:0.0000027794)100:0.0052764635,ASV_M_microti_34:0.0000027794)100:0.0441659425,((Mycoplasma_muris_M23939:0.0000027794,ASV_M_muris_37:0.0000027794)96:0.0053531145,ASV_M_muris_38:0.0051890781)82:0.0060614174)48:0.0055590105,(ASV_M_microti_36:0.0000027794,((Mycoplasma_microti_Cluster_182:0.0000027794,ASV_M_microti_32:0.0000027794)71:0.0000027794,ASV_M_microti_33:0.0052028619)100:0.0212736996)59:0.0318119007)41:0.0057582968)18:0.0000027549)53:0.0189860301,(Asteroleplasma:0.2457701742,(((((Anaeroplasma:0.3454519898,(Phytoplasma:0.0344418738,Acholeplasma:0.1305887609)100:0.1304947375)94:0.1312717759,Erysipelothrix:0.0945749010)80:0.0573517499,((Escherichia:0.3647821004,Clostridium:0.2395120690)92:0.0794897919,Bacillus:0.1626732755)99:0.2010978377)81:0.0426261481,(Mycoplasma_monodon_AF042194:0.0667659044,((Mycoplasma_cottewii_JN935874:0.0000027794,Mycoplasma_yeatsii_JN935862:0.0000027794)93:0.0000027794,((Mycoplasma_mycoides_subsp_capri_U26036:0.0000027794,OTU_Entomoplasmataceae_M_mycoides:0.0000027794)98:0.0053762980,(Mycoplasma_putrefaciens_U26055:0.0000027794,OTU_Entomoplasmataceae_M_putrefaciens:0.0000027794)100:0.0163788157)61:0.0051637593)98:0.0180323680)100:0.0966305130)79:0.0234578604,((((((((((Mycoplasma_pulmonis_AB680694:0.0861742401,(ASV_M_lago_43:0.1100622578,(((((Mycoplasma_hyorhinis_AB680688:0.0042421006,((Mycoplasma_bovoculi_U44768:0.0101269790,Mycoplasma_conjunctivae_FJ226571:0.0081116441)99:0.0119297765,(Mycoplasma_ovipneumoniae_EF687778:0.0207220826,(Mycoplasma_dispar_AF412979:0.0000027794,(Mycoplasma_flocculare_GU227403:0.0103083607,Mycoplasma_hyopneumoniae_GU227406:0.0049989240)100:0.0103025707)67:0.0000027794)100:0.0114916857)100:0.0469230625)100:0.0739344362,(ASV_M_molare_44:0.0000027794,Cluster_4443:0.0000027794)100:0.0697220864)36:0.0000021332,(Mycoplasma_collis_AF412974:0.0206556324,Mycoplasma_neurolyticum_AB680668:0.0000027794)100:0.0448417062)53:0.0095143154,(Mycoplasma_lagogenitalium_AF412983:0.0051098126,Mycoplasma_molare_AF412985:0.0000024576)98:0.0127037958)77:0.0218035591,Mycoplasma_iguanae_AY714305:0.0267586163)82:0.0312096893)72:0.0031378434)100:0.0583992296,(Mycoplasma_vulturii_AY191226:0.1438824996,(Mycoplasma_agassizii_U09786:0.0579499813,Mycoplasma_testudineum_U19768:0.0500067606)97:0.0279936631)54:0.0255441588)53:0.0277267006,((Mycoplasma_elephantis_AF221121:0.0052261646,Mycoplasma_equigenitalium_AF221120:0.0000027794)100:0.0550544039,(((((((((((((((Mycoplasma_sturni_U22013:0.0553028586,Mycoplasma_citelli_AF412973:0.0152479746)39:0.0000027794,Mycoplasma_columborale_AF412975:0.0000027794)40:0.0000023413,(Mycoplasma_cricetuli_EF036469:0.0101029798,Mycoplasma_oxoniensis_AF412987:0.0000027794)94:0.0205223627)97:0.0388540501,(Mycoplasma_meleagridis_AB680683:0.0343743435,((Mycoplasma_synoviae_X52083:0.0282873727,Mycoplasma_gallinaceum_JN935878:0.0216931241)90:0.0258124211,((((Mycoplasma_leonicaptivi_U16759:0.0321129404,Mycoplasma_felis_U09787:0.0151144686)81:0.0054300280,((Mycoplasma_mustelae_AF412986:0.0206447313,Mycoplasma_corogypsi_L08054:0.0000027794)81:0.0050782389,((Mycoplasma_buteonis_AF412971:0.0212630817,Mycoplasma_gallopavonis_AF412980:0.0000027794)99:0.0153176088,Mycoplasma_glycophilum_AF412981:0.0000027794)97:0.0050370376)40:0.0000027794)74:0.0104886839,((Mycoplasma_bovirhinis_AB680687:0.0103089695,(Mycoplasma_canis_AB680678:0.0000027794,Mycoplasma_cynos_AF412978:0.0050686538)99:0.0051160999)84:0.0104383620,Mycoplasma_edwardii_JX843737:0.0000020087)82:0.0166912575)96:0.0105033964,(Mycoplasma_aquilae_ATCC_BAA-1896_FM196532:0.0154533526,Mycoplasma_verecundum_AF412989:0.0000027794)100:0.0155839936)62:0.0000027840)85:0.0229837234)43:0.0031603575)44:0.0048112444,((Mycoplasma_anatis_AB680691:0.0273175806,(((Mycoplasma_alligatoris_AF412969:0.0000027794,Mycoplasma_crocodyli_AF412977:0.0103144054)100:0.0251394226,Mycoplasma_lipofaciens_AF221115:0.0244904062)60:0.0046064427,Mycoplasma_pullorum_JN935880:0.0222452762)73:0.0117194679)80:0.0124918429,(Mycoplasma_columbinasale_AF221112:0.0104985106,Mycoplasma_iners_AB680684:0.0154943290)81:0.0058401663)36:0.0047442314)69:0.0162460031,Mycoplasma_columbinum_AF221113:0.0313511007)45:0.0000027840,Mycoplasma_felifaucium_U15795:0.0155963627)36:0.0000027794,Mycoplasma_adleri_U67943:0.0050154712)57:0.0000027840,(Mycoplasma_simbae_U16323:0.0050796447,(Mycoplasma_zalophidermidis_DQ840512:0.0000027794,Mycoplasma_phocirhinis_AF304324:0.0055362626)70:0.0050793617)65:0.0102317910)30:0.0051005341,Mycoplasma_californicum_M24582:0.0050195190)24:0.0000027794,(((Mycoplasma_spermatophilum_AF221119:0.0367544660,(Mycoplasma_caviae_AF221111:0.0000027794,Mycoplasma_fermentans_FJ226565:0.0103172717)100:0.0154100129)46:0.0000027794,((Mycoplasma_bovis_JN644755:0.0000027794,Mycoplasma_primatum_AF221118:0.0101651931)100:0.0102314627,(Mycoplasma_leopharyngis_U16760:0.0106075506,Mycoplasma_maculosum_AB680679:0.0046692130)100:0.0110804708)88:0.0101700772)68:0.0053401243,Mycoplasma_bovigenitalium_AB680692:0.0000027794)68:0.0050266500)62:0.0052066882,Mycoplasma_opalescens_AF221117:0.0102003506)66:0.0054167190,(Mycoplasma_sphenisci_AY756171:0.0105346543,Mycoplasma_mucosicanis_AM774638:0.0207996423)84:0.0052109731)69:0.0136395385,Mycoplasma_hyopharyngis_U58997:0.0467897044)78:0.0190883951,Mycoplasma_lipophilum_AB680693:0.0102078314)99:0.0550733145)97:0.0587294665)30:0.0000023413,(Mycoplasma_ravipulmonis_Cluster_195:0.0315660756,Mycoplasma_ravipulmonis_Cluster_99:0.1116168135)100:0.0633305877)99:0.0395923097,(Mycoplasma_zalophi_AF493543:0.0530145472,Mycoplasma_gypis_AF125589:0.0349416286)82:0.0045681028)78:0.0225603114,Mycoplasma_hominis_AB680681:0.0065179892)76:0.0040790819,Mycoplasma_equirhinis_AF125585:0.0053091823)62:0.0106820146,((Mycoplasma_phocidae_AF304325:0.0212650892,(((((((((Mycoplasma_alkalescens_U44764:0.0105015243,Mycoplasma_auris_U67944:0.0053206235)84:0.0052481363,Mycoplasma_buccale_AB680682:0.0104954167)63:0.0000027794,((Mycoplasma_falconis_AF125591:0.0000000000,Mycoplasma_hyosynoviae_JFKH01000034:0.0000000000):0.0000027794,Mycoplasma_faucium_AF125590:0.0000027794)65:0.0000027794)45:0.0000027794,Mycoplasma_salivarium_AB680625:0.0105044243)75:0.0052096102,Mycoplasma_subdolum_AF125588:0.0052033492)15:0.0000027794,(Mycoplasma_arthritidis_AB680690:0.0052066031,Mycoplasma_gateae_U15796:0.0000027794)99:0.0052033282)8:0.0000027794,(Mycoplasma_indiense_AF125593:0.0000027794,Mycoplasma_orale_AB680624:0.0000027794)99:0.0052038047)9:0.0000027794,Mycoplasma_arginini_AF125581:0.0000027794)16:0.0000027794,(Mycoplasma_anseris_AF125584:0.0106150163,Mycoplasma_cloacale_AF125592:0.0053037224)86:0.0051077852)43:0.0000027794)70:0.0104908873,Mycoplasma_phocicerebrale_AF304323:0.0000027794)19:0.0000027794)33:0.0000027794,(Mycoplasma_neophronis_FR682077:0.0052080135,Mycoplasma_spumans_AB680680:0.0000027794)95:0.0052073964)78:0.0328229810,((Mycoplasma_moatsii_AF412984:0.0269461173,(Mycoplasma_sualvi_AF412988:0.0000027794,Cluster_74:0.0000027794)100:0.0523104155)100:0.0980717694,Mycoplasma_mobile_M24480:0.0473279425)99:0.0432218095)100:0.2495126734)86:0.1096918208)100:0.4298061199)93:0.0508479046,((Mycoplasma_gallisepticum_AB680686:0.0000027794,Mycoplasma_imitans_L24103:0.0000027794)100:0.0624046057,((Mycoplasma_alvi_FJ655918:0.0000027794,Mycoplasma_pirum_M23940:0.0052882799)92:0.0000027840,(Mycoplasma_amphoriforme_AY531655:0.0052459393,Mycoplasma_testudinis_U09788:0.0106066212)100:0.0164953251)68:0.0068565375)95:0.0115123065)63:0.0405985549,(Mycoplasma_genitalium_X77334:0.0066339882,Mycoplasma_pneumoniae_AB680604:0.0039709684)100:0.0546383149)94:0.0522255776)73:0.0417899842)100:0.4741473809);
+
+TIME STAMP
+----------
+
+Date and time: Fri Mar 29 18:09:38 2024
+Total CPU time used: 480.347507 seconds (0h:8m:0s)
+Total wall-clock time used: 483.292582 seconds (0h:8m:3s)
+
