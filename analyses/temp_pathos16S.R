@@ -475,7 +475,7 @@ summary(m_mycoplasmacoco_r)
 
 ### Model : Bartonella ----
 m_barto_r <- lme4::glmer(
-  formula = Bartonella ~ broadleaved_status * connectivity + code_mission + poids + sexe +(1|numero_ligne),
+  formula = Bartonella ~ broadleaved_status + code_mission + poids + sexe +(1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -499,8 +499,6 @@ DHARMa::simulateResiduals(m_barto_r, n = 250, refit = F, integerResponse = NULL,
 
 drop1(m_barto_r,.~.,test="Chisq")
 summary(m_barto_r)
-
-
 
 
 
