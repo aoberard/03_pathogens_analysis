@@ -371,7 +371,7 @@ envticks_processed %>%
 
 ### GLMMs 
 
-# Making data frame for glm model /!\ spring 2023 only for poster EWDA
+# Making data frame for glm model /!\ spring 2023 only for poster EWDA -normally should put interaction between type and code_mission
 dglm_environment_tick <- envticks_processed %>%
   filter(code_mission == "Juin 2023")
 

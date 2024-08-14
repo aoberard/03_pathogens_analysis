@@ -29,6 +29,9 @@ count_summary <- function(x) {
   return(data.frame(y = max(x) + 0.5, label = paste0("n = ", length(x))))
 }
 
+count_summary2 <- function(x, y_position = max(x) + 0.5) {
+  return(data.frame(y = y_position, label = paste0("n = ", length(x))))
+}
 
 
 # GENERATE DATA ----
@@ -304,7 +307,25 @@ pp_prevalence %>%
          color = guide_legend(title = "Type de ligne")) +
   theme_minimal()
 
-  
+pp_prevalence %>%  
+  filter(!pathos %in% c("Siphonaptera", "Ixodida")) %>%
+  ggplot(aes(x = prevalence, y = pathos, fill = line_type)) +
+  geom_boxplot(position = position_dodge(0.8), width = 0.6, alpha = 0.6) +
+  geom_jitter(aes(color = line_type), 
+              position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.8), 
+              size = 1.5, alpha = 0.8) + 
+  scale_fill_manual(values = type_palette) +
+  scale_color_manual(values = type_palette) + 
+  labs(x = "Prevalence par ligne de piegeage", y = "Pathogènes") +
+  guides(fill = guide_legend(title = "Type de ligne"), 
+         color = guide_legend(title = "Type de ligne")) +
+  theme_minimal() +
+  stat_summary(fun.data = count_summary, 
+               aes(group = line_type),
+               geom = "text", 
+               position = position_dodge(0.8),
+               color = "black", 
+               size = 3)
 
 
 # test neoehrlichia
@@ -317,7 +338,14 @@ pp_prevalence %>%
   scale_fill_manual(values = brd_palette) +
   labs(x = "Prevalence par ligne de piegeage", y = "Broadleaved Status") +
   guides(fill = guide_legend(title = "Broadleaved Status")) +
-  theme_minimal()
+  theme_minimal() +
+  stat_summary(fun.data = count_summary, 
+               aes(group = line_type),
+               geom = "text", 
+               position = position_dodge(0.8),
+               color = "black", 
+               size = 3)
+  
 
 
 pp_prevalence %>%  
@@ -562,8 +590,7 @@ em$contrasts
 
 plot(em, comparisons = TRUE)
 
-
-### arefaire car pas poisson + dataframe a changer car mulot ciblé |Model : Pathogen number  ----
+###Model : Pathogen Richnesse  ----
 m_pathnumber_r <- lme4::glmer(
   formula = number_pathos ~ broadleaved_status * connectivity + code_mission + poids  + sexe +(1|numero_ligne),
   family = poisson(link = "log"),
@@ -578,7 +605,6 @@ DHARMa::simulateResiduals(m_pathnumber_r, n = 250, refit = F, integerResponse = 
 SelectionModels<- MuMIn::dredge(m_pathnumber_r, rank = "AICc")              
 TopModels<-subset(SelectionModels, delta<2)
 TopModels
-
 
 
 m_pathnumber_r <- lme4::glmer(
@@ -598,7 +624,7 @@ drop1(m_pathnumber_r,.~.,test="Chisq")
 summary(m_pathnumber_r)
 
 
-
+# ANALYSIS (NOT ONLY ON APODEMUS) ----
 
 ### Model : Parasite Diversity for all rodents  ----
 
@@ -654,7 +680,7 @@ m_richness_zip <-pscl::zeroinfl(richness ~ connectivity,
 summary(m_richness_zip)
 drop1(m_richness_zip,.~.,test="Chisq")
 
-## Graph making heatmap matrix ----
+## Heatmap matrix ----
 
 # Prevalence matrix calculation (all rodents)
 #for line_treatment
@@ -735,28 +761,5 @@ ComplexHeatmap::Heatmap(matrix_pathoss,
                         row_order = graph_sequence,
                         right_annotation = row_ha,  
 ) 
-
-
-
-
-
-
-
-# BARTONELLA RPOB ----
-filerpobtempo <- data.table::fread(file = here::here( "data","raw-data/","rpob_run01","20240325.nobim_corrected.txt"))
-
-#by selecting those samples
-ech <- filerpobtempo |>
-  select( (contains("JPRA") | contains("NCHA") & contains(".SP")) | contains("PCzymo") ) |>
-  select( matches(paste(sm_id, collapse = "|")) | contains("PCzymo") ) 
-
-# Identifiy taxonomy columns
-taxo_ech <- colnames( filerpobtempo [, 1:10 ])
-
-#and bind them to the taxonomy columns
-beprep16s_sp <- file16s_run00_01 |>
-  select( taxo_name ) |>
-  cbind(beprep_sample_16s_sp)
-
 
 
