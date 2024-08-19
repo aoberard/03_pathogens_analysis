@@ -25,12 +25,15 @@ mission_order <- c("Juin 2023", "Octobre 2023", "Juin 2024")
 mission_color <- c("Juin 2023" = "#66c2a5", "Octobre 2023" = "#fc8d62", "Juin 2024" = "#8da0cb")
 
 # Function to count individuals number in graphs
-count_summary <- function(x) {
-  return(data.frame(y = max(x) + 0.5, label = paste0("n = ", length(x))))
+count_summary <- function(x, y_position = max(x) + 0.5) {
+  return(data.frame(y = y_position, label = paste0("n = ", length(x))))
 }
 
-count_summary2 <- function(x, y_position = max(x) + 0.5) {
-  return(data.frame(y = y_position, label = paste0("n = ", length(x))))
+# Function to darken color of a palette
+darken_color <- function(color, amount = 0.2) {
+  color_rgb <- col2rgb(color) / 255
+  darkened_rgb <- color_rgb * (1 - amount)
+  rgb(darkened_rgb[1], darkened_rgb[2], darkened_rgb[3])
 }
 
 
@@ -252,7 +255,7 @@ data_for_m <- data_for_m %>%
 
 # PREVALENCES PER SITE (beware, sometiques really few individuals per site rise prevalence + line with no individuals are not integrated)
 # Init pathogen prevalence per grouping factor 
-grouping_prevalence_factor <- c("numero_ligne", "code_mission")
+grouping_prevalence_factor <- c("numero_ligne")
 
 
 # Number of positive individuals per grouping factor
@@ -320,7 +323,7 @@ pp_prevalence %>%
   guides(fill = guide_legend(title = "Type de ligne"), 
          color = guide_legend(title = "Type de ligne")) +
   theme_minimal() +
-  stat_summary(fun.data = count_summary, 
+  stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
                aes(group = line_type),
                geom = "text", 
                position = position_dodge(0.8),
@@ -379,7 +382,7 @@ hist(data_for_m$number_pathos)
 # Pas d'interaction dans le modele pour 2023 car segregation trop grande /!\
 rm(m_neoeh_r)
 m_neoeh_r <- lme4::glmer(
-  formula = Neoehrlichia_mikurensis ~ connectivity + broadleaved_status + code_mission + poids + sexe +(1|numero_ligne),
+  formula = Neoehrlichia_mikurensis ~ connectivity + broadleaved_status + code_mission + poids + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -763,3 +766,194 @@ ComplexHeatmap::Heatmap(matrix_pathoss,
 ) 
 
 
+
+
+# -------------BELOW is TEST GRAPH FOR EWDA POSTER -------
+
+type_palette <- c("pine_edge" = "#8FC08C", "hedgerows" = "#A95738", "broadleaved_forest" = "#B3E2B3")
+
+
+# Generate a darker version of the fill colors
+darker_palette <- sapply(type_palette, darken_color, amount = 0.25)
+
+## Neoehrlichia solo ----
+
+# Neoehrlichia line_ype x brdld detail
+pp_prevalence %>%  
+  filter(pathos == "Neoehrlichia_mikurensis") %>%
+  ggplot(aes(x = prevalence, y = broadleaved_status, fill = broadleaved_status)) +
+  geom_boxplot(aes(fill = line_type,
+                   color = line_type), 
+               position = position_dodge(0.75), 
+               size = 1.5, 
+               width = 0.5,
+               alpha = 0.7,
+               outlier.shape = NA) +  
+  geom_dotplot(aes(fill = line_type), 
+               binaxis = 'x', 
+               stackdir = 'center', 
+               position = position_dodge(0.75), 
+               dotsize = 0.5, 
+               color = "black",  
+               alpha = 0.8) +  
+  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_color_manual(values = darker_palette) + 
+  labs(x = "Overall prevalence per line", y = "Broadeleaved_status") +
+  theme_classic()  +
+  stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
+               aes(group = interaction(broadleaved_status, line_type)),  
+               geom = "text", 
+               position = position_dodge(0.75),
+               color = "black", 
+               size = 3)
+
+# Neoehrlichia line_ype x brdld sans details
+pp_prevalence %>%  
+  filter(pathos == "Neoehrlichia_mikurensis") %>%
+  ggplot(aes(x = prevalence, y = broadleaved_status)) +
+  geom_boxplot(aes(fill = line_type,
+                   color = line_type), 
+               position = position_dodge(0.75), 
+               size = 1.5, 
+               width = 0.5,
+               alpha = 0.7) +  
+  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_color_manual(values = darker_palette) + 
+  labs(x = "Overall prevalence per line", y = "Broadleaved_status") +
+  theme_classic()  +
+  stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
+               aes(group = broadleaved_status),
+               geom = "text", 
+               position = position_dodge(0.8),
+               color = "black", 
+               size = 3)
+
+# Neoehrlichia brdld sans details
+
+brd_palette <- c("LB" = "orange", "HB" = "blue")
+darker_palette2 <- sapply(brd_palette, darken_color, amount = 0.25)
+
+pp_prevalence %>%  
+  filter(pathos == "Neoehrlichia_mikurensis") %>%
+  ggplot(aes(x = prevalence, y = broadleaved_status, fill = broadleaved_status, color = broadleaved_status)) +
+  geom_boxplot(position = position_dodge(0.75), 
+               size = 1.5, 
+               width = 0.5,
+               alpha = 0.7) +  
+  scale_fill_manual(values = brd_palette) + 
+  scale_color_manual(values = darker_palette2) + 
+  labs(x = "Overall prevalence per line", y = "Broadeleaved_status") +
+  theme_classic()  +
+  stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
+               aes(group = broadleaved_status),
+               geom = "text", 
+               position = position_dodge(0.8),
+               color = "black", 
+               size = 3)
+
+
+
+## Mycoplasma haemomuris solo ----
+pp_prevalence %>%  
+  filter(pathos == "Haemobartonella_muris") %>%
+  ggplot(aes(x = prevalence, y = line_type, fill = line_type)) +
+  geom_boxplot(aes(fill = line_type,
+                   color = line_type), 
+               position = position_dodge(0.75), 
+               size = 1.2, 
+               width = 0.5,
+               alpha = 0.7) +  
+  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_color_manual(values = darker_palette) + 
+  labs(x = "Overall prevalence per line", y = "Line type") +
+  theme_classic()  +
+  stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
+               aes(group = line_type),
+               geom = "text", 
+               position = position_dodge(0.8),
+               color = "black", 
+               size = 3)
+
+
+## combined plot :  ----
+
+plot1 <-pp_prevalence %>%  
+  filter(pathos == "Neoehrlichia_mikurensis") %>%
+  ggplot(aes(x = prevalence, y = broadleaved_status, fill = broadleaved_status, color = broadleaved_status)) +
+  geom_boxplot(position = position_dodge(0.75), 
+               size = 1.5, 
+               width = 0.5,
+               alpha = 0.7) +  
+  scale_fill_manual(values = brd_palette) + 
+  scale_color_manual(values = darker_palette2) + 
+  labs(x = "Overall prevalence per line", y = "Broadeleaved_status") +
+  theme_classic()  +
+  theme(axis.title.x = element_blank(),   
+        axis.text.x = element_blank(),    
+        axis.ticks.x = element_blank(),
+        axis.line.x.bottom = element_blank()) +
+  stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
+               aes(group = broadleaved_status),
+               geom = "text", 
+               position = position_dodge(0.8),
+               color = "black", 
+               size = 3)
+
+plot2 <- pp_prevalence %>%  
+  filter(pathos == "Haemobartonella_muris") %>%
+  ggplot(aes(x = prevalence, y = line_type, fill = line_type)) +
+  geom_boxplot(aes(fill = line_type,
+                   color = line_type), 
+               position = position_dodge(0.75), 
+               size = 1.2, 
+               width = 0.5,
+               alpha = 0.7) +  
+  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_color_manual(values = darker_palette) + 
+  labs(x = "Overall prevalence per line", y = "Line type") +
+  theme_classic()  +
+  stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
+               aes(group = line_type),
+               geom = "text", 
+               position = position_dodge(0.8),
+               color = "black", 
+               size = 3)
+
+library(patchwork)
+
+combined_plot <- plot1 / plot2 + plot_layout(heights = c(1, 1))
+combined_plot
+
+## IN POSTER ----
+
+plot <- pp_prevalence %>%  
+  filter(pathos == "Neoehrlichia_mikurensis") %>%
+  ggplot(aes(x = prevalence, y = broadleaved_status)) +
+  geom_boxplot(aes(fill = line_type, color = line_type), 
+               position = position_dodge(0.75), 
+               size = 2.5,       
+               width = 0.6,      
+               alpha = 0.8,
+               outlier.size = 5) +    
+  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_color_manual(values = darker_palette) + 
+  labs(x = "Overall Prevalence per Line", y = "Broadleaved Status") +
+  theme_classic(base_size = 20) + 
+  theme(
+    axis.title = element_text(size = 24, face = "bold"),  
+    axis.text = element_text(size = 20),                  
+    legend.title = element_text(size = 22),               
+    legend.text = element_text(size = 20),                
+    plot.title = element_text(size = 28, face = "bold")   
+  ) +
+  stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
+               aes(group = broadleaved_status),
+               geom = "text", 
+               position = position_dodge(0.8),
+               color = "black", 
+               size = 6) 
+plot
+
+ggsave(filename = here::here("figures","neoehrlichia_plot_ewda.pdf"), plot = plot, 
+       width = 10.5, height = 7.5, units = "in", device = "pdf")
+=

@@ -23,10 +23,16 @@ mission_order <- c("Juin 2023", "Octobre 2023", "Juin 2024")
 mission_color <- c("Juin 2023" = "#66c2a5", "Octobre 2023" = "#fc8d62", "Juin 2024" = "#8da0cb")
 
 # Function to count individuals number in graphs
-count_summary <- function(x) {
-  return(data.frame(y = max(x) + 0.5, label = paste0("n = ", length(x))))
+count_summary <- function(x, y_position = max(x) + 0.5) {
+  return(data.frame(y = y_position, label = paste0("n = ", length(x))))
 }
 
+# Function to darken color of a palette
+darken_color <- function(color, amount = 0.2) {
+  color_rgb <- col2rgb(color) / 255
+  darkened_rgb <- color_rgb * (1 - amount)
+  rgb(darkened_rgb[1], darkened_rgb[2], darkened_rgb[3])
+}
 
 
 # First data management  ----
@@ -409,7 +415,7 @@ DHARMa::simulateResiduals(glm_environment_tick, n = 250, refit = F, integerRespo
 drop1(glm_environment_tick,.~.,test="Chisq")
 summary(glm_environment_tick)
 
-em <- emmeans::emmeans(glm_environment_tick, "connectivity", type = "response")
+em <- emmeans::emmeans(glm_environment_tick, "line_type", type = "response")
 em
 plot(em, comparisons = TRUE)
 
@@ -429,12 +435,6 @@ ggplot(combined_table, aes(x = factor(line_type, levels = type_order), y = effec
        x = "Linetype",
        y = "Tick Number") +
   theme_minimal()
-
-combined_table %>%
-  filter(code_mission == "Juin 2024") %>%
-  filter(source == "rodent") %>%
-  filter(effectif_tick >0)
-
 
 ## Microfluidic pathogens prevalence ----
 
@@ -643,14 +643,12 @@ permdisp_bray
 
 
 
-# -------------BELOW IS OLD SCRIPT use its information for above one ! -------
+# -------------BELOW is TEST GRAPH FOR EWDA POSTER -------
+type_palette <- c("pine_edge" = "#8FC08C", "hedgerows" = "#A95738", "broadleaved_forest" = "#B3E2B3")
 
 
-
-
-
-
-# Graph try ----
+# Generate a darker version of the fill colors
+darker_palette <- sapply(type_palette, darken_color, amount = 0.25)
 
 
 host_macro %>%
@@ -664,24 +662,146 @@ host_macro %>%
   guides(fill = guide_legend(title = "Type de ligne")) +
   theme_minimal()
 
-
-host_macro %>%
-  filter(code_mission %in% c("Juin 2023", "Octobre 2023") )  %>%
-  ggplot( aes (x = factor(line_treatment, levels = treatment_order), y = log(effectif_tick+1), fill = line_type)) +
-  facet_grid(~ factor(code_mission, levels = mission_order) ) +
+combined_table %>%
+  filter(code_mission == "Juin 2023") %>%
+  ggplot(aes(x = effectif_tick, y = factor(line_type, levels = type_order), fill = line_type) ) +
+  facet_grid(source ~ factor(code_mission, levels = mission_order)) +
   geom_boxplot(position = position_dodge(1)) +
-  geom_dotplot(binaxis = 'y', stackdir = 'center', position = position_jitter(width = 0.0001), dotsize = 0.5) +
+  geom_dotplot(binaxis = 'x', stackdir = 'center', dotsize = 0.5) +
   scale_fill_manual(values = type_palette) +
-  labs(x = "Type de ligne", y = "Nbr de tiques collectées sur les hôtes") +
+  labs(title = "Boxplot of tick numbers from rodents and the environment",
+       x = "Tick Number",
+       y = "Linetype") +
+  theme_minimal()+
+  stat_summary(fun.data = function(x) count_summary(x, y_position = 25), 
+               aes(group = line_type),
+               geom = "text", 
+               position = position_dodge(0.8),
+               color = "black", 
+               size = 3)
+
+
+combined_table %>%
+  filter(code_mission %in% c("Juin 2023") )%>%
+  ggplot(aes(y = effectif_tick, x = factor(line_type, levels = type_order), fill = line_type)) +
+  facet_grid(~ source ) +
+  geom_boxplot(aes(fill = line_type,
+                   color = line_type), 
+               position = position_dodge(0.75), 
+               size = 1.2, 
+               width = 0.5,
+               alpha = 0.7) +  
+  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_color_manual(values = darker_palette) + 
+  labs(x = "Type de ligne", y = "Nbr de tiques collectées au drap par ligne") +
   guides(fill = guide_legend(title = "Type de ligne")) +
-  theme_minimal()
+  theme_minimal()  +
+  stat_summary(fun.data = function(x) count_summary(x, y_position = 25), 
+               aes(group = line_type),
+               geom = "text", 
+               position = position_dodge(0.8),
+               color = "black", 
+               size = 3)
+
+
+(code_mission %in% c("Juin 2023")) %>%
+  ggplot(aes(x = effectif_tick, y = factor(line_type, levels = type_order))) + 
+  geom_boxplot(aes(fill = line_type, color = line_type), 
+               position = position_dodge(0.75), 
+               size = 2.5,       
+               width = 0.6,      
+               alpha = 0.8,
+               outlier.size = 5) + 
+  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_color_manual(values = darker_palette) +  
+  labs(x = "Type de ligne", y = "Nbr de tiques collectées au drap par ligne") +
+  theme_classic(base_size = 20) + 
+  theme(
+    axis.title = element_text(size = 24, face = "bold"),  
+    axis.text = element_text(size = 20),                  
+    legend.title = element_text(size = 22),               
+    legend.text = element_text(size = 20),                
+    plot.title = element_text(size = 28, face = "bold")   
+  ) +
+  stat_summary(fun.data = function(x) count_summary(x, y_position = 26), 
+               aes(group = broadleaved_status),
+               geom = "text", 
+               position = position_dodge(0.8),
+               color = "black", 
+               size = 6) 
 
 
 
 
+## IN POSTER ----
+plot <- envticks_processed %>%
+  filter(code_mission %in% c("Juin 2023")) %>%
+  ggplot(aes(x = effectif_tick, y = factor(line_type))) + 
+  geom_boxplot(aes(fill = line_type, color = line_type), 
+               position = position_dodge(0.75), 
+               size = 2.5,       
+               width = 0.6,      
+               alpha = 0.8,
+               outlier.size = 5) + 
+  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_color_manual(values = darker_palette) +  
+  labs(x = "Number of collected ticks", y = "Line type") +
+  theme_classic(base_size = 20) + 
+  theme(
+    axis.title = element_text(size = 24, face = "bold"),  
+    axis.text = element_text(size = 20),                  
+    legend.title = element_text(size = 22),               
+    legend.text = element_text(size = 20),                
+    plot.title = element_text(size = 28, face = "bold")   
+  ) +
+  stat_summary(fun.data = function(x) count_summary(x, y_position = 26), 
+               aes(group = line_type),
+               geom = "text", 
+               position = position_dodge(0.8),
+               color = "black", 
+               size = 6) 
+plot
+
+# Save the plot object
+ggsave(filename = here::here("figures","envticks_ewda.pdf"), plot = plot, 
+       width = 10.5, height = 7.5, units = "in", device = "pdf")
 
 
 
+
+plot <- combined_table %>%
+  filter(code_mission %in% c("Juin 2023")) %>%
+  ggplot(aes(x = effectif_tick, y = factor(line_type))) + 
+  facet_grid(factor(source) ~ .) +
+  geom_boxplot(aes(fill = line_type, color = line_type), 
+               position = position_dodge(0.75), 
+               size = 2.5,       
+               width = 0.6,      
+               alpha = 0.8,
+               outlier.size = 5) + 
+  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_color_manual(values = darker_palette) +  
+  labs(x = "Number of collected ticks", y = "Line type") +
+  theme_classic(base_size = 20) + 
+  theme(
+    axis.title = element_text(size = 24, face = "bold"),  
+    axis.text = element_text(size = 20),                  
+    legend.title = element_text(size = 22),               
+    legend.text = element_text(size = 20),                
+    plot.title = element_text(size = 28, face = "bold")   
+  ) +
+  stat_summary(fun.data = function(x) count_summary(x, y_position = 26), 
+               aes(group = line_type),
+               geom = "text", 
+               position = position_dodge(0.8),
+               color = "black", 
+               size = 6) 
+
+plot
+
+# Save the plot object
+ggsave(filename = here::here("figures","combinedticks_ewda.pdf"), plot = plot, 
+       width = 11.5, height = 7.5, units = "in", device = "pdf")
 
 
 
