@@ -17,12 +17,14 @@ library("dplyr")
 library("ggplot2")
 
 # Graphical parameters 
-type_order <- c("pine_edge", "hedgerows", "broadleaved_forest")
-type_palette <- c("pine_edge" = "#FFB3BA", "hedgerows" = "#FFDFBA", "broadleaved_forest" = "#B3E2B3")
-treatment_order <- c("CT-LB", "CT-HB", "NC-LB", "NC-HB", "C-LB", "C-HB", "B" )
+
+category_order <- c("pine_edge", "hedgerows", "broadleaved_forest")
+category_palette <- c("pine_edge" = "#FFB3BA", "hedgerows" = "#FFDFBA", "broadleaved_forest" = "#B3E2B3")
+type_order <- c("CT_LB", "CT_HB", "NC_LB", "NC_HB", "C_LB", "C_HB", "B" )
 brd_palette <- c("LB" = "#FFB3BA", "HB" = "#B3E2B3")
-mission_order <- c("Juin 2023", "Octobre 2023", "Juin 2024")
-mission_color <- c("Juin 2023" = "#66c2a5", "Octobre 2023" = "#fc8d62", "Juin 2024" = "#8da0cb")
+mission_order <- c("Juin 2023", "Octobre 2023", "Juin 2024", "Septembre 2024")
+mission_color <- c("Juin 2023" = "#66c2a5", "Octobre 2023" = "#fc8d62", "Juin 2024" = "#8da0cb", "Septembre 2024" = "#ab7a82")
+
 
 # Function to count individuals number in graphs
 count_summary <- function(x, y_position = max(x) + 0.5) {
@@ -41,49 +43,44 @@ darken_color <- function(color, amount = 0.2) {
 
 ## Import data ----
 # Import hosts and line modalities file
-d_host <- readr::read_csv( here::here("data/", "raw-data/", "host_data", "20240731_bpm_modalities.csv") )
-
-# Take away not dissected individuals from d_host data
-d_host <- d_host %>%
-  filter(!numero_centre == "JPRA000093")
+d_host <- readr::read_csv( here::here("data/", "raw-data/", "host_data", "20241203_bpm_modalities.csv") )
 
 # Import 16S filtered file
-file16s_run00_01 <- data.table::fread(file = here::here( "data","raw-data/","16s_run00-01","Run00-01_16S_filtered_postfrogs.txt"))
+file16s_run00_01_04_05_04_05 <- data.table::fread(file = here::here( "data","raw-data/","16s_run00-01-04-05","Run00-01-04-05_16S_filtered-merged_postfrogs.txt"))
 
 # Import rodent macroparasite
-d_macroparasite <- fread(file = here::here("data", "derived-data", "ticks", "rodents_tick", "20240731_macroparasite.csv") )
+d_macroparasite <- data.table::fread(file = here::here("data", "derived-data", "ticks", "rodents_tick", "20240731_macroparasite.csv") )
 
 ## Generate a file containing samples of interest ----
 
-# Extract id of small mammals caught in Beprep
+# Extract id of small mammals caught and dissected in Beprep
 sm_id <- unique(d_host %>% 
                   filter(!is.na(numero_centre))%>%
+                  filter(stringr::str_detect(numero_centre, pattern = "NCHA")) %>%
                   pull(numero_centre)
 )
 
-
 # Identifiy taxonomy columns
-taxo_name <- colnames( file16s_run00_01 [, 1:which(colnames(file16s_run00_01) == "seed_sequence") ])
+taxo_name <- colnames( file16s_run00_01_04_05 [, 1:which(colnames(file16s_run00_01_04_05) == "observation_sum") ])
 
-# Calculate total run read number per cluster
-file16s_run00_01 <- file16s_run00_01 %>%
-  mutate(clean_totalrunreads = rowSums(select(., -taxo_name)))%>%
-  relocate(clean_totalrunreads, .after = names(file16s_run00_01)[which(colnames(file16s_run00_01) == "seed_sequence")])
+# Calculate total run read number per cluster (after our filtering)
+file16s_run00_01_04_05 <- file16s_run00_01_04_05 %>%
+  mutate(clean_totalrunreads = rowSums(select(., -taxo_name))) %>%
+  relocate(clean_totalrunreads, .after = names(file16s_run00_01_04_05)[which(colnames(file16s_run00_01_04_05) == "observation_sum")])
 
 # Reattribute taxonomy columns
-taxo_name <- colnames( file16s_run00_01 [, 1:which(colnames(file16s_run00_01) == "clean_totalrunreads") ])
+taxo_name <- colnames( file16s_run00_01_04_05 [, 1:which(colnames(file16s_run00_01_04_05) == "clean_totalrunreads") ])
 
 # Take away problematic samples - if needed
-#file16s_run00_01 <- file16s_run00_01 |>
-
+#file16s_run00_01_04_05 <- file16s_run00_01_04_05 |>
 
 # Generate new file containing only Spleen BePrep's samples
 #by selecting those samples
-beprep_sample_16s_sp <- file16s_run00_01 |>
-  select( (contains("JPRA") | contains("NCHA") & contains(".SP")) | contains("PCzymo") ) |>
+beprep_sample_16s_sp <- file16s_run00_01_04_05 |>
+  select( (contains("NCHA") & contains(".SP")) | contains("PCzymo") ) |>
   select( matches(paste(sm_id, collapse = "|")) | contains("PCzymo") ) 
 #and bind them to the taxonomy columns
-beprep16s_sp <- file16s_run00_01 |>
+beprep16s_sp <- file16s_run00_01_04_05 |>
   select( taxo_name ) |>
   cbind(beprep_sample_16s_sp)
 
@@ -94,7 +91,7 @@ beprep16s_sp <- beprep16s_sp |>
 # Calculate total number of reads for each cluster considering chosen samples
 beprep16s_sp <- beprep16s_sp %>%
   mutate(totalreads = rowSums(select(., -taxo_name)))%>%
-  relocate(totalreads, .after = names(beprep16s_sp)[which(colnames(file16s_run00_01) == "clean_totalrunreads")])
+  relocate(totalreads, .after = names(beprep16s_sp)[which(colnames(file16s_run00_01_04_05) == "clean_totalrunreads")])
 
 # Order rows by new total read number
 beprep16s_sp <- data.table::setorder(beprep16s_sp, -totalreads)
@@ -104,9 +101,7 @@ beprep16s_sp <- beprep16s_sp |>
   filter(totalreads >0)
 
 # Write a file containing 16S Spleen OTUs containing our samples only :
-data.table::fwrite(beprep16s_sp, here::here("data", "derived-data","16S", "20240326_beprep16s_sp.txt") )
-
-
+data.table::fwrite(beprep16s_sp, here::here("data", "derived-data","16S", "20241204_beprep16s_sp.txt") )
 
 
 
@@ -126,13 +121,14 @@ putative_pathos_family <- c("Sarcocystidae")
 
 # Keep only OTUs with known putative pathogens (you should look at raw data before this step, ensure it is ok and you're not missing pathogens taxa as the list is not complete)
 pathos16s <- pathos16s |>
-  filter(genus %in% putative_pathos_genra | family %in% putative_pathos_family)
+  filter(genus %in% putative_pathos_genra 
+         | family %in% putative_pathos_family)
 
 # Write a file containing 16S Spleen OTUs containing our samples only AND only putative pathogens :
-data.table::fwrite(pathos16s, here::here("data/", "derived-data/","16S", "20240326_beprep16s_sp_pathos.txt") )
+data.table::fwrite(pathos16s, here::here("data/", "derived-data/","16S", "20241204_beprep16s_sp_pathos.txt") )
 
 
-## Seek for species level identification for specific taxa (Mycoplasma) throught external manipulation (phylogenic tree) ----
+## Seek for species level identification for specific taxa (e.g. Mycoplasma) throught external manipulation (phylogenic tree) ----
 # A new datafile is created by hand to add the checked species information and then imported
 # If probable pseudo-gene affiliation is observed in data file they may also get deleted at this step
 pathos16s_checked <- data.table::fread(file = here::here( "data","raw-data/","16s_run00-01","20240326_beprep16s_pathos_species-adjusted.txt"))
@@ -263,10 +259,10 @@ pp <- data_for_m %>%
   group_by(across(all_of(grouping_prevalence_factor))) %>%
   summarise(
     effectif = n(),
-    line_treatment = unique(line_treatment),
-    broadleaved_status = unique(broadleaved_status),
-    connectivity = unique(connectivity),
-    line_type = unique(line_type),
+    type = unique(type),
+    broadleaved_class = unique(broadleaved_class),
+    treatment = unique(treatment),
+    category = unique(category),
     across(all_of(pathos_name_apo), ~ sum(. > 0)),  
     .groups = "drop"
   )
@@ -275,10 +271,10 @@ pp <- data_for_m %>%
 pp_prevalence <- pp %>%
   group_by(across(all_of(grouping_prevalence_factor))) %>%
   summarise(
-    line_treatment = unique(line_treatment),
-    broadleaved_status = unique(broadleaved_status),
-    connectivity = unique(connectivity),
-    line_type = unique(line_type),
+    type = unique(type),
+    broadleaved_class = unique(broadleaved_class),
+    treatment = unique(treatment),
+    category = unique(category),
     effectif = sum(effectif),  # Total number of individuals
     across(all_of(pathos_name_apo), sum),  # Sum of positive cases for each pathogen
     .groups = "drop"
@@ -298,9 +294,9 @@ pp_prevalence <- pp_prevalence %>%
 # Watch prevalences with plot for all pathos
 pp_prevalence %>%  
   filter(!pathos %in% c("Siphonaptera", "Ixodida")) %>%
-  ggplot(aes(x = prevalence, y = pathos, fill = line_type)) +
+  ggplot(aes(x = prevalence, y = pathos, fill = category)) +
   geom_boxplot(position = position_dodge(0.8), width = 0.6, alpha = 0.6) +
-  geom_jitter(aes(color = line_type), 
+  geom_jitter(aes(color = category), 
               position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.8), 
               size = 1.5, alpha = 0.8) + 
   scale_fill_manual(values = type_palette) +
@@ -312,9 +308,9 @@ pp_prevalence %>%
 
 pp_prevalence %>%  
   filter(!pathos %in% c("Siphonaptera", "Ixodida")) %>%
-  ggplot(aes(x = prevalence, y = pathos, fill = line_type)) +
+  ggplot(aes(x = prevalence, y = pathos, fill = category)) +
   geom_boxplot(position = position_dodge(0.8), width = 0.6, alpha = 0.6) +
-  geom_jitter(aes(color = line_type), 
+  geom_jitter(aes(color = category), 
               position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.8), 
               size = 1.5, alpha = 0.8) + 
   scale_fill_manual(values = type_palette) +
@@ -324,7 +320,7 @@ pp_prevalence %>%
          color = guide_legend(title = "Type de ligne")) +
   theme_minimal() +
   stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
-               aes(group = line_type),
+               aes(group = category),
                geom = "text", 
                position = position_dodge(0.8),
                color = "black", 
@@ -334,7 +330,7 @@ pp_prevalence %>%
 # test neoehrlichia
 pp_prevalence %>%  
   filter(pathos == "Neoehrlichia_mikurensis") %>%
-  ggplot(aes(x = prevalence, y = broadleaved_status, fill = broadleaved_status)) +
+  ggplot(aes(x = prevalence, y = broadleaved_class, fill = broadleaved_class)) +
   geom_boxplot(position = position_dodge(0.8), width = 0.6, alpha = 0.6) +
   geom_jitter(position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.8), 
               size = 1.5, alpha = 0.8) + 
@@ -343,7 +339,7 @@ pp_prevalence %>%
   guides(fill = guide_legend(title = "Broadleaved Status")) +
   theme_minimal() +
   stat_summary(fun.data = count_summary, 
-               aes(group = line_type),
+               aes(group = category),
                geom = "text", 
                position = position_dodge(0.8),
                color = "black", 
@@ -353,7 +349,7 @@ pp_prevalence %>%
 
 pp_prevalence %>%  
   filter(pathos == "Neoehrlichia_mikurensis") %>%
-  ggplot(aes (x = factor(broadleaved_status), y = prevalence, fill = broadleaved_status)) + 
+  ggplot(aes (x = factor(broadleaved_class), y = prevalence, fill = broadleaved_class)) + 
   facet_grid(~code_mission ) +
   geom_boxplot(position = position_dodge(1)) +
   geom_dotplot(binaxis = 'y', stackdir = 'center', position = position_jitter(width = 0.05), dotsize = 0.5) +
@@ -364,7 +360,7 @@ pp_prevalence %>%
 
 
 
-data_for_m %>% count(Neoehrlichia_mikurensis, line_treatment)
+data_for_m %>% count(Neoehrlichia_mikurensis, type)
 
 ggplot(data_for_m, aes(x = as.factor(Haemobartonella_muris), y = poids)) +
   geom_dotplot(binaxis='y', stackdir='center', aes(fill = sexe), position=position_dodge(0.4)) + 
@@ -382,7 +378,7 @@ hist(data_for_m$number_pathos)
 # Pas d'interaction dans le modele pour 2023 car segregation trop grande /!\
 rm(m_neoeh_r)
 m_neoeh_r <- lme4::glmer(
-  formula = Neoehrlichia_mikurensis ~ connectivity + broadleaved_status + code_mission + poids + sexe + (1|numero_ligne),
+  formula = Neoehrlichia_mikurensis ~ treatment + broadleaved_class + code_mission + poids + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -394,7 +390,7 @@ TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
 m_neoeh_r <- lme4::glmer(
-  formula = Neoehrlichia_mikurensis ~ broadleaved_status  + code_mission + poids  + (1|numero_ligne),
+  formula = Neoehrlichia_mikurensis ~ broadleaved_class  + code_mission + poids  + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -407,7 +403,7 @@ DHARMa::simulateResiduals(m_neoeh_r, n = 250, refit = F, integerResponse = NULL,
 drop1(m_neoeh_r,.~.,test="Chisq")
 summary(m_neoeh_r)
 
-em <- emmeans::emmeans(m_neoeh_r, specs = pairwise ~ broadleaved_status, adjust = "Tukey", type = "response" )
+em <- emmeans::emmeans(m_neoeh_r, specs = pairwise ~ broadleaved_class, adjust = "Tukey", type = "response" )
 em$contrasts
 
 plot(em, comparisons = TRUE)
@@ -420,7 +416,7 @@ fixed_effects <- coef(summary(m_neoeh_r))[, "Estimate"] # ou : fixed_effects <- 
 
 # Create data for plotting
 plot_data <- expand.grid(
-  broadleaved_status = unique(data_for_m$broadleaved_status),
+  broadleaved_class = unique(data_for_m$broadleaved_class),
   code_mission = unique(data_for_m$code_mission),
   poids = seq(min(data_for_m$poids), max(data_for_m$poids), length.out = 100)  
 )
@@ -430,7 +426,7 @@ plot_data$predicted_prob <- predict(m_neoeh_r, newdata = plot_data, type = "resp
 
 # Plot
 library(ggplot2)
-ggplot(plot_data, aes(x = poids, y = predicted_prob, color = broadleaved_status)) +
+ggplot(plot_data, aes(x = poids, y = predicted_prob, color = broadleaved_class)) +
   geom_line() +
   facet_wrap(~ code_mission) +
   labs(x = "Poids", y = "Predicted Probability", color = "Broadleaved Status")
@@ -441,7 +437,7 @@ ggplot(plot_data, aes(x = poids, y = predicted_prob, color = broadleaved_status)
 ### Model : Mycoplasma haemomuris ----
 rm(m_mycoplasma_r)
 m_mycoplasma_r <- lme4::glmer(
-  formula = Haemobartonella_muris ~ broadleaved_status * connectivity + code_mission + poids + sexe +(1|numero_ligne),
+  formula = Haemobartonella_muris ~ broadleaved_class * treatment + code_mission + poids + sexe +(1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -456,7 +452,7 @@ TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
 m_mycoplasma_r_best <- lme4::glmer(
-  formula = Haemobartonella_muris ~ connectivity + poids +(1|numero_ligne),
+  formula = Haemobartonella_muris ~ treatment + poids +(1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -468,7 +464,7 @@ DHARMa::simulateResiduals(m_mycoplasma_r_best, n = 250, refit = F, integerRespon
 drop1(m_mycoplasma_r_best,.~.,test="Chisq")
 summary(m_mycoplasma_r_best)
 
-em_myco <- emmeans::emmeans(m_mycoplasma_r_best, specs = pairwise ~ connectivity, adjust = "Tukey", type = "response" )
+em_myco <- emmeans::emmeans(m_mycoplasma_r_best, specs = pairwise ~ treatment, adjust = "Tukey", type = "response" )
 em_myco$contrasts
 
 plot(em_myco, comparisons = TRUE)
@@ -477,7 +473,7 @@ plot(em_myco, comparisons = TRUE)
 ### Model : Mycoplasma coccoides ----
 
 m_mycoplasmacoco_r <- lme4::glmer(
-  formula = Mycoplasma_coccoides ~ broadleaved_status * connectivity + code_mission + poids + sexe +(1|numero_ligne),
+  formula = Mycoplasma_coccoides ~ broadleaved_class * treatment + code_mission + poids + sexe +(1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -506,7 +502,7 @@ summary(m_mycoplasmacoco_r)
 
 ### Model : Bartonella ----
 m_barto_r <- lme4::glmer(
-  formula = Bartonella ~ broadleaved_status + code_mission + poids + sexe +(1|numero_ligne),
+  formula = Bartonella ~ broadleaved_class + code_mission + poids + sexe +(1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -535,7 +531,7 @@ summary(m_barto_r)
 
 ### Model : Ixodida  ----
 m_ixod_r <- lme4::glmer(
-  formula = Ixodida ~ broadleaved_status * connectivity + code_mission + poids + sexe +(1|numero_ligne),
+  formula = Ixodida ~ broadleaved_class * treatment + code_mission + poids + sexe +(1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -549,7 +545,7 @@ TopModels
 
 ### Model : Siphonaptera  ----
 m_siphon_r <- lme4::glmer(
-  formula = Siphonaptera ~ broadleaved_status * connectivity + code_mission + poids + sexe +(1|numero_ligne),
+  formula = Siphonaptera ~ broadleaved_class * treatment + code_mission + poids + sexe +(1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -595,7 +591,7 @@ plot(em, comparisons = TRUE)
 
 ###Model : Pathogen Richnesse  ----
 m_pathnumber_r <- lme4::glmer(
-  formula = number_pathos ~ broadleaved_status * connectivity + code_mission + poids  + sexe +(1|numero_ligne),
+  formula = number_pathos ~ broadleaved_class * treatment + code_mission + poids  + sexe +(1|numero_ligne),
   family = poisson(link = "log"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -636,8 +632,8 @@ summary(m_pathnumber_r)
 alpha_div_pathos <- rodent_pathos %>%
   mutate(across(all_of(pathos_name), ~ replace(., . > 0, 1))) %>%
   group_by(numero_ligne, code_mission) %>%
-  summarise(connectivity = unique(connectivity),
-            broadleaved_status = unique(broadleaved_status),
+  summarise(treatment = unique(treatment),
+            broadleaved_class = unique(broadleaved_class),
             across(all_of(pathos_name), ~ sum(. > 0))
   ) %>%
   mutate( richness = rowSums(across(all_of(pathos_name)) > 0)) %>%
@@ -651,7 +647,7 @@ hist(alpha_div_pathos$shannon)
 #### Poisson regression ----
 
 m_rich_pathos <- stats::glm(
-  formula = richness  ~ broadleaved_status * connectivity ,
+  formula = richness  ~ broadleaved_class * treatment ,
   family = poisson(link="log"),
   data = alpha_div_pathos,
   na.action="na.fail"
@@ -666,7 +662,7 @@ performance::check_zeroinflation(m_rich_pathos)
 
 
 #### zero_inflated poisson regression ----
-m_richness_zip <-pscl::zeroinfl(richness ~ connectivity + broadleaved_status + code_mission, 
+m_richness_zip <-pscl::zeroinfl(richness ~ treatment + broadleaved_class + code_mission, 
                                 data = alpha_div_pathos, dist = "poisson", na.action = "na.fail")
 
 summary(m_richness_zip)
@@ -677,7 +673,7 @@ SelectionModels<- MuMIn::dredge(m_richness_zip, rank = "AICc")
 TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
-m_richness_zip <-pscl::zeroinfl(richness ~ connectivity, 
+m_richness_zip <-pscl::zeroinfl(richness ~ treatment, 
                                 data = alpha_div_pathos, dist = "poisson", na.action = "na.fail")
 
 summary(m_richness_zip)
@@ -686,23 +682,23 @@ drop1(m_richness_zip,.~.,test="Chisq")
 ## Heatmap matrix ----
 
 # Prevalence matrix calculation (all rodents)
-#for line_treatment
+#for type
 graph_sequence <- c("CT_LB", "CT_HB", "NC_LB", "NC_HB", "C_LB", "C_HB" )
 
 matrix_pathoss <- d_apo_pathos_glm %>%
-  group_by(connectivity, broadleaved_status) %>%
+  group_by(treatment, broadleaved_class) %>%
   summarise(
     across(all_of(pathos_name_apo), 
            ~ round(sum(. > 0) / n(), digits = 2)) ) |>
-  mutate(combined_name = paste( connectivity, broadleaved_status, sep = "_")) |>
+  mutate(combined_name = paste( treatment, broadleaved_class, sep = "_")) |>
   arrange(factor(combined_name, levels = graph_sequence)) |>
   tibble::column_to_rownames("combined_name") |>
   select(all_of(pathos_name_apo)) |>
   as.matrix() 
 
 effectif_df <- d_apo_pathos_glm %>%
-  mutate(combined_name = paste(connectivity, broadleaved_status, sep = "_")) %>%
-  group_by(connectivity, broadleaved_status) %>%
+  mutate(combined_name = paste(treatment, broadleaved_class, sep = "_")) %>%
+  group_by(treatment, broadleaved_class) %>%
   summarise(
     effectif = n(),
     combined_name = unique(combined_name)
@@ -781,15 +777,15 @@ darker_palette <- sapply(type_palette, darken_color, amount = 0.25)
 # Neoehrlichia line_ype x brdld detail
 pp_prevalence %>%  
   filter(pathos == "Neoehrlichia_mikurensis") %>%
-  ggplot(aes(x = prevalence, y = broadleaved_status, fill = broadleaved_status)) +
-  geom_boxplot(aes(fill = line_type,
-                   color = line_type), 
+  ggplot(aes(x = prevalence, y = broadleaved_class, fill = broadleaved_class)) +
+  geom_boxplot(aes(fill = category,
+                   color = category), 
                position = position_dodge(0.75), 
                size = 1.5, 
                width = 0.5,
                alpha = 0.7,
                outlier.shape = NA) +  
-  geom_dotplot(aes(fill = line_type), 
+  geom_dotplot(aes(fill = category), 
                binaxis = 'x', 
                stackdir = 'center', 
                position = position_dodge(0.75), 
@@ -801,7 +797,7 @@ pp_prevalence %>%
   labs(x = "Overall prevalence per line", y = "Broadeleaved_status") +
   theme_classic()  +
   stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
-               aes(group = interaction(broadleaved_status, line_type)),  
+               aes(group = interaction(broadleaved_class, category)),  
                geom = "text", 
                position = position_dodge(0.75),
                color = "black", 
@@ -810,19 +806,19 @@ pp_prevalence %>%
 # Neoehrlichia line_ype x brdld sans details
 pp_prevalence %>%  
   filter(pathos == "Neoehrlichia_mikurensis") %>%
-  ggplot(aes(x = prevalence, y = broadleaved_status)) +
-  geom_boxplot(aes(fill = line_type,
-                   color = line_type), 
+  ggplot(aes(x = prevalence, y = broadleaved_class)) +
+  geom_boxplot(aes(fill = category,
+                   color = category), 
                position = position_dodge(0.75), 
                size = 1.5, 
                width = 0.5,
                alpha = 0.7) +  
   scale_fill_manual(values = c(type_palette, darker_palette)) + 
   scale_color_manual(values = darker_palette) + 
-  labs(x = "Overall prevalence per line", y = "Broadleaved_status") +
+  labs(x = "Overall prevalence per line", y = "broadleaved_class") +
   theme_classic()  +
   stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
-               aes(group = broadleaved_status),
+               aes(group = broadleaved_class),
                geom = "text", 
                position = position_dodge(0.8),
                color = "black", 
@@ -835,7 +831,7 @@ darker_palette2 <- sapply(brd_palette, darken_color, amount = 0.25)
 
 pp_prevalence %>%  
   filter(pathos == "Neoehrlichia_mikurensis") %>%
-  ggplot(aes(x = prevalence, y = broadleaved_status, fill = broadleaved_status, color = broadleaved_status)) +
+  ggplot(aes(x = prevalence, y = broadleaved_class, fill = broadleaved_class, color = broadleaved_class)) +
   geom_boxplot(position = position_dodge(0.75), 
                size = 1.5, 
                width = 0.5,
@@ -845,7 +841,7 @@ pp_prevalence %>%
   labs(x = "Overall prevalence per line", y = "Broadeleaved_status") +
   theme_classic()  +
   stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
-               aes(group = broadleaved_status),
+               aes(group = broadleaved_class),
                geom = "text", 
                position = position_dodge(0.8),
                color = "black", 
@@ -856,9 +852,9 @@ pp_prevalence %>%
 ## Mycoplasma haemomuris solo ----
 pp_prevalence %>%  
   filter(pathos == "Haemobartonella_muris") %>%
-  ggplot(aes(x = prevalence, y = line_type, fill = line_type)) +
-  geom_boxplot(aes(fill = line_type,
-                   color = line_type), 
+  ggplot(aes(x = prevalence, y = category, fill = category)) +
+  geom_boxplot(aes(fill = category,
+                   color = category), 
                position = position_dodge(0.75), 
                size = 1.2, 
                width = 0.5,
@@ -868,7 +864,7 @@ pp_prevalence %>%
   labs(x = "Overall prevalence per line", y = "Line type") +
   theme_classic()  +
   stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
-               aes(group = line_type),
+               aes(group = category),
                geom = "text", 
                position = position_dodge(0.8),
                color = "black", 
@@ -879,7 +875,7 @@ pp_prevalence %>%
 
 plot1 <-pp_prevalence %>%  
   filter(pathos == "Neoehrlichia_mikurensis") %>%
-  ggplot(aes(x = prevalence, y = broadleaved_status, fill = broadleaved_status, color = broadleaved_status)) +
+  ggplot(aes(x = prevalence, y = broadleaved_class, fill = broadleaved_class, color = broadleaved_class)) +
   geom_boxplot(position = position_dodge(0.75), 
                size = 1.5, 
                width = 0.5,
@@ -893,7 +889,7 @@ plot1 <-pp_prevalence %>%
         axis.ticks.x = element_blank(),
         axis.line.x.bottom = element_blank()) +
   stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
-               aes(group = broadleaved_status),
+               aes(group = broadleaved_class),
                geom = "text", 
                position = position_dodge(0.8),
                color = "black", 
@@ -901,9 +897,9 @@ plot1 <-pp_prevalence %>%
 
 plot2 <- pp_prevalence %>%  
   filter(pathos == "Haemobartonella_muris") %>%
-  ggplot(aes(x = prevalence, y = line_type, fill = line_type)) +
-  geom_boxplot(aes(fill = line_type,
-                   color = line_type), 
+  ggplot(aes(x = prevalence, y = category, fill = category)) +
+  geom_boxplot(aes(fill = category,
+                   color = category), 
                position = position_dodge(0.75), 
                size = 1.2, 
                width = 0.5,
@@ -913,7 +909,7 @@ plot2 <- pp_prevalence %>%
   labs(x = "Overall prevalence per line", y = "Line type") +
   theme_classic()  +
   stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
-               aes(group = line_type),
+               aes(group = category),
                geom = "text", 
                position = position_dodge(0.8),
                color = "black", 
@@ -928,8 +924,8 @@ combined_plot
 
 plot <- pp_prevalence %>%  
   filter(pathos == "Neoehrlichia_mikurensis") %>%
-  ggplot(aes(x = prevalence, y = broadleaved_status)) +
-  geom_boxplot(aes(fill = line_type, color = line_type), 
+  ggplot(aes(x = prevalence, y = broadleaved_class)) +
+  geom_boxplot(aes(fill = category, color = category), 
                position = position_dodge(0.75), 
                size = 2.5,       
                width = 0.6,      
@@ -947,7 +943,7 @@ plot <- pp_prevalence %>%
     plot.title = element_text(size = 28, face = "bold")   
   ) +
   stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
-               aes(group = broadleaved_status),
+               aes(group = broadleaved_class),
                geom = "text", 
                position = position_dodge(0.8),
                color = "black", 
