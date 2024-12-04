@@ -1,0 +1,9 @@
+sequ extrait a partir fichier txt pour extraire seq d'un genre donné (avec l'aide de walid)
+
+puis ajout a fastq max mycoplasma
+
+puis aligneement mAAFT
+
+puis arbre
+
+puis la modif fichier 16S adjusted
