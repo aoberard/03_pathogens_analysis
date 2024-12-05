@@ -64,8 +64,10 @@ sm_id <- unique(d_host %>%
                   pull(numero_centre)
 )
 
-# Identifiy taxonomy columns
-taxo_name <- colnames( file16s_run00_01_04_05 [, 1:which(colnames(file16s_run00_01_04_05) == "observation_sum") ])
+# Identifiy taxonomy 16S and rpoB columns
+taxo_name_16s <- colnames(file16s_run00_01_04_05 [, 1:which(colnames(file16s_run00_01_04_05) == "observation_sum") ])
+
+
 
 # Calculate total run read number per cluster (after our filtering)
 file16s_run00_01_04_05 <- file16s_run00_01_04_05 %>%
