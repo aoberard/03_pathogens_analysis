@@ -196,7 +196,7 @@ taxa_transposed_16S <- taxa_transposed_16S |>
 
 
 
-# Repeat process for rpoB data ----
+# Repeat process for rpoB data ----BEWARRRREEE ----
 
 
 ## Generate a file containing samples of interest ----
@@ -411,6 +411,7 @@ rodent_pathos %>%
   summarise(across(all_of(pathos_name), sum)) 
 
 
+
 # List of pathogen per species
 list_pathos_per_species <- list()
 
@@ -478,6 +479,22 @@ data_for_m <- data_for_m %>%
 
 ## Exploration (for apodemus only) ----
 
+# PREVALENCE ALL MISSION
+data_for_m %>%
+  summarise(across(all_of(pathos_name_apo), ~ sum(.) * 100 / n()), .groups = "drop") %>%
+  tidyr::pivot_longer(
+    cols = all_of(pathos_name_apo),
+    names_to = "pathogens",
+    values_to = "prevalence"
+  )
+
+
+# PREVALENCE PER MISSION
+data_for_m %>%
+  group_by(code_mission) %>%
+  summarise(across(all_of(pathos_name_apo), ~ sum(.) * 100 / n()), .groups = "drop") 
+
+
 # PREVALENCES PER SITE (beware, sometiques really few individuals per site rise prevalence + line with no individuals are not integrated)
 # Init pathogen prevalence per grouping factor 
 grouping_prevalence_factor <- c("numero_ligne")
@@ -528,8 +545,8 @@ pp_prevalence %>%
   geom_jitter(aes(color = category), 
               position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.8), 
               size = 1.5, alpha = 0.8) + 
-  scale_fill_manual(values = type_palette) +
-  scale_color_manual(values = type_palette) + 
+  scale_fill_manual(values = category_palette) +
+  scale_color_manual(values = category_palette) + 
   labs(x = "Prevalence par ligne de piegeage", y = "Pathogènes") +
   guides(fill = guide_legend(title = "Type de ligne"), 
          color = guide_legend(title = "Type de ligne")) +
@@ -542,8 +559,8 @@ pp_prevalence %>%
   geom_jitter(aes(color = category), 
               position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.8), 
               size = 1.5, alpha = 0.8) + 
-  scale_fill_manual(values = type_palette) +
-  scale_color_manual(values = type_palette) + 
+  scale_fill_manual(values = category_palette) +
+  scale_color_manual(values = category_palette) + 
   labs(x = "Prevalence par ligne de piegeage", y = "Pathogènes") +
   guides(fill = guide_legend(title = "Type de ligne"), 
          color = guide_legend(title = "Type de ligne")) +
@@ -573,26 +590,14 @@ pp_prevalence %>%
                position = position_dodge(0.8),
                color = "black", 
                size = 3)
-  
-
-
-pp_prevalence %>%  
-  filter(pathos == "Neoehrlichia_mikurensis") %>%
-  ggplot(aes (x = factor(broadleaved_class), y = prevalence, fill = broadleaved_class)) + 
-  facet_grid(~code_mission ) +
-  geom_boxplot(position = position_dodge(1)) +
-  geom_dotplot(binaxis = 'y', stackdir = 'center', position = position_jitter(width = 0.05), dotsize = 0.5) +
-  stat_summary(fun.data = count_summary, geom = "text", vjust = 0) + 
-  labs(x = "Type de ligne", y = "Prevalence par ligne de piegeage") +
-  guides(fill = guide_legend(title = "Type de ligne")) +
-  theme_minimal()
-
 
 
 data_for_m %>% count(Neoehrlichia_mikurensis, type)
 
-ggplot(data_for_m, aes(x = as.factor(Haemobartonella_muris), y = poids)) +
-  geom_dotplot(binaxis='y', stackdir='center', aes(fill = sexe), position=position_dodge(0.4)) + 
+ggplot(data_for_m, aes(x = as.factor(Mycoplasma_haemomuris), y = poids)) +
+  geom_dotplot(binaxis='y', stackdir='center', aes(fill = sexe),
+               dotsize = 0.7 ,
+               position=position_dodge(0.4)) + 
   coord_flip() +
   stat_summary(fun = mean, geom="point", shape=18,
                size=5, color="purple") +
@@ -604,15 +609,16 @@ hist(data_for_m$number_pathos)
 ## GLMMs ----
 
 ### Model : Neoehrlichia_mikurensis  ----
-# Pas d'interaction dans le modele pour 2023 car segregation trop grande /!\
 rm(m_neoeh_r)
 m_neoeh_r <- lme4::glmer(
-  formula = Neoehrlichia_mikurensis ~ treatment + broadleaved_class + code_mission + poids + sexe + (1|numero_ligne),
+  formula = Neoehrlichia_mikurensis ~ treatment + code_mission + poids + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
 )
+
+
 
 SelectionModels<- MuMIn::dredge(m_neoeh_r, rank = "AICc")              
 TopModels<-subset(SelectionModels, delta<2)
@@ -666,7 +672,7 @@ ggplot(plot_data, aes(x = poids, y = predicted_prob, color = broadleaved_class))
 ### Model : Mycoplasma haemomuris ----
 rm(m_mycoplasma_r)
 m_mycoplasma_r <- lme4::glmer(
-  formula = Haemobartonella_muris ~ broadleaved_class * treatment + code_mission + poids + sexe +(1|numero_ligne),
+  formula = Mycoplasma_haemomuris ~ broadleaved_class * treatment + code_mission + poids + sexe +(1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -995,11 +1001,11 @@ ComplexHeatmap::Heatmap(matrix_pathoss,
 
 # -------------BELOW is TEST GRAPH FOR EWDA POSTER -------
 
-type_palette <- c("pine_edge" = "#8FC08C", "hedgerows" = "#A95738", "broadleaved_forest" = "#B3E2B3")
+category_palette <- c("pine_edge" = "#8FC08C", "hedgerows" = "#A95738", "broadleaved_forest" = "#B3E2B3")
 
 
 # Generate a darker version of the fill colors
-darker_palette <- sapply(type_palette, darken_color, amount = 0.25)
+darker_palette <- sapply(category_palette, darken_color, amount = 0.25)
 
 ## Neoehrlichia solo ----
 
@@ -1021,7 +1027,7 @@ pp_prevalence %>%
                dotsize = 0.5, 
                color = "black",  
                alpha = 0.8) +  
-  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_fill_manual(values = c(category_palette, darker_palette)) + 
   scale_color_manual(values = darker_palette) + 
   labs(x = "Overall prevalence per line", y = "Broadeleaved_status") +
   theme_classic()  +
@@ -1042,7 +1048,7 @@ pp_prevalence %>%
                size = 1.5, 
                width = 0.5,
                alpha = 0.7) +  
-  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_fill_manual(values = c(category_palette, darker_palette)) + 
   scale_color_manual(values = darker_palette) + 
   labs(x = "Overall prevalence per line", y = "broadleaved_class") +
   theme_classic()  +
@@ -1088,7 +1094,7 @@ pp_prevalence %>%
                size = 1.2, 
                width = 0.5,
                alpha = 0.7) +  
-  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_fill_manual(values = c(category_palette, darker_palette)) + 
   scale_color_manual(values = darker_palette) + 
   labs(x = "Overall prevalence per line", y = "Line type") +
   theme_classic()  +
@@ -1133,7 +1139,7 @@ plot2 <- pp_prevalence %>%
                size = 1.2, 
                width = 0.5,
                alpha = 0.7) +  
-  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_fill_manual(values = c(category_palette, darker_palette)) + 
   scale_color_manual(values = darker_palette) + 
   labs(x = "Overall prevalence per line", y = "Line type") +
   theme_classic()  +
@@ -1160,7 +1166,7 @@ plot <- pp_prevalence %>%
                width = 0.6,      
                alpha = 0.8,
                outlier.size = 5) +    
-  scale_fill_manual(values = c(type_palette, darker_palette)) + 
+  scale_fill_manual(values = c(category_palette, darker_palette)) + 
   scale_color_manual(values = darker_palette) + 
   labs(x = "Overall Prevalence per Line", y = "Broadleaved Status") +
   theme_classic(base_size = 20) + 
