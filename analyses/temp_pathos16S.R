@@ -199,7 +199,7 @@ taxa_transposed_16S <- taxa_transposed_16S |>
 # Repeat process for rpoB data ----
 
 
-##ghgh----
+## Generate a file containing samples of interest ----
 
 # Identifiy taxonomy columns
 taxo_name <- colnames( filerpoB_run01_05 [, 1:which(colnames(filerpoB_run01_05) == "observation_sum") ])
@@ -225,9 +225,9 @@ bepreprpoB_sp <- filerpoB_run01_05 |>
   select( taxo_name ) |>
   cbind(beprep_sample_rpoB_sp)
 
-# Delete the PCZymo positive after visual control
-bepreprpoB_sp <- bepreprpoB_sp |>
-  select(!contains("PCzymo"))
+# Verify absence of PCZymo positive in rpoB data
+bepreprpoB_sp |>
+  select(contains("PCzymo"))
 
 # Calculate total number of reads for each cluster considering chosen samples
 bepreprpoB_sp <- bepreprpoB_sp %>%
@@ -328,15 +328,29 @@ taxa_transposed_rpoB <- taxa_transposed_rpoB |>
 
 
 # Join rpoB and 16S data ----
-
 taxa_transposed_16S_rpoB <- left_join(taxa_transposed_16S, 
                                       taxa_transposed_rpoB,
                                       by = c("numero_centre_16s" = "numero_centre_rpoB"))
 
+# Replace NA by 0 in new data
+taxa_transposed_16S_rpoB <- taxa_transposed_16S_rpoB %>%
+  mutate(across(-numero_centre_16s, ~ if_else(is.na(.), 0, .)))
+
+# Combine relevant taxa
+taxa_transposed_16S_rpoB <- taxa_transposed_16S_rpoB %>%
+  mutate(Neoehrlichia_mikurensis = Neoehrlichia_mikurensis + Neoehrlichia_lotoris) %>%
+  select(-Neoehrlichia_lotoris)
+
+
+
+# jsp ce que je voulais faire en bas, mais renommer numero_centre peut-être pas mal (genre rpoB-16s?)
+# genre controle quelles echantillons de l'un passé dans l'autre (tous les barto + 16s passé rpoB?)
+# peut-être faisable avant ça deja ?
 
 # taxa_transposed_16S_rpoB %>%
 #   mutate(numero_centre_sp = numero_centre_16s) %>%
-#   filter(-)
+#   filter(-) 
+
 
 
 
@@ -365,21 +379,50 @@ taxa_transposed_16S_rpoB <- left_join(taxa_transposed_16S,
 # rodent_pathos <- merge(x = d_macroparasite, y = taxa_transposed_16S_rpoB, by.x = "numero_centre",  by.y = "numero_centre_16s")
 
 
+# # Extract Pathogens name
+# pathos_name <- rodent_pathos |>
+#   select(names(rodent_pathos)[(which(names(rodent_pathos) == "effectif_tick") + 1):ncol(rodent_pathos)]) %>%
+#   colnames()
+# pathos_name
 
 
 
-# Temporary soluce : -attention-
-rodent_pathos <- left_join(d_host, taxa_transposed_16S_rpoB )
+# Temporary solution : -attention-
+rodent_pathos <- left_join(d_host, taxa_transposed_16S_rpoB,
+                           by = c("numero_centre" = "numero_centre_16s"))
+
+# devait etre fait avant surement mais bon :
+rodent_pathos <- rodent_pathos %>%
+  filter(stringr::str_detect(numero_centre, pattern = "NCHA") ) 
 
 
-
-
-
-# Extract Pathogens name
-pathos_name <- rodent_pathos |>
-  select(names(rodent_pathos)[(which(names(rodent_pathos) == "effectif_tick") + 1):ncol(rodent_pathos)]) %>%
+pathos_name <- rodent_pathos %>%
+  select(names(rodent_pathos)[(which(names(rodent_pathos) == "broadleaved_class") + 1):ncol(rodent_pathos)]) %>%
   colnames()
-pathos_name
+
+
+
+# Global data exploration ----
+
+# Number infected per taxa
+rodent_pathos %>%
+  mutate(across(all_of(pathos_name), ~ replace(., . > 0, 1))) %>%
+  group_by(taxon_mamm) %>%
+  summarise(across(all_of(pathos_name), sum)) 
+
+
+# List of pathogen per species
+list_pathos_per_species <- list()
+
+for (i in unique(rodent_pathos$taxon_mamm)) {
+  list_pathos_per_species[[i]] <- rodent_pathos %>%
+    filter(taxon_mamm == i) %>%
+    select(names(which(colSums(.[, pathos_name]) > 0))) %>%
+    colnames()
+}
+list_pathos_per_species
+
+
 
 
 # ANALYSIS (ONLY FOR APODEMUS FOR NOW) ----
@@ -390,21 +433,27 @@ pathos_name
 d_apo_pathos_glm <- rodent_pathos %>%
   filter(taxon_mamm == "Apodemus sylvaticus")
 
-# So filter empty pathogen for apodemus 
+# Filter empty pathogen for Apodemus 
 d_apo_pathos_glm <- d_apo_pathos_glm %>%
-  mutate(across(all_of(pathos_name), ~if_else(sum(.) != 0) . NULL) )
+  select(-names(which(colSums(d_apo_pathos_glm[, pathos_name]) == 0)))
 
+# # Regroup some specific taxa for analysis purposes 
+# d_apo_pathos_glm <- d_apo_pathos_glm %>%
+#   mutate(Borrelia = Borrelia + Borreliella_afzelii) %>%
+#   select(- Borreliella_afzelii)
 
-# Regroup some specific taxa for analysis purposes 
-d_apo_pathos_glm <- d_apo_pathos_glm %>%
-  mutate(Borrelia = Borrelia + Borreliella_afzelii) %>%
-  select(- Borreliella_afzelii)
+# # Generate apo pathos name vector
+# pathos_name_apo <- d_apo_pathos_glm |>
+#   select(names(d_apo_pathos_glm)[(which(names(d_apo_pathos_glm) == "effectif_tick") + 1):ncol(d_apo_pathos_glm)]) %>%
+#   colnames()
+# setdiff(pathos_name, pathos_name_apo)
 
 # Generate apo pathos name vector
 pathos_name_apo <- d_apo_pathos_glm |>
-  select(names(d_apo_pathos_glm)[(which(names(d_apo_pathos_glm) == "effectif_tick") + 1):ncol(d_apo_pathos_glm)]) %>%
+  select(names(d_apo_pathos_glm)[(which(names(d_apo_pathos_glm) == "broadleaved_class") + 1):ncol(d_apo_pathos_glm)]) %>%
   colnames()
 setdiff(pathos_name, pathos_name_apo)
+
 
 # Generate the dataframe for logistic analysis (0/1)
 data_for_m <- d_apo_pathos_glm %>%
@@ -419,6 +468,7 @@ patho10_apo <- d_apo_pathos_glm %>%
   summarise( across(all_of(pathos_name_apo), ~ sum(. > 0) / n() ))  %>%
   unlist()
 patho10_apo <- names(patho10_apo[patho10_apo >= 0.10])
+patho10_apo
 
 # Take away rows with NA for some of our factor
 data_for_m <- data_for_m %>%
@@ -426,7 +476,7 @@ data_for_m <- data_for_m %>%
 
 
 
-## Exploration ----
+## Exploration (for apodemus only) ----
 
 # PREVALENCES PER SITE (beware, sometiques really few individuals per site rise prevalence + line with no individuals are not integrated)
 # Init pathogen prevalence per grouping factor 
