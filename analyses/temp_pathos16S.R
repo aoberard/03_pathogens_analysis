@@ -471,9 +471,19 @@ patho10_apo <- d_apo_pathos_glm %>%
 patho10_apo <- names(patho10_apo[patho10_apo >= 0.10])
 patho10_apo
 
+
+
+
 # Take away rows with NA for some of our factor
 data_for_m <- data_for_m %>%
   filter(!is.na(sexe))
+
+# Generate dataset without broadleaved forest for different analysis
+data_for_m_noforests <- data_for_m %>%
+  filter(category != "broadleaved_forest")
+  
+
+
 
 
 
@@ -611,25 +621,23 @@ hist(data_for_m$number_pathos)
 ### Model : Neoehrlichia_mikurensis  ----
 rm(m_neoeh_r)
 m_neoeh_r <- lme4::glmer(
-  formula = Neoehrlichia_mikurensis ~ treatment + code_mission + poids + sexe + (1|numero_ligne),
+  formula = Neoehrlichia_mikurensis ~ treatment * broadleaved_class + scale(poids) + code_mission  + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
-  data = data_for_m,
+  data = data_for_m_noforests,
   na.action = "na.fail",                                  
-  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
-
-
 
 SelectionModels<- MuMIn::dredge(m_neoeh_r, rank = "AICc")              
 TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
 m_neoeh_r <- lme4::glmer(
-  formula = Neoehrlichia_mikurensis ~ broadleaved_class  + code_mission + poids  + (1|numero_ligne),
+  formula = Neoehrlichia_mikurensis ~ treatment + broadleaved_class  + code_mission + scale(poids) + sexe  + (1|numero_ligne),
   family = binomial(link = "logit"),
-  data = data_for_m,
+  data = data_for_m_noforests,
   na.action = "na.fail",                                  
-  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
 
 DHARMa::simulateResiduals(m_neoeh_r, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
@@ -638,81 +646,137 @@ DHARMa::simulateResiduals(m_neoeh_r, n = 250, refit = F, integerResponse = NULL,
 drop1(m_neoeh_r,.~.,test="Chisq")
 summary(m_neoeh_r)
 
-em <- emmeans::emmeans(m_neoeh_r, specs = pairwise ~ broadleaved_class, adjust = "Tukey", type = "response" )
+em <- emmeans::emmeans(m_neoeh_r, specs = pairwise ~ code_mission, adjust = "Tukey", type = "response" )
 em$contrasts
 
 plot(em, comparisons = TRUE)
 
 
-#### Test graph ----
+ggstats::ggcoef_model(m_neoeh_r)
 
-# Extract fixed effects coefficients
-fixed_effects <- coef(summary(m_neoeh_r))[, "Estimate"] # ou : fixed_effects <- lme4::fixef(m_neoeh_r)
+gtsummary::tbl_regression(m_neoeh_r)
 
-# Create data for plotting
-plot_data <- expand.grid(
-  broadleaved_class = unique(data_for_m$broadleaved_class),
-  code_mission = unique(data_for_m$code_mission),
-  poids = seq(min(data_for_m$poids), max(data_for_m$poids), length.out = 100)  
+
+
+# Alternative - just test category
+
+rm(m_neoeh_r)
+m_neoeh_r <- lme4::glmer(
+  formula = Neoehrlichia_mikurensis ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
 
-# Predict response variable
-plot_data$predicted_prob <- predict(m_neoeh_r, newdata = plot_data, type = "response", re.form = NA)
 
-# Plot
-library(ggplot2)
-ggplot(plot_data, aes(x = poids, y = predicted_prob, color = broadleaved_class)) +
-  geom_line() +
-  facet_wrap(~ code_mission) +
-  labs(x = "Poids", y = "Predicted Probability", color = "Broadleaved Status")
+SelectionModels<- MuMIn::dredge(m_neoeh_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
 
+ggstats::ggcoef_model(m_neoeh_r)
+
+gtsummary::tbl_regression(m_neoeh_r)
+
+
+
+
+
+# 
+ #### Test graph ----
+# 
+# # Extract fixed effects coefficients
+# fixed_effects <- coef(summary(m_neoeh_r))[, "Estimate"] # ou : fixed_effects <- lme4::fixef(m_neoeh_r)
+# 
+# # Create data for plotting
+# plot_data <- expand.grid(
+#   broadleaved_class = unique(data_for_m$broadleaved_class),
+#   code_mission = unique(data_for_m$code_mission),
+#   poids = seq(min(data_for_m$poids), max(data_for_m$poids), length.out = 100)  
+# )
+# 
+# # Predict response variable
+# plot_data$predicted_prob <- predict(m_neoeh_r, newdata = plot_data, type = "response", re.form = NA)
+# 
+# # Plot
+# library(ggplot2)
+# ggplot(plot_data, aes(x = poids, y = predicted_prob, color = broadleaved_class)) +
+#   geom_line() +
+#   facet_wrap(~ code_mission) +
+#   labs(x = "Poids", y = "Predicted Probability", color = "Broadleaved Status")
+# 
 
 
 
 ### Model : Mycoplasma haemomuris ----
 rm(m_mycoplasma_r)
 m_mycoplasma_r <- lme4::glmer(
-  formula = Mycoplasma_haemomuris ~ broadleaved_class * treatment + code_mission + poids + sexe +(1|numero_ligne),
+  formula = Mycoplasma_haemomuris ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
-  data = data_for_m,
+  data = data_for_m_noforests,
   na.action = "na.fail",                                  
-  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e7))
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
-
-DHARMa::simulateResiduals(m_mycoplasma_r, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
-  plot(rank = TRUE)
 
 SelectionModels<- MuMIn::dredge(m_mycoplasma_r, rank = "AICc")              
 TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
 m_mycoplasma_r_best <- lme4::glmer(
-  formula = Haemobartonella_muris ~ treatment + poids +(1|numero_ligne),
+  formula = Mycoplasma_haemomuris ~ scale(poids) + (1|numero_ligne),
   family = binomial(link = "logit"),
-  data = data_for_m,
+  data = data_for_m_noforests,
   na.action = "na.fail",                                  
-  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
+
 DHARMa::simulateResiduals(m_mycoplasma_r_best, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
   plot(rank = TRUE)
 
 drop1(m_mycoplasma_r_best,.~.,test="Chisq")
 summary(m_mycoplasma_r_best)
 
-em_myco <- emmeans::emmeans(m_mycoplasma_r_best, specs = pairwise ~ treatment, adjust = "Tukey", type = "response" )
-em_myco$contrasts
+ggstats::ggcoef_model(m_mycoplasma_r_best)
 
-plot(em_myco, comparisons = TRUE)
+gtsummary::tbl_regression(m_mycoplasma_r_best)
+
+
+
+#Alternative
+
+rm(m_mycoplasma_r)
+m_mycoplasma_r <- lme4::glmer(
+  formula = Mycoplasma_haemomuris ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_mycoplasma_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+
+ggstats::ggcoef_model(m_mycoplasma_r_best)
+
+gtsummary::tbl_regression(m_mycoplasma_r_best)
+
+
+
+
+
+
 
 
 ### Model : Mycoplasma coccoides ----
 
 m_mycoplasmacoco_r <- lme4::glmer(
-  formula = Mycoplasma_coccoides ~ broadleaved_class * treatment + code_mission + poids + sexe +(1|numero_ligne),
+  formula = Mycoplasma_coccoides ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
-  data = data_for_m,
+  data = data_for_m_noforests,
   na.action = "na.fail",                                  
-  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
 
 SelectionModels<- MuMIn::dredge(m_mycoplasmacoco_r, rank = "AICc")              
@@ -734,33 +798,204 @@ drop1(m_mycoplasmacoco_r,.~.,test="Chisq")
 summary(m_mycoplasmacoco_r)
 
 
+ggstats::ggcoef_model(m_mycoplasmacoco_r)
 
-### Model : Bartonella ----
-m_barto_r <- lme4::glmer(
-  formula = Bartonella ~ broadleaved_class + code_mission + poids + sexe +(1|numero_ligne),
+gtsummary::tbl_regression(m_mycoplasmacoco_r)
+
+
+
+
+# Alternative
+m_mycoplasmacoco_r <- lme4::glmer(
+  formula = Mycoplasma_coccoides ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
-  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_mycoplasmacoco_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+
+
+
+
+
+
+
+
+### Model : Bartonella ----
+m_barto_r <- lme4::glmer(
+  formula = Bartonella ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
 
 SelectionModels<- MuMIn::dredge(m_barto_r, rank = "AICc")              
 TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
+m_barto_r_best <- lme4::glmer(
+  formula = Bartonella ~ scale(poids) + code_mission + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+DHARMa::simulateResiduals(m_barto_r_best, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
+  plot(rank = TRUE)
+
+drop1(m_barto_r_best,.~.,test="Chisq")
+summary(m_barto_r_best)
+
+
+ggstats::ggcoef_model(m_barto_r_best)
+
+gtsummary::tbl_regression(m_barto_r_best)
+
+
+
+#Alternative
 m_barto_r <- lme4::glmer(
-  formula = Bartonella ~ code_mission + poids  +(1|numero_ligne),
+  formula = Bartonella ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
-  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
 
-DHARMa::simulateResiduals(m_barto_r, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
-  plot(rank = TRUE)
 
-drop1(m_barto_r,.~.,test="Chisq")
-summary(m_barto_r)
+SelectionModels<- MuMIn::dredge(m_barto_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+
+
+
+
+
+### Model : Bartonella_taylorii ----
+m_barto_t_r <- lme4::glmer(
+  formula = Bartonella_taylorii ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_barto_t_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_barto_t_r)
+
+gtsummary::tbl_regression(m_barto_t_r)
+
+
+#Alternative
+m_barto_t_r <- lme4::glmer(
+  formula = Bartonella_taylorii ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_barto_t_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+
+
+
+### Model : Bartonella_grahamii ----
+m_barto_g_r <- lme4::glmer(
+  formula = Bartonella_grahamii ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_barto_g_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_barto_g_r)
+
+gtsummary::tbl_regression(m_barto_g_r)
+
+
+#Alternative
+m_barto_g_r <- lme4::glmer(
+  formula = Bartonella_grahamii ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_barto_g_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+
+
+### Model : Bartonella_birtlesii ----
+
+m_barto_b_r <- lme4::glmer(
+  formula = Bartonella_birtlesii ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_barto_b_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_barto_b_r)
+
+gtsummary::tbl_regression(m_barto_b_r)
+
+
+
+#Alternative
+m_barto_b_r <- lme4::glmer(
+  formula = Bartonella_birtlesii ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_barto_b_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -826,11 +1061,11 @@ plot(em, comparisons = TRUE)
 
 ###Model : Pathogen Richnesse  ----
 m_pathnumber_r <- lme4::glmer(
-  formula = number_pathos ~ broadleaved_class * treatment + code_mission + poids  + sexe +(1|numero_ligne),
+  formula = number_pathos ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
   family = poisson(link = "log"),
-  data = data_for_m,
+  data = data_for_m_noforests,
   na.action = "na.fail",                                  
-  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
 
 DHARMa::simulateResiduals(m_pathnumber_r, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
@@ -856,6 +1091,23 @@ DHARMa::simulateResiduals(m_pathnumber_r, n = 250, refit = F, integerResponse = 
   plot(rank = TRUE)
 drop1(m_pathnumber_r,.~.,test="Chisq")
 summary(m_pathnumber_r)
+
+
+
+
+
+# Alternative
+m_pathnumber_r <- lme4::glmer(
+  formula = number_pathos ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  family = poisson(link = "log"),
+  data = data_for_m,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_pathnumber_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
 
 
 # ANALYSIS (NOT ONLY ON APODEMUS) ----
