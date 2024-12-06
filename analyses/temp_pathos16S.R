@@ -420,8 +420,10 @@ data_for_m <- d_apo_pathos_glm %>%
   mutate(across(all_of(pathos_name_apo), ~ replace(., . > 0, 1)))
 
 # Add new variable : pathogen richness
+candidate_richness_pathos <- setdiff(pathos_name_apo, "Bartonella")
+
 data_for_m <- data_for_m %>%
-  mutate(number_pathos = rowSums(across(all_of(pathos_name_apo))) ) 
+  mutate(number_pathos = rowSums(across(all_of(candidate_richness_pathos))) ) 
 
 # Identify pathos with GLOBAL prevalence >=10 for whole data
 patho10_apo <- d_apo_pathos_glm %>%
@@ -435,13 +437,17 @@ patho10_apo
 data_for_m <- data_for_m %>%
   filter(!is.na(sexe))
 
-# Generate dataset without broadleaved forest for different analysis
+# Generate dataset without broadleaved forest analysis
 data_for_m_noforests <- data_for_m %>%
   filter(category != "broadleaved_forest")
   
-
-
-
+# Generate other dataset without broadleaved forest, without year that do not contains them
+data_for_m_forestsyear <- data_for_m %>%
+  filter(code_mission %in% (data_for_m %>% 
+           filter(category == "broadleaved_forest") %>%
+           select(code_mission) %>% 
+           pull() %>%
+           unique()))
 
 
 ## Exploration (for apodemus only) ----
@@ -541,6 +547,9 @@ pp_prevalence %>%
 
 
 # test neoehrlichia
+
+table(data_for_m_noforests$Neoehrlichia_mikurensis, data_for_m_noforests$season)
+
 pp_prevalence %>%  
   filter(pathos == "Neoehrlichia_mikurensis") %>%
   ggplot(aes(x = prevalence, y = broadleaved_class, fill = broadleaved_class)) +

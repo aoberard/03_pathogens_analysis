@@ -1,15 +1,24 @@
 
+# 1. Considering treatment (C, NC, CT) - no broadleaved forests
+# 2. Considering category (pine, hedgerows) - no broadleaved forests
+# 3. Considering category (pine, hedgerows, broadleaved forsts) only in years with forests sampled
+
+
 ## GLMMs ----
 
 ### Model : Neoehrlichia_mikurensis  ----
+
+# 1. Considering treatment (C, NC, CT) - no broadleaved forests
 rm(m_neoeh_r)
 m_neoeh_r <- lme4::glmer(
-  formula = Neoehrlichia_mikurensis ~ treatment * broadleaved_class + scale(poids) + as.factor(year) * season  + sexe + (1|numero_ligne),
+  formula = Neoehrlichia_mikurensis ~ treatment + broadleaved_class + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
+
+car::vif(m_neoeh_r)
 
 SelectionModels<- MuMIn::dredge(m_neoeh_r, rank = "AICc")              
 TopModels<-subset(SelectionModels, delta<2)
@@ -29,29 +38,50 @@ DHARMa::simulateResiduals(m_neoeh_r, n = 250, refit = F, integerResponse = NULL,
 drop1(m_neoeh_r,.~.,test="Chisq")
 summary(m_neoeh_r)
 
-em <- emmeans::emmeans(m_neoeh_r, specs = pairwise ~ code_mission, adjust = "Tukey", type = "response" )
+em <- emmeans::emmeans(m_neoeh_r, specs = pairwise ~ treatment, adjust = "Tukey", type = "response" )
 em$contrasts
-
 plot(em, comparisons = TRUE)
-
 
 ggstats::ggcoef_model(m_neoeh_r)
 
-gtsummary::tbl_regression(m_neoeh_r)
 
-
-
-# Alternative - just test category
-
+# 2. Considering category (pine, hedgerows) - no broadleaved forests
 rm(m_neoeh_r)
 m_neoeh_r <- lme4::glmer(
-  formula = Neoehrlichia_mikurensis ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  formula = Neoehrlichia_mikurensis ~ category + broadleaved_class + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
   family = binomial(link = "logit"),
-  data = data_for_m,
+  data = data_for_m_noforests,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
+car::vif(m_neoeh_r)
 
+SelectionModels<- MuMIn::dredge(m_neoeh_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+rm(m_neoeh_r)
+m_neoeh_r <- lme4::glmer(
+  formula = Neoehrlichia_mikurensis ~ category + broadleaved_class + as.factor(year) + season  + scale(poids) + sexe  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+ggstats::ggcoef_model(m_neoeh_r)
+  
+
+
+# 3. Considering category (pine, hedgerows, broadleaved forsts) only in years with forests sampled
+
+rm(m_neoeh_r)
+m_neoeh_r <- lme4::glmer(
+  formula = Neoehrlichia_mikurensis ~ category + scale(poids) + season + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_forestsyear,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
 
 SelectionModels<- MuMIn::dredge(m_neoeh_r, rank = "AICc")              
 TopModels<-subset(SelectionModels, delta<2)
@@ -59,10 +89,18 @@ TopModels
 
 ggstats::ggcoef_model(m_neoeh_r)
 
-gtsummary::tbl_regression(m_neoeh_r)
 
+# 4. Considering extended broadleaved_class (LB, HB, B)
+rm(m_neoeh_r)
+m_neoeh_r <- lme4::glmer(
+  formula = Neoehrlichia_mikurensis ~ broadleaved_class + scale(poids) + season + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_forestsyear,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
 
-
+ggstats::ggcoef_model(m_neoeh_r)
 
 
 # 
@@ -92,9 +130,12 @@ gtsummary::tbl_regression(m_neoeh_r)
 
 
 ### Model : Mycoplasma haemomuris ----
+
+
+# 1. Considering treatment (C, NC, CT) - no broadleaved forests
 rm(m_mycoplasma_r)
 m_mycoplasma_r <- lme4::glmer(
-  formula = Mycoplasma_haemomuris ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  formula = Mycoplasma_haemomuris ~ treatment * broadleaved_class + scale(poids) + season * as.factor(year) + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests,
   na.action = "na.fail",                                  
@@ -106,7 +147,7 @@ TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
 m_mycoplasma_r_best <- lme4::glmer(
-  formula = Mycoplasma_haemomuris ~ scale(poids) + (1|numero_ligne),
+  formula = Mycoplasma_haemomuris ~ scale(poids) + treatment + as.factor(year) + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests,
   na.action = "na.fail",                                  
@@ -123,15 +164,12 @@ ggstats::ggcoef_model(m_mycoplasma_r_best)
 
 gtsummary::tbl_regression(m_mycoplasma_r_best)
 
-
-
-#Alternative
-
+# 2. Considering category (pine, hedgerows) - no broadleaved forests
 rm(m_mycoplasma_r)
 m_mycoplasma_r <- lme4::glmer(
-  formula = Mycoplasma_haemomuris ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  formula = Mycoplasma_haemomuris ~ category * broadleaved_class + scale(poids) + season * as.factor(year) + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
-  data = data_for_m,
+  data = data_for_m_noforests,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
@@ -141,9 +179,33 @@ TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
 
+m_mycoplasma_r_best <- lme4::glmer(
+  formula = Mycoplasma_haemomuris ~ scale(poids) + category + broadleaved_class + as.factor(year) + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+
 ggstats::ggcoef_model(m_mycoplasma_r_best)
 
-gtsummary::tbl_regression(m_mycoplasma_r_best)
+
+# 3. Considering category (pine, hedgerows, broadleaved forsts) only in years with forests sampled
+rm(m_mycoplasma_r)
+m_mycoplasma_r <- lme4::glmer(
+  formula = Mycoplasma_haemomuris ~ category + scale(poids) + season + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_forestsyear,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_mycoplasma_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_mycoplasma_r)
 
 
 
@@ -154,8 +216,10 @@ gtsummary::tbl_regression(m_mycoplasma_r_best)
 
 ### Model : Mycoplasma coccoides ----
 
+
+# 1. Considering treatment (C, NC, CT) - no broadleaved forests
 m_mycoplasmacoco_r <- lme4::glmer(
-  formula = Mycoplasma_coccoides ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  formula = Mycoplasma_coccoides ~ treatment * broadleaved_class + scale(poids) + as.factor(year)*season + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests,
   na.action = "na.fail",                                  
@@ -167,12 +231,13 @@ TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
 m_mycoplasmacoco_r <- lme4::glmer(
-  formula = Mycoplasma_coccoides ~ poids +(1|numero_ligne),
+  formula = Mycoplasma_coccoides ~ treatment + broadleaved_class + scale(poids) + as.factor(year) + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
-  data = data_for_m,
+  data = data_for_m_noforests,
   na.action = "na.fail",                                  
-  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
+
 
 DHARMa::simulateResiduals(m_mycoplasmacoco_r, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
   plot(rank = TRUE)
@@ -186,13 +251,26 @@ ggstats::ggcoef_model(m_mycoplasmacoco_r)
 gtsummary::tbl_regression(m_mycoplasmacoco_r)
 
 
-
-
-# Alternative
+# 2. Considering category (pine, hedgerows) - no broadleaved forests
 m_mycoplasmacoco_r <- lme4::glmer(
-  formula = Mycoplasma_coccoides ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  formula = Mycoplasma_coccoides ~ category * broadleaved_class + scale(poids) + as.factor(year)*season + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
-  data = data_for_m,
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+SelectionModels<- MuMIn::dredge(m_mycoplasmacoco_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_mycoplasmacoco_r)
+
+
+# 3. Considering category (pine, hedgerows, broadleaved forsts) only in years with forests sampled
+m_mycoplasmacoco_r <- lme4::glmer(
+  formula = Mycoplasma_coccoides ~ category + scale(poids) + season + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_forestsyear,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
@@ -201,17 +279,23 @@ SelectionModels<- MuMIn::dredge(m_mycoplasmacoco_r, rank = "AICc")
 TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
+m_mycoplasmacoco_r <- lme4::glmer(
+  formula = Mycoplasma_coccoides ~ category + scale(poids) + season + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_forestsyear,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
 
-
-
-
-
+ggstats::ggcoef_model(m_mycoplasmacoco_r)
 
 
 
 ### Model : Bartonella ----
+
+# 1. Considering treatment (C, NC, CT) - no broadleaved forests
 m_barto_r <- lme4::glmer(
-  formula = Bartonella ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  formula = Bartonella ~ treatment * broadleaved_class + scale(poids) + season* as.factor(year) + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests,
   na.action = "na.fail",                                  
@@ -223,7 +307,7 @@ TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
 m_barto_r_best <- lme4::glmer(
-  formula = Bartonella ~ scale(poids) + code_mission + (1|numero_ligne),
+  formula = Bartonella ~ scale(poids) + season* as.factor(year) + broadleaved_class + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests,
   na.action = "na.fail",                                  
@@ -242,12 +326,26 @@ ggstats::ggcoef_model(m_barto_r_best)
 gtsummary::tbl_regression(m_barto_r_best)
 
 
-
-#Alternative
+# 2. Considering category (pine, hedgerows) - no broadleaved forests
 m_barto_r <- lme4::glmer(
-  formula = Bartonella ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  formula = Bartonella ~ category + scale(poids) + season* as.factor(year) + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
-  data = data_for_m,
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+SelectionModels<- MuMIn::dredge(m_barto_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_barto_r)
+
+
+# 3. Considering category (pine, hedgerows, broadleaved forsts) only in years with forests sampled
+m_barto_r <- lme4::glmer(
+  formula = Bartonella ~ category + scale(poids) + season + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_forestsyear,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
@@ -257,16 +355,59 @@ SelectionModels<- MuMIn::dredge(m_barto_r, rank = "AICc")
 TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
+ggstats::ggcoef_model(m_barto_r)
 
 
 
 
 
 ### Model : Bartonella_taylorii ----
+
+# 1. Considering treatment (C, NC, CT) - no broadleaved forests
 m_barto_t_r <- lme4::glmer(
-  formula = Bartonella_taylorii ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  formula = Bartonella_taylorii ~ treatment * broadleaved_class + scale(poids) + as.factor(year) * season + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_barto_t_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+m_barto_t_r <- lme4::glmer(
+  formula = Bartonella_taylorii ~ treatment + broadleaved_class + scale(poids) + as.factor(year) + season + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+ggstats::ggcoef_model(m_barto_t_r)
+
+gtsummary::tbl_regression(m_barto_t_r)
+
+# 2. Considering category (pine, hedgerows) - no broadleaved forests
+m_barto_t_r <- lme4::glmer(
+  formula = Bartonella_taylorii ~ category * broadleaved_class + scale(poids) + as.factor(year) * season + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+SelectionModels<- MuMIn::dredge(m_barto_t_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_barto_t_r)
+
+
+# 3. Considering category (pine, hedgerows, broadleaved forsts) only in years with forests sampled
+m_barto_t_r <- lme4::glmer(
+  formula = Bartonella_taylorii ~ category + scale(poids) + season + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_forestsyear,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
@@ -277,28 +418,13 @@ TopModels
 
 ggstats::ggcoef_model(m_barto_t_r)
 
-gtsummary::tbl_regression(m_barto_t_r)
-
-
-#Alternative
-m_barto_t_r <- lme4::glmer(
-  formula = Bartonella_taylorii ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
-  family = binomial(link = "logit"),
-  data = data_for_m,
-  na.action = "na.fail",                                  
-  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
-)
-
-SelectionModels<- MuMIn::dredge(m_barto_t_r, rank = "AICc")              
-TopModels<-subset(SelectionModels, delta<2)
-TopModels
-
-
 
 
 ### Model : Bartonella_grahamii ----
+
+# 1. Considering treatment (C, NC, CT) - no broadleaved forests
 m_barto_g_r <- lme4::glmer(
-  formula = Bartonella_grahamii ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  formula = Bartonella_grahamii ~ treatment * broadleaved_class + scale(poids) + as.factor(year) * season + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests,
   na.action = "na.fail",                                  
@@ -309,16 +435,24 @@ SelectionModels<- MuMIn::dredge(m_barto_g_r, rank = "AICc")
 TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
+m_barto_g_r <- lme4::glmer(
+  formula = Bartonella_grahamii ~  treatment + broadleaved_class + scale(poids) + as.factor(year) + season + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
 ggstats::ggcoef_model(m_barto_g_r)
 
 gtsummary::tbl_regression(m_barto_g_r)
 
 
-#Alternative
+# 2. Considering category (pine, hedgerows) - no broadleaved forests
 m_barto_g_r <- lme4::glmer(
-  formula = Bartonella_grahamii ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  formula = Bartonella_grahamii ~ category * broadleaved_class + scale(poids) + as.factor(year) * season + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
-  data = data_for_m,
+  data = data_for_m_noforests,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
@@ -327,12 +461,46 @@ SelectionModels<- MuMIn::dredge(m_barto_g_r, rank = "AICc")
 TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
+m_barto_g_r <- lme4::glmer(
+  formula = Bartonella_grahamii ~ category * broadleaved_class + scale(poids) + as.factor(year) * season + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+ggstats::ggcoef_model(m_barto_g_r)
+
+
+## 3. Considering category (pine, hedgerows, broadleaved forsts) only in years with forests sampled
+m_barto_g_r <- lme4::glmer(
+  formula = Bartonella_grahamii ~ category + scale(poids) + season + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_forestsyear,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_barto_g_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+m_barto_g_r <- lme4::glmer(
+  formula = Bartonella_grahamii ~ category + scale(poids) + season  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_forestsyear,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+ggstats::ggcoef_model(m_barto_g_r)
+
 
 
 ### Model : Bartonella_birtlesii ----
-
+# 1. Considering treatment (C, NC, CT) - no broadleaved forests
 m_barto_b_r <- lme4::glmer(
-  formula = Bartonella_birtlesii ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  formula = Bartonella_birtlesii ~ treatment * broadleaved_class + scale(poids) + as.factor(year) * season + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests,
   na.action = "na.fail",                                  
@@ -348,12 +516,11 @@ ggstats::ggcoef_model(m_barto_b_r)
 gtsummary::tbl_regression(m_barto_b_r)
 
 
-
-#Alternative
+# 2. Considering category (pine, hedgerows) - no broadleaved forests
 m_barto_b_r <- lme4::glmer(
-  formula = Bartonella_birtlesii ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  formula = Bartonella_birtlesii ~ category + scale(poids) + as.factor(year) * season + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
-  data = data_for_m,
+  data = data_for_m_noforests,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
@@ -362,6 +529,23 @@ SelectionModels<- MuMIn::dredge(m_barto_b_r, rank = "AICc")
 TopModels<-subset(SelectionModels, delta<2)
 TopModels
 
+ggstats::ggcoef_model(m_barto_b_r)
+
+
+# 3. Considering category (pine, hedgerows, broadleaved forsts) only in years with forests sampled
+m_barto_b_r <- lme4::glmer(
+  formula = Bartonella_birtlesii ~ category + scale(poids) + season + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_forestsyear,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_barto_b_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_barto_b_r)
 
 
 
@@ -443,16 +627,18 @@ em$contrasts
 plot(em, comparisons = TRUE)
 
 ###Model : Pathogen Richnesse  ----
+
+
+# 1. Considering treatment (C, NC, CT) - no broadleaved forests
+# 2. Considering category (pine, hedgerows) - no broadleaved forests
+# 3. Considering category (pine, hedgerows, broadleaved forsts) only in years with forests sampled
 m_pathnumber_r <- lme4::glmer(
-  formula = number_pathos ~ treatment * broadleaved_class + scale(poids) + code_mission + sexe + (1|numero_ligne),
+  formula = number_pathos ~ treatment * broadleaved_class + scale(poids) + season*year + sexe + (1|numero_ligne),
   family = poisson(link = "log"),
   data = data_for_m_noforests,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
-
-DHARMa::simulateResiduals(m_pathnumber_r, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
-  plot(rank = TRUE)
 
 SelectionModels<- MuMIn::dredge(m_pathnumber_r, rank = "AICc")              
 TopModels<-subset(SelectionModels, delta<2)
@@ -460,9 +646,9 @@ TopModels
 
 
 m_pathnumber_r <- lme4::glmer(
-  formula = number_pathos ~  code_mission + poids  +(1|numero_ligne),
+  formula = number_pathos ~  season + broadleaved_class + scale(poids) + (1|numero_ligne),
   family = poisson(link = "log"),
-  data = data_for_m,
+  data = data_for_m_noforests,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
 )
@@ -475,6 +661,7 @@ DHARMa::simulateResiduals(m_pathnumber_r, n = 250, refit = F, integerResponse = 
 drop1(m_pathnumber_r,.~.,test="Chisq")
 summary(m_pathnumber_r)
 
+ggstats::ggcoef_model(m_pathnumber_r)
 
 
 
@@ -483,7 +670,7 @@ summary(m_pathnumber_r)
 m_pathnumber_r <- lme4::glmer(
   formula = number_pathos ~ category + scale(poids) + code_mission + sexe + (1|numero_ligne),
   family = poisson(link = "log"),
-  data = data_for_m,
+  data = data_for_m_forestsyear,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
@@ -491,6 +678,27 @@ m_pathnumber_r <- lme4::glmer(
 SelectionModels<- MuMIn::dredge(m_pathnumber_r, rank = "AICc")              
 TopModels<-subset(SelectionModels, delta<2)
 TopModels
+
+
+# Test for negative binomial
+m_pathnumber_r<- MASS::glm.nb(formula = number_pathos ~ treatment * broadleaved_class + scale(poids) + season*year + sexe + (1|numero_ligne),
+             data = data_for_m_noforests,
+             na.action = "na.fail")
+
+SelectionModels<- MuMIn::dredge(m_pathnumber_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+m_pathnumber_r<- MASS::glm.nb(formula = number_pathos ~ treatment * broadleaved_class + scale(poids) + season*year + sexe + (1|numero_ligne),
+                              data = data_for_m_noforests,
+                              na.action = "na.fail")
+
+DHARMa::simulateResiduals(m_pathnumber_r, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
+  plot(rank = TRUE)
+
+summary(m_pathnumber_r)
+
+
 
 
 # ANALYSIS (NOT ONLY ON APODEMUS) ----
