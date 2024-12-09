@@ -368,9 +368,7 @@ pathos_name <- rodent_pathos %>%
 rodent_pathos %>%
   mutate(across(all_of(pathos_name), ~ replace(., . > 0, 1))) %>%
   group_by(taxon_mamm) %>%
-  summarise(across(all_of(pathos_name), sum)) %>% View()
-
-
+  summarise(across(all_of(pathos_name), sum))
 
 # List of pathogen per species
 list_pathos_per_species <- list()
@@ -440,6 +438,11 @@ data_for_m <- data_for_m %>%
 # Generate dataset without broadleaved forest analysis
 data_for_m_noforests <- data_for_m %>%
   filter(category != "broadleaved_forest")
+
+# Generate dataset without broadleaved forest with lines containing PCA values
+data_for_m_noforests_pca <- data_for_m_noforests %>%
+  filter(!is.na(PCA_axis1))
+
   
 # Generate other dataset without broadleaved forest, without year that do not contains them
 data_for_m_forestsyear <- data_for_m %>%

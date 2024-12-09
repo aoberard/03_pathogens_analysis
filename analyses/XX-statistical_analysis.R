@@ -1,7 +1,11 @@
 
-# 1. Considering treatment (C, NC, CT) - no broadleaved forests
-# 2. Considering category (pine, hedgerows) - no broadleaved forests
-# 3. Considering category (pine, hedgerows, broadleaved forsts) only in years with forests sampled
+####### REFAIRE MODELES AVEC ACP AXES :
+- enlever interations entre axes,
+- ajouter broadleavec class dans les model potetre (car paysage, pas truc local) 
+- ajout interaction axe * season en priorité
+- et interactions axe * annee et annee *saison dans l'optimal' 
+
+
 
 
 ## GLMMs ----
@@ -90,7 +94,25 @@ TopModels
 ggstats::ggcoef_model(m_neoeh_r)
 
 
-# 4. Considering extended broadleaved_class (LB, HB, B)
+# 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
+rm(m_neoeh_r)
+m_neoeh_r <- lme4::glmer(
+  formula = Neoehrlichia_mikurensis ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_neoeh_r)
+
+SelectionModels<- MuMIn::dredge(m_neoeh_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_neoeh_r)
+
+
+# 5. Considering extended broadleaved_class (LB, HB, B)
 rm(m_neoeh_r)
 m_neoeh_r <- lme4::glmer(
   formula = Neoehrlichia_mikurensis ~ broadleaved_class + scale(poids) + season + sexe + (1|numero_ligne),
@@ -208,6 +230,23 @@ TopModels
 ggstats::ggcoef_model(m_mycoplasma_r)
 
 
+# 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
+rm(m_mycoplasma_r)
+m_mycoplasma_r <- lme4::glmer(
+  formula = Mycoplasma_haemomuris ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_mycoplasma_r)
+
+SelectionModels<- MuMIn::dredge(m_mycoplasma_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_mycoplasma_r)
+
 
 
 
@@ -290,6 +329,22 @@ m_mycoplasmacoco_r <- lme4::glmer(
 ggstats::ggcoef_model(m_mycoplasmacoco_r)
 
 
+# 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
+rm(m_mycoplasmacoco_r)
+m_mycoplasmacoco_r <- lme4::glmer(
+  formula = Mycoplasma_coccoides ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_mycoplasmacoco_r)
+
+SelectionModels<- MuMIn::dredge(m_mycoplasmacoco_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_mycoplasmacoco_r)
 
 ### Model : Bartonella ----
 
@@ -358,7 +413,22 @@ TopModels
 ggstats::ggcoef_model(m_barto_r)
 
 
+# 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
+rm(m_barto_r)
+m_barto_r <- lme4::glmer(
+  formula = Bartonella ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_r)
 
+SelectionModels<- MuMIn::dredge(m_barto_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_barto_r)
 
 
 ### Model : Bartonella_taylorii ----
@@ -404,6 +474,7 @@ ggstats::ggcoef_model(m_barto_t_r)
 
 
 # 3. Considering category (pine, hedgerows, broadleaved forsts) only in years with forests sampled
+rm(m_barto_t_r)
 m_barto_t_r <- lme4::glmer(
   formula = Bartonella_taylorii ~ category + scale(poids) + season + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
@@ -418,7 +489,22 @@ TopModels
 
 ggstats::ggcoef_model(m_barto_t_r)
 
+# 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
+rm(m_barto_t_r)
+m_barto_t_r <- lme4::glmer(
+  formula = Bartonella_taylorii ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_t_r)
 
+SelectionModels<- MuMIn::dredge(m_barto_t_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_barto_t_r)
 
 ### Model : Bartonella_grahamii ----
 
@@ -496,6 +582,23 @@ m_barto_g_r <- lme4::glmer(
 ggstats::ggcoef_model(m_barto_g_r)
 
 
+# 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
+rm(m_barto_g_r)
+m_barto_g_r <- lme4::glmer(
+  formula = Bartonella_grahamii ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_g_r)
+
+SelectionModels<- MuMIn::dredge(m_barto_g_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_barto_g_r)
+
 
 ### Model : Bartonella_birtlesii ----
 # 1. Considering treatment (C, NC, CT) - no broadleaved forests
@@ -547,6 +650,22 @@ TopModels
 
 ggstats::ggcoef_model(m_barto_b_r)
 
+# 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
+rm(m_barto_b_r)
+m_barto_b_r <- lme4::glmer(
+  formula = Bartonella_birtlesii ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_b_r)
+
+SelectionModels<- MuMIn::dredge(m_barto_b_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+ggstats::ggcoef_model(m_barto_b_r)
 
 
 
