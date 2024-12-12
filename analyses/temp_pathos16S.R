@@ -775,4 +775,4 @@ plot
 
 ggsave(filename = here::here("figures","neoehrlichia_plot_ewda.pdf"), plot = plot, 
        width = 10.5, height = 7.5, units = "in", device = "pdf")
-=
+
