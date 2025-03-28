@@ -315,10 +315,46 @@ taxa_transposed_16S_rpoB %>%
   pull()
   
 
+## Join 16S-rpoB to lipl32 data ----
+
+# Transform lipl32 qualitative column
+filelipl32 <- filelipl32 %>%
+  mutate(lipL32_result = if_else(lipL32_result == "-", "0", lipL32_result) |> as.numeric()) %>%
+  select(ID_rodent, lipL32_result)
+
+# Join data
+taxa_transposed_16S_rpoB_lipl32 <- left_join(taxa_transposed_16S_rpoB, 
+                                             filelipl32,
+                                      by = c("numero_centre_combined" = "ID_rodent"))
+
+# See benefit of Lepto and lipl32 columns combining
+taxa_transposed_16S_rpoB_lipl32 %>%
+  filter(lipL32_result > 0) %>%
+  filter(Leptospira == 0) %>%
+  select(numero_centre_combined) %>%
+  pull()
+
+taxa_transposed_16S_rpoB_lipl32 %>%
+  filter(Leptospira > 0) %>%
+  filter(lipL32_result == 0) %>%
+  select(numero_centre_combined) %>%
+  pull()
+
+# Combine Leptospira columns 
+taxa_transposed_16S_rpoB_lipl32 <- taxa_transposed_16S_rpoB_lipl32 %>%
+  mutate(Leptospira = if_else(is.na(Leptospira) | Leptospira == 0, lipL32_result, Leptospira)) %>%
+  select(-c("lipL32_result"))
+
+
+
 
 # jsp ce que je voulais faire en bas, mais renommer numero_centre peut-être pas mal (genre rpoB-16s?)
 # genre controle quelles echantillons de l'un passé dans l'autre (tous les barto + 16s passé rpoB?)
 # peut-être faisable avant ça deja ?
+
+# + ça a changé car j'ai modif pour ajout de lipl32
+
+
 
 
 
