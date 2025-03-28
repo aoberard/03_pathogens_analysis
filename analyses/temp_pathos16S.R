@@ -336,7 +336,7 @@ taxa_transposed_16S_rpoB_lipl32 %>%
 
 taxa_transposed_16S_rpoB_lipl32 %>%
   filter(Leptospira > 0) %>%
-  filter(lipL32_result == 0) %>%
+  filter(lipL32_result > 0) %>%
   select(numero_centre_combined) %>%
   pull()
 
@@ -388,7 +388,7 @@ taxa_transposed_16S_rpoB_lipl32 <- taxa_transposed_16S_rpoB_lipl32 %>%
 # Temporary solution : -attention-------------
 rodent_pathos <- left_join(d_host %>%
                              filter(stringr::str_detect(numero_centre, pattern = "NCHA")),
-                           taxa_transposed_16S_rpoB,
+                           taxa_transposed_16S_rpoB_lipl32,
                            by = c("numero_centre" = "numero_centre_combined"))
 
 rodent_pathos <- rodent_pathos %>%
@@ -415,9 +415,11 @@ list_pathos_per_species <- list()
 for (i in unique(rodent_pathos$taxon_mamm)) {
   list_pathos_per_species[[i]] <- rodent_pathos %>%
     filter(taxon_mamm == i) %>%
-    select(names(which(colSums(.[, pathos_name]) > 0))) %>%
+    select(all_of(pathos_name)) %>%
+    select(where(~ any(. > 0))) %>%
     colnames()
 }
+
 list_pathos_per_species
 
 
