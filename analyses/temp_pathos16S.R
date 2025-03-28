@@ -50,16 +50,19 @@ putative_pathos_family <- c("Sarcocystidae")
 
 ## Import data ----
 # Import hosts and line modalities file
-d_host <- readr::read_csv( here::here("data/", "raw-data/", "host_data", "20241203_bpm_modalities.csv") )
+d_host <- readr::read_csv( here::here("data/", "raw-data/", "host_data", "20250123_bpm_modalities.csv") )
 
 # Import 16S filtered file
 file16s_run00_01_04_05 <- data.table::fread(file = here::here( "data","raw-data/","16s_run00-01-04-05","Run00-01-04-05_16S_filtered-merged_postfrogs.txt"))
 
-# Import 16S filtered file
+# Import rpoB filtered file
 filerpoB_run01_05 <- data.table::fread(file = here::here( "data","raw-data/","rpoB_run01-05","Run01-05-rpoB_filtered-merged.txt"))
 
 # Import rodent macroparasite
 d_macroparasite <- data.table::fread(file = here::here("data", "derived-data", "ticks", "rodents_tick", "20240731_macroparasite.csv") )
+
+# Import lipl32 file
+filelipl32 <- readxl::read_excel(path = here::here( "data","raw-data/","lepto","20250116_data_qPCR_lepto_BePrep.xlsx"))
 
 
 ## Generate a file containing samples of interest ----
@@ -71,7 +74,7 @@ sm_id <- unique(d_host %>%
                   pull(numero_centre)
 )
 
-# Identifiy taxonomy 16S and rpoB columns
+# Identify taxonomy 16S and rpoB columns
 taxo_name_16s <- colnames(file16s_run00_01_04_05 [, 1:which(colnames(file16s_run00_01_04_05) == "observation_sum") ])
 
 taxo_name_rpoB <- colnames(filerpoB_run01_05 [, 1:which(colnames(filerpoB_run01_05) == "observation_sum") ])
@@ -144,9 +147,9 @@ beprep_rpoB_sp <- beprep_rpoB_sp %>%
   filter(totalreads >0)
 
 # Write a file containing Spleen OTUs containing our samples only :
-data.table::fwrite(beprep_16s_sp, here::here("data", "derived-data","16S", "20241204_beprep_16s_sp.txt") )
+data.table::fwrite(beprep_16s_sp, here::here("data", "derived-data","16S", "20250123_beprep_16s_sp.txt") )
 
-data.table::fwrite(beprep_rpoB_sp, here::here("data", "derived-data","rpoB", "20241204_beprep_rpoB_sp.txt") )
+data.table::fwrite(beprep_rpoB_sp, here::here("data", "derived-data","rpoB", "20250123_beprep_rpoB_sp.txt") )
 
 
 ## Generate spleen putative pathogen data ----
@@ -164,7 +167,7 @@ pathos_rpoB <- beprep_rpoB_sp |>
 
 # Delete cluster without real affiliation
 pathos_16s <- pathos_16s %>%
-  filter(!domain == "no")
+  filter(!(domain == "no" | domain == "Plantae"))
 
 pathos_rpoB <- pathos_rpoB %>%
   filter(!domain == "no")
@@ -175,9 +178,9 @@ pathos_16s <- pathos_16s |>
          | family %in% putative_pathos_family)
 
 # Write a file containing 16S Spleen OTUs containing our samples only AND only putative pathogens :
-data.table::fwrite(pathos_16s, here::here("data/", "derived-data/","16S", "20241204_beprep_16s_sp_pathos.txt") )
+data.table::fwrite(pathos_16s, here::here("data/", "derived-data/","16S", "20250123_beprep_16s_sp_pathos.txt") )
 
-data.table::fwrite(pathos_rpoB, here::here("data", "derived-data","rpoB", "20241204_beprep_rpoB_sp_pathos.txt") )
+data.table::fwrite(pathos_rpoB, here::here("data", "derived-data","rpoB", "20250123_beprep_rpoB_sp_pathos.txt") )
 
 
 ## Seek for species level identification for specific taxa (e.g. Mycoplasma) throught external manipulation (e.g phylogenic tree and Genbank) ----
@@ -346,7 +349,7 @@ taxa_transposed_16S_rpoB %>%
 
 
 
-# Temporary solution : -attention-
+# Temporary solution : -attention-------------
 rodent_pathos <- left_join(d_host %>%
                              filter(stringr::str_detect(numero_centre, pattern = "NCHA")),
                            taxa_transposed_16S_rpoB,

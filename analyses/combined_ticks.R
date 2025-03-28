@@ -39,11 +39,7 @@ darken_color <- function(color, amount = 0.2) {
 
 ## Imports ----
 # Import hosts and line modalities file
-hosts <- readr::read_csv( here::here("data/", "raw-data/", "host_data", "20240731_bpm_modalities.csv") )
-
-# Take away not dissected individuals from hosts data
-hosts <- hosts %>%
-  filter(!numero_centre == "JPRA000093" | is.na(numero_centre))
+hosts <- readr::read_csv( here::here("data", "raw-data", "host_data", "20250123_bpm_modalities.csv") )
 
 # Import macroparasites from hosts file
 macroparasite <- fread(file = here::here("data/", "derived-data/", "ticks", "rodents_tick", "20240731_macroparasite.csv") )
@@ -53,6 +49,12 @@ envticks <- readxl::read_excel(here::here("data", "raw-data", "raw-ticks", "coll
 
 # Import microfluidic information
 microfluidic <- fread(file = here::here("data", "raw-data", "raw-ticks", "microfluidic", "20240411_microfluidic_tick.txt") )
+
+
+# Take away not dissected individuals from hosts data
+hosts <- hosts %>%
+  filter(stringr::str_detect(numero_centre, pattern = "NCHA"))
+
 
 ## New data generation ----
 
