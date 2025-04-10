@@ -97,7 +97,7 @@ ggstats::ggcoef_model(m_neoeh_r)
 # 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
 rm(m_neoeh_r)
 m_neoeh_r <- lme4::glmer(
-  formula = Neoehrlichia_mikurensis ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  formula = Neoehrlichia_mikurensis ~ PCA_axis1 + PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests_pca,
   na.action = "na.fail",                                  
@@ -233,7 +233,7 @@ ggstats::ggcoef_model(m_mycoplasma_r)
 # 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
 rm(m_mycoplasma_r)
 m_mycoplasma_r <- lme4::glmer(
-  formula = Mycoplasma_haemomuris ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  formula = Mycoplasma_haemomuris ~ PCA_axis1 + PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests_pca,
   na.action = "na.fail",                                  
@@ -332,7 +332,7 @@ ggstats::ggcoef_model(m_mycoplasmacoco_r)
 # 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
 rm(m_mycoplasmacoco_r)
 m_mycoplasmacoco_r <- lme4::glmer(
-  formula = Mycoplasma_coccoides ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  formula = Mycoplasma_coccoides ~ PCA_axis1 + PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests_pca,
   na.action = "na.fail",                                  
@@ -416,7 +416,7 @@ ggstats::ggcoef_model(m_barto_r)
 # 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
 rm(m_barto_r)
 m_barto_r <- lme4::glmer(
-  formula = Bartonella ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  formula = Bartonella ~ PCA_axis1 + PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests_pca,
   na.action = "na.fail",                                  
@@ -492,7 +492,7 @@ ggstats::ggcoef_model(m_barto_t_r)
 # 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
 rm(m_barto_t_r)
 m_barto_t_r <- lme4::glmer(
-  formula = Bartonella_taylorii ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  formula = Bartonella_taylorii ~ PCA_axis1 + PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests_pca,
   na.action = "na.fail",                                  
@@ -585,7 +585,7 @@ ggstats::ggcoef_model(m_barto_g_r)
 # 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
 rm(m_barto_g_r)
 m_barto_g_r <- lme4::glmer(
-  formula = Bartonella_grahamii ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  formula = Bartonella_grahamii ~ PCA_axis1 + PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests_pca,
   na.action = "na.fail",                                  
@@ -653,7 +653,7 @@ ggstats::ggcoef_model(m_barto_b_r)
 # 4. Considering small scale landscape characteristics PCA axis (no broadleaved forests) 
 rm(m_barto_b_r)
 m_barto_b_r <- lme4::glmer(
-  formula = Bartonella_birtlesii ~ PCA_axis1 * PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  formula = Bartonella_birtlesii ~ PCA_axis1 + PCA_axis2 + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m_noforests_pca,
   na.action = "na.fail",                                  
@@ -817,6 +817,14 @@ DHARMa::simulateResiduals(m_pathnumber_r, n = 250, refit = F, integerResponse = 
 
 summary(m_pathnumber_r)
 
+# ANALYSIS BEFORE MISSION 2025 -----
+m_neoeh_r <- lme4::glmer(
+  formula = Neoehrlichia_mikurensis ~ treatment + broadleaved_class + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
 
 
 

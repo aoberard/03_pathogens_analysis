@@ -50,19 +50,27 @@ putative_pathos_family <- c("Sarcocystidae")
 
 ## Import data ----
 # Import hosts and line modalities file
-d_host <- readr::read_csv( here::here("data/", "raw-data/", "host_data", "20250123_bpm_modalities.csv") )
+d_host <- readr::read_csv( here::here("data/", "raw-data", "host_data", "2025-04-09_small_mammal_beprep.csv") )
+d_host <- d_host %>%
+  filter(stringr::str_detect(numero_centre, pattern = "NCHA")) # Keep only dissected individuals
 
 # Import 16S filtered file
-file16s_run00_01_04_05 <- data.table::fread(file = here::here( "data","raw-data/","16s_run00-01-04-05","Run00-01-04-05_16S_filtered-merged_postfrogs.txt"))
+file16s_run00_01_04_05 <- data.table::fread(file = here::here( "data", "raw-data","16s_run00-01-04-05","Run00-01-04-05_16S_filtered-merged_postfrogs.txt"))
 
 # Import rpoB filtered file
-filerpoB_run01_05 <- data.table::fread(file = here::here( "data","raw-data/","rpoB_run01-05","Run01-05-rpoB_filtered-merged.txt"))
+filerpoB_run01_05 <- data.table::fread(file = here::here( "data","raw-data","rpoB_run01-05","Run01-05-rpoB_filtered-merged.txt"))
+
+# Import lipl32 file
+filelipl32 <- readxl::read_excel(path = here::here( "data","raw-data", "lepto","20250116_data_qPCR_lepto_BePrep.xlsx"))
+
+# Import helminths file
+file_helm <- readxl::read_excel(here::here("data", "raw-data", "helminths", "20250317_fiche_dissection.xlsx"),  col_types = c("text", "numeric", "numeric", 
+              "numeric", "numeric", "numeric", 
+              "numeric", "numeric", "skip", "skip"))
+
 
 # Import rodent macroparasite
 d_macroparasite <- data.table::fread(file = here::here("data", "derived-data", "ticks", "rodents_tick", "20240731_macroparasite.csv") )
-
-# Import lipl32 file
-filelipl32 <- readxl::read_excel(path = here::here( "data","raw-data/","lepto","20250116_data_qPCR_lepto_BePrep.xlsx"))
 
 
 ## Generate a file containing samples of interest ----
@@ -327,6 +335,11 @@ taxa_transposed_16S_rpoB_lipl32 <- left_join(taxa_transposed_16S_rpoB,
                                              filelipl32,
                                       by = c("numero_centre_combined" = "ID_rodent"))
 
+#Identify sample without lipl32 results (for them, metabarcoding results will be used for Leptospira)
+taxa_transposed_16S_rpoB_lipl32 %>%
+  filter(is.na(lipL32_result)) %>%
+  select(numero_centre_combined)
+
 # See benefit of Lepto and lipl32 columns combining
 taxa_transposed_16S_rpoB_lipl32 %>%
   filter(lipL32_result > 0) %>%
@@ -336,16 +349,17 @@ taxa_transposed_16S_rpoB_lipl32 %>%
 
 taxa_transposed_16S_rpoB_lipl32 %>%
   filter(Leptospira > 0) %>%
-  filter(lipL32_result > 0) %>%
+  filter(lipL32_result == 0) %>%
   select(numero_centre_combined) %>%
   pull()
 
 # Combine Leptospira columns 
 taxa_transposed_16S_rpoB_lipl32 <- taxa_transposed_16S_rpoB_lipl32 %>%
-  mutate(Leptospira = if_else(is.na(Leptospira) | Leptospira == 0, lipL32_result, Leptospira)) %>%
-  select(-c("lipL32_result"))
-
-
+  mutate(Leptospira = case_when(
+    (is.na(Leptospira) | Leptospira == 0) & !is.na(lipL32_result) & lipL32_result > 0 ~ lipL32_result,
+    TRUE ~ Leptospira  
+    )) %>%
+  select(-lipL32_result)
 
 
 # jsp ce que je voulais faire en bas, mais renommer numero_centre peut-être pas mal (genre rpoB-16s?)
@@ -386,17 +400,13 @@ taxa_transposed_16S_rpoB_lipl32 <- taxa_transposed_16S_rpoB_lipl32 %>%
 
 
 # Temporary solution : -attention-------------
-rodent_pathos <- left_join(d_host %>%
-                             filter(stringr::str_detect(numero_centre, pattern = "NCHA")),
+rodent_pathos <- left_join(d_host,
                            taxa_transposed_16S_rpoB_lipl32,
                            by = c("numero_centre" = "numero_centre_combined"))
 
-rodent_pathos <- rodent_pathos %>%
-  filter(stringr::str_detect(numero_centre, pattern = "NCHA"))
-
 # Vector containing pathogen names
 pathos_name <- rodent_pathos %>%
-  select(names(rodent_pathos)[(which(names(rodent_pathos) == "broadleaved_class") + 1):ncol(rodent_pathos)]) %>%
+  select(names(rodent_pathos)[(which(names(rodent_pathos) == "tree_H") + 1):ncol(rodent_pathos)]) %>%
   colnames()
 
 
@@ -430,42 +440,45 @@ list_pathos_per_species
 ## Generate data ----
 
 # Keep only Apodemus for analysis
-d_apo_pathos_glm <- rodent_pathos %>%
+d_apo_pathos <- rodent_pathos %>%
   filter(taxon_mamm == "Apodemus sylvaticus")
 
 # Filter empty pathogen for Apodemus 
-d_apo_pathos_glm <- d_apo_pathos_glm %>%
-  select(-names(which(colSums(d_apo_pathos_glm[, pathos_name]) == 0)))
+d_apo_pathos <- d_apo_pathos %>%
+  select(-names(which(colSums(d_apo_pathos[, pathos_name]) == 0)))
 
 # # Regroup some specific taxa for analysis purposes 
-# d_apo_pathos_glm <- d_apo_pathos_glm %>%
+# d_apo_pathos <- d_apo_pathos %>%
 #   mutate(Borrelia = Borrelia + Borreliella_afzelii) %>%
 #   select(- Borreliella_afzelii)
 
 # # Generate apo pathos name vector
-# pathos_name_apo <- d_apo_pathos_glm |>
-#   select(names(d_apo_pathos_glm)[(which(names(d_apo_pathos_glm) == "effectif_tick") + 1):ncol(d_apo_pathos_glm)]) %>%
+# pathos_name_apo <- d_apo_pathos |>
+#   select(names(d_apo_pathos)[(which(names(d_apo_pathos) == "effectif_tick") + 1):ncol(d_apo_pathos)]) %>%
 #   colnames()
 # setdiff(pathos_name, pathos_name_apo)
 
 # Generate apo pathos name vector
-pathos_name_apo <- d_apo_pathos_glm |>
-  select(names(d_apo_pathos_glm)[(which(names(d_apo_pathos_glm) == "broadleaved_class") + 1):ncol(d_apo_pathos_glm)]) %>%
+pathos_name_apo <- d_apo_pathos |>
+  select(names(d_apo_pathos)[(which(names(d_apo_pathos) == "broadleaved_class") + 1):ncol(d_apo_pathos)]) %>%
   colnames()
 setdiff(pathos_name, pathos_name_apo)
 
+# Generate apo pathos name vector
+pathos_name_apo <- pathos_name[pathos_name %in% names(d_apo_pathos)]
+
 # Generate the dataframe for logistic analysis (0/1)
-data_for_m <- d_apo_pathos_glm %>%
+data_for_m <- d_apo_pathos %>%
   mutate(across(all_of(pathos_name_apo), ~ replace(., . > 0, 1)))
 
 # Add new variable : pathogen richness
 candidate_richness_pathos <- setdiff(pathos_name_apo, "Bartonella")
 
 data_for_m <- data_for_m %>%
-  mutate(number_pathos = rowSums(across(all_of(candidate_richness_pathos))) ) 
-
-# Identify pathos with GLOBAL prevalence >=10 for whole data
-patho10_apo <- d_apo_pathos_glm %>%
+  mutate(number_pathos = rowSums(across(all_of(candidate_richness_pathos), ~ . > 0)))
+  
+# Identify pathos with GLOBAL prevalence >=10 for apodemus data
+patho10_apo <- d_apo_pathos %>%
   summarise( across(all_of(pathos_name_apo), ~ sum(. > 0) / n() ))  %>%
   unlist()
 patho10_apo <- names(patho10_apo[patho10_apo >= 0.10])
@@ -492,7 +505,6 @@ data_for_m_forestsyear <- data_for_m %>%
            select(code_mission) %>% 
            pull() %>%
            unique()))
-
 
 ## Exploration (for apodemus only) ----
 
@@ -624,6 +636,46 @@ ggplot(data_for_m, aes(x = as.factor(Mycoplasma_haemomuris), y = poids)) +
   theme_minimal()
 
 hist(data_for_m$number_pathos)
+
+
+
+## Parallel dataset containing helminths abundance data ----
+
+#Extract helminths names
+pathos_name_apo_helm <- file_helm %>%
+  select(where(is.numeric)) %>%
+  names()
+
+#Join with data_for_m (apodemus data with some conversion)
+data_for_m_helm <- data_for_m %>%
+  left_join(file_helm,
+            by = c("numero_centre" = "code_rongeur"))
+
+#Only keep individuals dissected for helminths
+data_for_m_helm <- data_for_m_helm %>%
+  filter(!if_any(all_of(pathos_name_apo_helm), is.na))
+
+#Check that every individual in helm file is retrieved in new file
+setdiff(data_for_m_helm$numero_centre, file_helm$code_rongeur)
+setdiff(file_helm$code_rongeur, data_for_m_helm$numero_centre)
+
+#Regenerate and relocate pathogen richness
+data_for_m_helm <- data_for_m_helm %>%
+  mutate(number_helm_sp = rowSums(across(all_of( c(pathos_name_apo_helm)), ~ . > 0))) %>%
+  mutate(number_pathos = rowSums(across(all_of( c(candidate_richness_pathos, pathos_name_apo_helm)), ~ . > 0))) %>%
+  relocate(number_helm_sp, .after = last_col()) %>%
+  relocate(number_pathos, .after = last_col())
+
+hist(data_for_m_helm$number_pathos)
+hist(data_for_m_helm$number_helm_sp)
+
+
+# Identify pathos with GLOBAL prevalence >=10 for this subset of apodemus data
+patho10_apo_helm <- data_for_m_helm %>%
+  summarise( across(all_of(c(pathos_name_apo, pathos_name_apo_helm)), ~ sum(. > 0) / n() ))  %>%
+  unlist()
+patho10_apo_helm <- names(patho10_apo_helm[patho10_apo_helm >= 0.10])
+patho10_apo_helm
 
 
 
