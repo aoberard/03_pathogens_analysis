@@ -472,6 +472,7 @@ candidate_richness_pathos <- setdiff(pathos_name_apo, "Bartonella")
 data_for_m <- data_for_m %>%
   mutate(number_pathos = rowSums(across(all_of(candidate_richness_pathos), ~ . > 0)))
   
+
 # Identify pathos with GLOBAL prevalence >=10 for apodemus data
 patho10_apo <- d_apo_pathos %>%
   summarise( across(all_of(pathos_name_apo), ~ sum(. > 0) / n() ))  %>%
@@ -675,7 +676,7 @@ patho10_apo_helm
 
 #Generate helm data from lines containing PCA values
 data_for_m_helm_pca <- data_for_m_helm %>%
-  filter(!is.na(PCA_axis1))
+  filter(!is.na(PCA_lines_local_axis1))
 
 # -------------BELOW is TEST GRAPH FOR EWDA POSTER -------
 
