@@ -50,7 +50,7 @@ putative_pathos_family <- c("Sarcocystidae")
 
 ## Import data ----
 # Import hosts and line modalities file
-d_host <- readr::read_csv( here::here("data/", "raw-data", "host_data", "2025-04-09_small_mammal_beprep.csv") )
+d_host <- readr::read_csv( here::here("data/", "raw-data", "host_data", "2025-04-14_small_mammal_beprep.csv") )
 d_host <- d_host %>%
   filter(stringr::str_detect(numero_centre, pattern = "NCHA")) # Keep only dissected individuals
 
@@ -406,7 +406,7 @@ rodent_pathos <- left_join(d_host,
 
 # Vector containing pathogen names
 pathos_name <- rodent_pathos %>%
-  select(names(rodent_pathos)[(which(names(rodent_pathos) == "tree_H") + 1):ncol(rodent_pathos)]) %>%
+  select(names(rodent_pathos)[(which(names(rodent_pathos) == tail(colnames(d_host), 1) ) + 1):ncol(rodent_pathos)]) %>%
   colnames()
 
 
@@ -459,13 +459,8 @@ d_apo_pathos <- d_apo_pathos %>%
 # setdiff(pathos_name, pathos_name_apo)
 
 # Generate apo pathos name vector
-pathos_name_apo <- d_apo_pathos |>
-  select(names(d_apo_pathos)[(which(names(d_apo_pathos) == "broadleaved_class") + 1):ncol(d_apo_pathos)]) %>%
-  colnames()
-setdiff(pathos_name, pathos_name_apo)
-
-# Generate apo pathos name vector
 pathos_name_apo <- pathos_name[pathos_name %in% names(d_apo_pathos)]
+setdiff(pathos_name, pathos_name_apo)
 
 # Generate the dataframe for logistic analysis (0/1)
 data_for_m <- d_apo_pathos %>%
@@ -495,7 +490,7 @@ data_for_m_noforests <- data_for_m %>%
 
 # Generate dataset without broadleaved forest with lines containing PCA values
 data_for_m_noforests_pca <- data_for_m_noforests %>%
-  filter(!is.na(PCA_axis1))
+  filter(!is.na(PCA_lines_local_axis1))
 
   
 # Generate other dataset without broadleaved forest, without year that do not contains them
@@ -678,7 +673,9 @@ patho10_apo_helm <- names(patho10_apo_helm[patho10_apo_helm >= 0.10])
 patho10_apo_helm
 
 
-
+#Generate helm data from lines containing PCA values
+data_for_m_helm_pca <- data_for_m_helm %>%
+  filter(!is.na(PCA_axis1))
 
 # -------------BELOW is TEST GRAPH FOR EWDA POSTER -------
 

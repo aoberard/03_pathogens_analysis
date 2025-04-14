@@ -1,6 +1,5 @@
 
 ####### REFAIRE MODELES AVEC ACP AXES :
-- enlever interations entre axes,
 - ajouter broadleavec class dans les model potetre (car paysage, pas truc local) 
 - ajout interaction axe * season en priorité
 - et interactions axe * annee et annee *saison dans l'optimal' 
@@ -817,15 +816,226 @@ DHARMa::simulateResiduals(m_pathnumber_r, n = 250, refit = F, integerResponse = 
 
 summary(m_pathnumber_r)
 
-# ANALYSIS BEFORE MISSION 2025 -----
+
+
+# TEST RAPID ANALYSIS BEFORE MISSION 2025 -----
+
+## N. mikurensis ----
+
+# Effet var small scale
+rm(m_neoeh_r)
 m_neoeh_r <- lme4::glmer(
-  formula = Neoehrlichia_mikurensis ~ treatment + broadleaved_class + as.factor(year) * season  + scale(poids) + sexe  + (1|numero_ligne),
+  formula = Neoehrlichia_mikurensis ~ scale(tree_cover) + scale(shrub_cover) + scale(herb_cover) + PCA_axis1 + PCA_axis2 + season + scale(poids) + sexe  + (1|numero_ligne),
   family = binomial(link = "logit"),
-  data = data_for_m_noforests,
+  data = data_for_m_noforests_pca,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
 
+car::vif(m_neoeh_r)
+
+SelectionModels<- MuMIn::dredge(m_neoeh_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+m_neoeh_r <- lme4::glmer(
+  formula = Neoehrlichia_mikurensis ~ scale(herb_cover) + PCA_axis1 + season + scale(poids) + sexe  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+DHARMa::simulateResiduals(m_neoeh_r, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
+  plot(rank = TRUE)
+
+drop1(m_neoeh_r,.~.,test="Chisq")
+summary(m_neoeh_r)
+
+ggstats::ggcoef_model(m_neoeh_r)
+
+
+
+## M haemo ----
+
+# Effet var small scale
+rm(m_mycoplasma_r)
+m_mycoplasma_r <- lme4::glmer(
+  formula = Mycoplasma_haemomuris ~ scale(tree_cover) + scale(shrub_cover) + scale(herb_cover) + PCA_axis1 + PCA_axis2 + season + scale(poids) + sexe  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+car::vif(m_mycoplasma_r)
+
+SelectionModels<- MuMIn::dredge(m_mycoplasma_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+m_mycoplasma_r <- lme4::glmer(
+  formula = Mycoplasma_haemomuris ~ scale(poids)  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+ggstats::ggcoef_model(m_mycoplasma_r)
+
+
+## M coccoides ----
+rm(m_mycoplasmacoco_r)
+m_mycoplasmacoco_r <- lme4::glmer(
+  formula = Mycoplasma_coccoides ~ scale(tree_cover) + scale(shrub_cover) + scale(herb_cover) + PCA_axis1 + PCA_axis2 + season + scale(poids) + sexe  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+car::vif(m_mycoplasmacoco_r)
+
+SelectionModels<- MuMIn::dredge(m_mycoplasmacoco_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+m_mycoplasmacoco_r <- lme4::glmer(
+  formula = Mycoplasma_coccoides ~ scale(shrub_cover) + PCA_axis2 + scale(poids)  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+
+drop1(m_mycoplasmacoco_r,.~.,test="Chisq")
+summary(m_mycoplasmacoco_r)
+
+ggstats::ggcoef_model(m_mycoplasmacoco_r)
+
+
+
+## B taylorii ----
+rm(m_barto_t_r)
+m_barto_t_r <- lme4::glmer(
+    formula = Bartonella_taylorii ~ scale(tree_cover) + scale(shrub_cover) + scale(herb_cover) + PCA_axis1 + PCA_axis2 + season + scale(poids) + sexe  + (1|numero_ligne),
+    family = binomial(link = "logit"),
+    data = data_for_m_noforests_pca,
+    na.action = "na.fail",                                  
+    control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+  )
+  
+car::vif(m_barto_t_r)
+
+SelectionModels<- MuMIn::dredge(m_barto_t_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+m_barto_t_r <- lme4::glmer(
+  formula = Bartonella_taylorii ~ PCA_axis1 + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+drop1(m_barto_t_r,.~.,test="Chisq")
+summary(m_barto_t_r)
+
+ggstats::ggcoef_model(m_barto_t_r)
+
+
+## B birtlesii----
+rm(m_barto_b_r)
+m_barto_b_r <- lme4::glmer(
+  formula = Bartonella_birtlesii ~ scale(tree_cover) + scale(shrub_cover) + scale(herb_cover) + PCA_axis1 + PCA_axis2 + season + scale(poids) + sexe  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+car::vif(m_barto_b_r)
+
+SelectionModels<- MuMIn::dredge(m_barto_b_r, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+m_barto_b_r <- lme4::glmer(
+  formula = Bartonella_birtlesii ~ scale(poids)  + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_noforests_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+drop1(m_barto_b_r,.~.,test="Chisq")
+summary(m_barto_b_r)
+
+ggstats::ggcoef_model(m_barto_b_r)
+
+
+
+# Heligmosomoides_polygyrus ----
+rm(m_heligmo_p)
+m_heligmo_p <- lme4::glmer(
+  formula = heligmosomoides_polygyrus ~ scale(tree_cover) + scale(shrub_cover) + scale(herb_cover) + PCA_axis1 + PCA_axis2 + scale(poids) + sexe  + (1|numero_ligne),
+  family = poisson,
+  data = data_for_m_helm_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_heligmo_p, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+  
+m_heligmo_p <- lme4::glmer(
+  formula = heligmosomoides_polygyrus ~  PCA_axis1 +  scale(poids) + sexe + (1|numero_ligne),
+  family = poisson,
+  data = data_for_m_helm_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+DHARMa::simulateResiduals(m_heligmo_p, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
+  plot(rank = TRUE)
+
+drop1(m_heligmo_p,.~.,test="Chisq")
+summary(m_heligmo_p)
+
+ggstats::ggcoef_model(m_heligmo_p)
+
+# Syphacia ant ----
+rm(m_syphant_p)
+m_syphant_p <- lme4::glmer(
+  formula = `syphacia_(ant)` ~ scale(tree_cover) + scale(shrub_cover) + scale(herb_cover) + PCA_axis1 + PCA_axis2 + scale(poids) + sexe  + (1|numero_ligne),
+  family = poisson,
+  data = data_for_m_helm_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+SelectionModels<- MuMIn::dredge(m_syphant_p, rank = "AICc")              
+TopModels<-subset(SelectionModels, delta<2)
+TopModels
+
+m_syphant_p <- lme4::glmer(
+  formula = `syphacia_(ant)` ~ scale(poids)  + (1|numero_ligne),
+  family = poisson,
+  data = data_for_m_helm_pca,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+DHARMa::simulateResiduals(m_syphant_p, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
+  plot(rank = TRUE)
+
+drop1(m_syphant_p,.~.,test="Chisq")
+summary(m_syphant_p)
+
+ggstats::ggcoef_model(m_syphant_p)
 
 
 # ANALYSIS (NOT ONLY ON APODEMUS) ----
