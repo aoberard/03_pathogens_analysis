@@ -11,8 +11,8 @@ category_order <- c("pine_edge", "hedgerows", "broadleaved_forest")
 category_palette <- c("pine_edge" = "#FFB3BA", "hedgerows" = "#FFDFBA", "broadleaved_forest" = "#B3E2B3")
 type_order <- c("CT_LB", "CT_HB", "NC_LB", "NC_HB", "C_LB", "C_HB", "B" )
 brd_palette <- c("LB" = "#FFB3BA", "HB" = "#B3E2B3")
-mission_order <- c("Juin 2023", "Octobre 2023", "Juin 2024", "Septembre 2024")
-mission_color <- c("Juin 2023" = "#66c2a5", "Octobre 2023" = "#fc8d62", "Juin 2024" = "#8da0cb", "Septembre 2024" = "#ab7a82")
+mission_order <- c("Juin_2023", "Octobre_2023", "Juin_2024", "Septembre_2024")
+mission_color <- c("Juin_2023" = "#66c2a5", "Octobre_2023" = "#fc8d62", "Juin_2024" = "#8da0cb", "Septembre_2024" = "#ab7a82")
 
 if (!requireNamespace("cividis", quietly = TRUE)) {
   devtools::install_github("marcosci/cividis")
@@ -68,92 +68,6 @@ list_pathos_per_species
 
 
 # REESSAYER DE FAIRE HEATMAP 
-
-## Graph making heatmap matrix ----
-
-# Prevalence matrix calculation (only apodemus)
-#for line_treatment
-
-matrix_pathos <- d_apo_pathos %>%
-  group_by(type) %>%
-  summarise(
-    across(all_of(pathos_name_apo),
-           ~ round(sum(. > 0) / n(), digits = 2)) ) |>
-  arrange(factor(type, levels = type_order)) |>
-  tibble::column_to_rownames("type") |>
-  select(all_of(pathos_name_apo)) |>
-  as.matrix()
-
-
-effectif_df <- d_apo_pathos %>%
-  group_by(type) %>%
-  summarise(
-    effectif = n(),
-  ) %>%
-  arrange(factor(type, levels = type_order))
-
-# Check the alignment by comparing combined names
-if(!all(rownames(matrix_pathoss) == effectif_df$type)) {
-  stop("Mismatch between matrix_pathoss row names and effectif combined names")
-}
-
-effectif <- effectif_df %>%
-  pull(effectif) 
-
-
-
-
-superheat::superheat(X = matrix_pathos,
-                     X.text.size = 4,
-                     left.label.col = "white",
-                     left.label.text.size = 3,
-                     bottom.label.text.size = 2,
-                     bottom.label.col = "white",
-                     bottom.label.text.angle = 45,
-                     heat.lim = c(0,1),
-                     grid.hline = FALSE,
-                     grid.vline = FALSE,
-                     heat.na.col = "white",
-                     yr = effectif,
-                     yr.axis.name = "Headcount",
-                     yr.plot.type = "bar",
-                     heat.pal = cividis_palette,
-                     pretty.order.cols = TRUE)
-
-
-
-if (!require("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
-
-if (!require("ComplexHeatmap", quietly = TRUE))
-  BiocManager::install("ComplexHeatmap")
-
-
-library(ComplexHeatmap)
-row_ha = ComplexHeatmap::rowAnnotation(effectif = anno_barplot(
-  effectif,
-  bar_width = 1,
-  baseline = 0,
-  add_numbers = TRUE,
-  gp = gpar(fill = cividis::cividis(2, begin = 0.2, en = 0.9)),
-  width = unit(3, "cm"),
-  border = FALSE
-))
-
-
-# Créer l'objet Heatmap
-ComplexHeatmap::Heatmap(matrix_pathoss,
-                        name = "Prévalence",
-                        row_names_side = "left",
-                        col = cividis_palette,
-                        show_row_names = TRUE,
-                        show_column_names = TRUE,
-                        cluster_columns = TRUE,
-                        show_column_dend = FALSE,
-                        cluster_rows = FALSE,
-                        row_order = type_order,
-                        right_annotation = row_ha,
-) 
 
 
 
@@ -311,6 +225,92 @@ hist(data_for_m$number_pathos)
 
 
 
+
+## Graph making heatmap matrix ----
+
+# Prevalence matrix calculation (only apodemus)
+#for line_treatment
+
+matrix_pathos <- d_apo_pathos %>%
+  group_by(code_mission) %>%
+  summarise(
+    across(all_of(pathos_name_apo),
+           ~ round(sum(. > 0) / n(), digits = 2)) ) |>
+  arrange(factor(code_mission, levels = mission_order)) |>
+  tibble::column_to_rownames("code_mission") |>
+  select(all_of(pathos_name_apo)) |>
+  as.matrix()
+
+
+effectif_df <- d_apo_pathos %>%
+  group_by(code_mission) %>%
+  summarise(
+    effectif = n(),
+  ) %>%
+  arrange(factor(code_mission, levels = mission_order))
+
+# Check the alignment by comparing combined names
+if(!all(rownames(matrix_pathos) == effectif_df$code_mission)) {
+  stop("Mismatch between matrix_pathos row names and effectif combined names")
+}
+
+effectif <- effectif_df %>%
+  pull(effectif) 
+
+
+
+
+superheat::superheat(X = matrix_pathos,
+                     X.text.size = 4,
+                     left.label.col = "white",
+                     left.label.text.size = 3,
+                     bottom.label.text.size = 2,
+                     bottom.label.col = "white",
+                     bottom.label.text.angle = 45,
+                     heat.lim = c(0,1),
+                     grid.hline = FALSE,
+                     grid.vline = FALSE,
+                     heat.na.col = "white",
+                     yr = effectif,
+                     yr.axis.name = "Headcount",
+                     yr.plot.type = "bar",
+                     heat.pal = cividis_palette,
+                     pretty.order.cols = TRUE)
+
+
+
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+if (!require("ComplexHeatmap", quietly = TRUE))
+  BiocManager::install("ComplexHeatmap")
+
+
+library(ComplexHeatmap)
+row_ha = ComplexHeatmap::rowAnnotation(effectif = anno_barplot(
+  effectif,
+  bar_width = 1,
+  baseline = 0,
+  add_numbers = TRUE,
+  gp = gpar(fill = cividis::cividis(2, begin = 0.2, en = 0.9)),
+  width = unit(3, "cm"),
+  border = FALSE
+))
+
+
+# Créer l'objet Heatmap
+ComplexHeatmap::Heatmap(matrix_pathos,
+                        name = "Prévalence",
+                        row_names_side = "left",
+                        col = cividis_palette,
+                        show_row_names = TRUE,
+                        show_column_names = TRUE,
+                        cluster_columns = TRUE,
+                        show_column_dend = FALSE,
+                        cluster_rows = FALSE,
+                        row_order = mission_order,
+                        right_annotation = row_ha,
+) 
 
 
 
