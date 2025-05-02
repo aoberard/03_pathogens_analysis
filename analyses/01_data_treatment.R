@@ -305,7 +305,7 @@ taxa_transposed_16S_rpoB %>%
   filter(Bartonella > 0 ) %>%
   select(numero_centre_combined) %>%
   pull()
-  
+
 
 # Lipl32 data treatment ----
 
@@ -343,28 +343,11 @@ taxa_transposed_16S_rpoB_lipl32 %>%
 #Combine Leptospira columns 
 taxa_transposed_16S_rpoB_lipl32 <- taxa_transposed_16S_rpoB_lipl32 %>%
   mutate(Leptospira = case_when(
-    (is.na(Leptospira) | Leptospira == 0) & !is.na(lipL32_result) & lipL32_result > 0 ~ lipL32_result,
+    (Leptospira == 0) & !is.na(lipL32_result) & lipL32_result > 0 ~ lipL32_result,
+    Leptospira > 0 & !is.na(lipL32_result) & lipL32_result > 0 ~ lipL32_result,
     TRUE ~ Leptospira  
     )) %>%
   select(-lipL32_result)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -412,6 +395,13 @@ pathos_name <- rodent_pathos %>%
   select(names(rodent_pathos)[(which(names(rodent_pathos) == tail(colnames(d_host), 1) ) + 1):ncol(rodent_pathos)]) %>%
   colnames()
 
+#Transform reads into presence/absence data
+rodent_pathos <- rodent_pathos %>%
+  mutate(across(all_of(pathos_name), ~ replace(., . > 0, 1)))
+
+# Beware if some pathogen for which abundance is important are to be added before this step (ticks for example)
+#please aplly function not on all pathos name but pathos name minus those specific names
+
 
 # Generate sub-dataset ----
 
@@ -434,25 +424,23 @@ d_apo_pathos <- d_apo_pathos %>%
 pathos_name_apo <- pathos_name[pathos_name %in% names(d_apo_pathos)]
 setdiff(pathos_name, pathos_name_apo)
 
-#Generate the dataframe for logistic analysis (0/1)
-data_for_m <- d_apo_pathos %>%
-  mutate(across(all_of(pathos_name_apo), ~ replace(., . > 0, 1)))
 
 #Add new variable : pathogen richness
 #But before choose if certain taxa should be excluded from pathogen richness calculation
 candidate_richness_pathos <- setdiff(pathos_name_apo, "Bartonella")
 
-data_for_m <- data_for_m %>%
-  mutate(number_pathos = rowSums(across(all_of(candidate_richness_pathos), ~ . > 0)))
-  
+data_for_m <- d_apo_pathos %>%
+  mutate(number_pathos = rowSums(across(all_of(candidate_richness_pathos), ~ (. > 0))))  
 
 # Identify pathos with GLOBAL prevalence >=10 for Apodemus data
 patho10_apo <- d_apo_pathos %>%
-  summarise( across(all_of(pathos_name_apo), ~ sum(. > 0) / n() ))  %>%
+  summarise(across(all_of(pathos_name_apo), ~ sum(. > 0) / n() ))  %>%
   unlist()
 patho10_apo <- names(patho10_apo[patho10_apo >= 0.10])
 patho10_apo
 
+
+## More sub datasets based on filters ----
 
 # Take away rows with NA for some of our factor
 data_for_m <- data_for_m %>%
