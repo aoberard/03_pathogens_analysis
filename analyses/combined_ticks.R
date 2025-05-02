@@ -48,7 +48,7 @@ macroparasite <- fread(file = here::here("data/", "derived-data/", "ticks", "rod
 envticks <- readxl::read_excel(here::here("data", "raw-data", "raw-ticks", "collect", "20240730_collect_tick.xlsx"))
 
 # Import microfluidic information
-microfluidic <- fread(file = here::here("data", "raw-data", "raw-ticks", "microfluidic", "20240411_microfluidic_tick.txt") )
+microfluidic <- data.table::fread(file = here::here("data", "raw-data", "raw-ticks", "microfluidic", "20240411_microfluidic_tick.txt") )
 
 
 # Take away not dissected individuals from hosts data
