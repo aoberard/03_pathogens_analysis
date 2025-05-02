@@ -50,9 +50,7 @@ putative_pathos_family <- c("Sarcocystidae")
 
 ## Import data ----
 # Import hosts and line modalities file
-d_host <- readr::read_csv( here::here("data/", "raw-data", "host_data", "2025-04-14_small_mammal_beprep.csv") )
-d_host <- d_host %>%
-  filter(stringr::str_detect(numero_centre, pattern = "NCHA")) # Keep only dissected individuals
+d_host <- readr::read_csv( here::here("data/", "raw-data", "host_data", "2025-04-22_small_mammal_beprep.csv") )
 
 # Import 16S filtered file
 file16s_run00_01_04_05 <- data.table::fread(file = here::here( "data", "raw-data","16s_run00-01-04-05","Run00-01-04-05_16S_filtered-merged_postfrogs.txt"))
@@ -68,7 +66,6 @@ file_helm <- readxl::read_excel(here::here("data", "raw-data", "helminths", "202
               "numeric", "numeric", "numeric", 
               "numeric", "numeric", "skip", "skip"))
 
-
 # Import rodent macroparasite
 d_macroparasite <- data.table::fread(file = here::here("data", "derived-data", "ticks", "rodents_tick", "20240731_macroparasite.csv") )
 
@@ -76,9 +73,11 @@ d_macroparasite <- data.table::fread(file = here::here("data", "derived-data", "
 ## Generate a file containing samples of interest ----
 
 # Extract id of small mammals caught and dissected in Beprep
+d_host <- d_host %>% 
+  filter(!is.na(numero_centre))%>%
+  filter(stringr::str_detect(numero_centre, pattern = "NCHA"))
+
 sm_id <- unique(d_host %>% 
-                  filter(!is.na(numero_centre))%>%
-                  filter(stringr::str_detect(numero_centre, pattern = "NCHA")) %>%
                   pull(numero_centre)
 )
 
@@ -96,10 +95,10 @@ filerpoB_run01_05 <- filerpoB_run01_05 %>%
   mutate(clean_totalrunreads = rowSums(select(., -taxo_name_rpoB))) %>%
   relocate(clean_totalrunreads, .after = names(filerpoB_run01_05)[which(colnames(filerpoB_run01_05) == "observation_sum")])
 
-# Reattribute taxonomy columns
-taxo_name_16s <- colnames( file16s_run00_01_04_05 [, 1:which(colnames(file16s_run00_01_04_05) == "clean_totalrunreads") ])
+# Add new column name to names of taxonomy columns
+taxo_name_16s <- c(taxo_name_16s, "clean_totalrunreads")
 
-taxo_name_rpoB <- colnames(filerpoB_run01_05 [, 1:which(colnames(filerpoB_run01_05) == "clean_totalrunreads") ])
+taxo_name_rpoB <- c(taxo_name_rpoB, "clean_totalrunreads")
 
 # Take away problematic samples - if needed
 #file16s_run00_01_04_05 <- file16s_run00_01_04_05 |>
@@ -107,7 +106,7 @@ taxo_name_rpoB <- colnames(filerpoB_run01_05 [, 1:which(colnames(filerpoB_run01_
 #filerpoB_run01_05 <- filerpoB_run01_05 |>
 
 # Generate new file containing only Spleen BePrep's samples
-#by selecting those samples
+#by selecting those samples (for 16S)
 beprep_sample_16s_sp <- file16s_run00_01_04_05 |>
   select( (contains("NCHA") & contains(".SP")) | contains("PCzymo") ) |>
   select( matches(paste(sm_id, collapse = "|")) | contains("PCzymo") ) 
@@ -116,7 +115,7 @@ beprep_16s_sp <- file16s_run00_01_04_05 |>
   select(taxo_name_16s) |>
   cbind(beprep_sample_16s_sp)
 
-#by selecting those samples
+#by selecting those samples (for rpoB)
 beprep_sample_rpoB_sp <- filerpoB_run01_05 |>
   select( (contains("NCHA") & contains(".SP")) | contains("PCzymo") ) |>
   select( matches(paste(sm_id, collapse = "|")) | contains("PCzymo") ) 
@@ -484,6 +483,9 @@ patho10_apo
 # Take away rows with NA for some of our factor
 data_for_m <- data_for_m %>%
   filter(!is.na(sexe))
+
+data_for_m %>%
+  filter(is.na(sexe))
 
 # Generate dataset without broadleaved forest analysis
 data_for_m_noforests <- data_for_m %>%
