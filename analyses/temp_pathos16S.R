@@ -1,22 +1,19 @@
+# Script parameters ----
 
-# /!\ WARNING ----
-#THIS SCRIPT IS TEMPORARY AND SHOULD NOT BE CONSERVED IN THIS R PROJECT LATER ----
-
-#the script extracting the host data from bpm has to be run before this script
-#this script should only be used to analyse 16S or rpob/glta data from spleen, in order to identify pathogenic bacteria
-#this script is dependent on the generation of d_host dataframe from temp_import_survey and d_macroparasite from rodent_macroparasite to join dataframes
-
-# /!\ WARNING ----
-
-
-
-# Some parameters ----
+## Library ----
 
 library("data.table")
 library("dplyr")
 library("ggplot2")
 
-# Graphical parameters 
+## List of rodents identified putative pathogens ----
+#Beware, using this list should replace prior exploration of the cluster present in the metabarcoding dataset
+putative_pathos_genra <- c("Bartonella", "Neoehrlichia", "Mycoplasma", "Borrelia", "Borreliella", "Streptobacillus", "Ehrlichia", "Spiroplasma","Brevinema",
+                           "Orientia", "Rickettsia", "Leptospira", "Yersinia", "Actinobacillus", "Treponema", "Chlamydia", "Neisseria", "Pasteurella",
+                           "Francisella", "Brucella", "Coxiella")
+putative_pathos_family <- c("Sarcocystidae")
+
+## Graphical parameters ----
 
 category_order <- c("pine_edge", "hedgerows", "broadleaved_forest")
 category_palette <- c("pine_edge" = "#FFB3BA", "hedgerows" = "#FFDFBA", "broadleaved_forest" = "#B3E2B3")
@@ -26,6 +23,7 @@ mission_order <- c("Juin 2023", "Octobre 2023", "Juin 2024", "Septembre 2024")
 mission_color <- c("Juin 2023" = "#66c2a5", "Octobre 2023" = "#fc8d62", "Juin 2024" = "#8da0cb", "Septembre 2024" = "#ab7a82")
 
 
+## Functions ----
 # Function to count individuals number in graphs
 count_summary <- function(x, y_position = max(x) + 0.5) {
   return(data.frame(y = y_position, label = paste0("n = ", length(x))))
@@ -39,18 +37,10 @@ darken_color <- function(color, amount = 0.2) {
 }
 
 
-# List of rodents identified putative pathogens
-putative_pathos_genra <- c("Bartonella", "Neoehrlichia", "Mycoplasma", "Borrelia", "Borreliella", "Streptobacillus", "Ehrlichia", "Spiroplasma","Brevinema",
-                           "Orientia", "Rickettsia", "Leptospira", "Yersinia", "Actinobacillus", "Treponema", "Chlamydia", "Neisseria", "Pasteurella",
-                           "Francisella", "Brucella", "Coxiella")
-putative_pathos_family <- c("Sarcocystidae")
+# Import data ----
 
-
-# GENERATE DATA ----
-
-## Import data ----
-# Import hosts and line modalities file
-d_host <- readr::read_csv( here::here("data/", "raw-data", "host_data", "2025-04-22_small_mammal_beprep.csv") )
+#Import hosts and line modalities file
+d_host <- readr::read_csv(here::here("data/", "raw-data", "host_data", "2025-04-22_small_mammal_beprep.csv") )
 
 # Import 16S filtered file
 file16s_run00_01_04_05 <- data.table::fread(file = here::here( "data", "raw-data","16s_run00-01-04-05","Run00-01-04-05_16S_filtered-merged_postfrogs.txt"))
@@ -70,23 +60,27 @@ file_helm <- readxl::read_excel(here::here("data", "raw-data", "helminths", "202
 d_macroparasite <- data.table::fread(file = here::here("data", "derived-data", "ticks", "rodents_tick", "20240731_macroparasite.csv") )
 
 
-## Generate a file containing samples of interest ----
+# Metabarcoding data treatment ----
 
-# Extract id of small mammals caught and dissected in Beprep
+
+## Generate files containing samples of interest ----
+
+#Extract id of small mammals caught and dissected in Beprep
 d_host <- d_host %>% 
   filter(!is.na(numero_centre))%>%
   filter(stringr::str_detect(numero_centre, pattern = "NCHA"))
 
 sm_id <- unique(d_host %>% 
-                  pull(numero_centre)
-)
+                  pull(numero_centre))
 
-# Identify taxonomy 16S and rpoB columns
+
+#Identify taxonomy columns of 16S and rpoB files 
 taxo_name_16s <- colnames(file16s_run00_01_04_05 [, 1:which(colnames(file16s_run00_01_04_05) == "observation_sum") ])
 
 taxo_name_rpoB <- colnames(filerpoB_run01_05 [, 1:which(colnames(filerpoB_run01_05) == "observation_sum") ])
 
-# Calculate total run read number per cluster (after our filtering)
+#Calculate total run read number per cluster 
+#(considering we added filtering steps prior import of data)
 file16s_run00_01_04_05 <- file16s_run00_01_04_05 %>%
   mutate(clean_totalrunreads = rowSums(select(., -taxo_name_16s))) %>%
   relocate(clean_totalrunreads, .after = names(file16s_run00_01_04_05)[which(colnames(file16s_run00_01_04_05) == "observation_sum")])
@@ -95,17 +89,18 @@ filerpoB_run01_05 <- filerpoB_run01_05 %>%
   mutate(clean_totalrunreads = rowSums(select(., -taxo_name_rpoB))) %>%
   relocate(clean_totalrunreads, .after = names(filerpoB_run01_05)[which(colnames(filerpoB_run01_05) == "observation_sum")])
 
-# Add new column name to names of taxonomy columns
+#Add new column name to names of taxonomy columns
 taxo_name_16s <- c(taxo_name_16s, "clean_totalrunreads")
 
 taxo_name_rpoB <- c(taxo_name_rpoB, "clean_totalrunreads")
 
-# Take away problematic samples - if needed
-#file16s_run00_01_04_05 <- file16s_run00_01_04_05 |>
+# #Take away problematic samples - if needed
+# file16s_run00_01_04_05 <- file16s_run00_01_04_05 |>
 
 #filerpoB_run01_05 <- filerpoB_run01_05 |>
 
-# Generate new file containing only Spleen BePrep's samples
+#Generate new file containing only Spleen BePrep's samples
+
 #by selecting those samples (for 16S)
 beprep_sample_16s_sp <- file16s_run00_01_04_05 |>
   select( (contains("NCHA") & contains(".SP")) | contains("PCzymo") ) |>
@@ -124,15 +119,15 @@ beprep_rpoB_sp <- filerpoB_run01_05 |>
   select(taxo_name_rpoB) |>
   cbind(beprep_sample_rpoB_sp)
 
-# Delete the PCZymo positive in 16S after visual control
+#Delete the PCZymo positive in 16S after visual control
 beprep_16s_sp <- beprep_16s_sp |>
   select(!contains("PCzymo"))
 
-# Verify absence of PCZymo positive in rpoB data
+#Verify absence of PCZymo positive in rpoB data
 beprep_rpoB_sp |>
   select(contains("PCzymo"))
 
-# Calculate total number of reads for each cluster considering chosen samples
+#Calculate total number of reads for each cluster considering chosen samples
 beprep_16s_sp <- beprep_16s_sp %>%
   mutate(totalreads = rowSums(select(., -taxo_name_16s)))%>%
   relocate(totalreads, .after = names(beprep_16s_sp)[which(colnames(file16s_run00_01_04_05) == "clean_totalrunreads")])
@@ -141,27 +136,28 @@ beprep_rpoB_sp <- beprep_rpoB_sp %>%
   mutate(totalreads = rowSums(select(., -taxo_name_rpoB)))%>%
   relocate(totalreads, .after = names(beprep_rpoB_sp)[which(colnames(filerpoB_run01_05) == "clean_totalrunreads")])
 
-# Order rows by new total read number
+#Order rows by new total read number
 beprep_16s_sp <- data.table::setorder(beprep_16s_sp, -totalreads)
 
 beprep_rpoB_sp <- data.table::setorder(beprep_rpoB_sp, -totalreads)
 
-# Delete cluster with no reads for the selected individuals
+
+#Delete cluster with no reads for the selected individuals
 beprep_16s_sp <- beprep_16s_sp |> 
   filter(totalreads >0)
 
 beprep_rpoB_sp <- beprep_rpoB_sp %>% 
   filter(totalreads >0)
 
-# Write a file containing Spleen OTUs containing our samples only :
+#Write a file containing Spleen OTUs containing our samples only :
 data.table::fwrite(beprep_16s_sp, here::here("data", "derived-data","16S", "20250123_beprep_16s_sp.txt") )
 
 data.table::fwrite(beprep_rpoB_sp, here::here("data", "derived-data","rpoB", "20250123_beprep_rpoB_sp.txt") )
 
 
-## Generate spleen putative pathogen data ----
+## Split taxonomy and filter affiliation failures ----
 
-# Split the taxonomy to access taxon
+#Split the taxonomy to access taxon
 pathos_16s <- beprep_16s_sp |>
   tidyr::separate_wider_delim(cols = blast_taxonomy,
                               names = c("domain", "phylum", "class", "order", "family", "genus", "species"),
@@ -172,27 +168,35 @@ pathos_rpoB <- beprep_rpoB_sp |>
                               names = c("domain", "phylum", "class", "order", "family", "genus", "species"),
                               delim = ";")
 
-# Delete cluster without real affiliation
+#Delete cluster without real affiliation
 pathos_16s <- pathos_16s %>%
   filter(!(domain == "no" | domain == "Plantae"))
 
 pathos_rpoB <- pathos_rpoB %>%
   filter(!domain == "no")
 
-# FOR 16S Keep only OTUs with known putative pathogens (you should look at raw data before this step, ensure it is ok and you're not missing pathogens taxa as the list may not be complete)
+
+## Generate putative pathogens data ----
+
+#For 16S Keep only OTUs with known putative pathogens 
+#(you should look at raw data before this step, ensure it is ok and you're not missing pathogens taxa as the list may not be complete)
 pathos_16s <- pathos_16s |>
   filter(genus %in% putative_pathos_genra 
          | family %in% putative_pathos_family)
 
-# Write a file containing 16S Spleen OTUs containing our samples only AND only putative pathogens :
+#No need to apply such filter for rpoB, marker is specific enough to only amplify pathogenic species
+
+
+#Write files containing Spleen OTUs with BePrep samples only AND only putative pathogens :
 data.table::fwrite(pathos_16s, here::here("data/", "derived-data/","16S", "20250123_beprep_16s_sp_pathos.txt") )
 
 data.table::fwrite(pathos_rpoB, here::here("data", "derived-data","rpoB", "20250123_beprep_rpoB_sp_pathos.txt") )
 
+## External manipulation of pathogen data ----
 
-## Seek for species level identification for specific taxa (e.g. Mycoplasma) throught external manipulation (e.g phylogenic tree and Genbank) ----
-# A new datafile is created BY HAND to add the checked species information (in new column "species_adjusted") and then imported
-# If probable pseudo-gene affiliation is observed in data file they may also get deleted ny operator at this step
+#Seek for species level identification for specific taxa (e.g. Mycoplasma) throught external manipulation (e.g phylogenic tree and Genbank)
+#A new datafile is created BY HAND to add the checked species information (in new column "species_adjusted") and then imported
+#If probable pseudo-gene affiliation is observed in data file they may also get deleted ny operator at this step
 pathos_16s_checked <- data.table::fread(file = here::here( "data","raw-data/","16s_run00-01-04-05","20241204_beprep_16s_sp_pathos-adjusted.txt"))
 pathos_16s_checked$species_adjusted[pathos_16s_checked$species_adjusted == ""] <- NA
 
@@ -200,7 +204,7 @@ pathos_rpoB_checked <- data.table::fread(file = here::here( "data","raw-data/","
 pathos_rpoB_checked$species_adjusted[pathos_rpoB_checked$species_adjusted == ""] <- NA
 
 
-# Change species value when there is a species adjusted value (generated by operator manually ) and drop the species adjusted column
+# Change species value when there is a species adjusted value (generated by operator manually) and drop the species adjusted column
 pathos_16s_checked <- pathos_16s_checked %>%
   mutate(species = if_else(condition =  !is.na(species_adjusted), species_adjusted, species )) %>%
   select(!species_adjusted)
@@ -209,25 +213,27 @@ pathos_rpoB_checked <- pathos_rpoB_checked %>%
   mutate(species = if_else(condition =  !is.na(species_adjusted), species_adjusted, species )) %>%
   select(!species_adjusted)
 
-# Rename inappropriate affiliation 
+
+## Additionnal filtering and correction ----
+#Rename inappropriate affiliation 
 pathos_16s_checked <- pathos_16s_checked %>%
   mutate(species = if_else(species == "Haemobartonella muris", "Mycoplasma haemomuris", species))
 
-# FOR RPOB : reads based filter
+#FOR rpoB : reads based filter
 pathos_rpoB_checked <- pathos_rpoB_checked %>%
   filter(totalreads >= 100)
 
 
-## Create new column for best identified taxa ----
+## Best identified taxa column ----
 
-# If there are unknown or Multi-affiliation in species column, change it to NA
+#If there are unknown or Multi-affiliation in species column, change it to NA
 pathos_16s_checked <- pathos_16s_checked %>%
   mutate(species = if_else(species %in% c("unknown species", "Multi-affiliation"), NA , species ))
 
 pathos_rpoB_checked <- pathos_rpoB_checked %>%
   mutate(species = if_else(species %in% c("unknown species", "Multi-affiliation"), NA , species )) 
 
-# Creation of a new column containing best available identity (between species or genus here)
+#Creation of a new column containing best available identity (between species or genus here)
 pathos_16s_checked <- pathos_16s_checked %>%
   mutate(
     identification16s = if_else(!is.na(species), species, genus),
@@ -244,7 +250,7 @@ pathos_rpoB_checked <- pathos_rpoB_checked %>%
   relocate(identificationrpoB, .after = species) %>%
   relocate(best_identificationrpoB, .after = identificationrpoB)
 
-# Replace space in taxa name 
+#Replace space in taxa name 
 pathos_16s_checked <- pathos_16s_checked %>%
   mutate(identification16s = gsub(" ", "_", identification16s ))
 
@@ -252,9 +258,10 @@ pathos_rpoB_checked <- pathos_rpoB_checked %>%
   mutate(identificationrpoB = gsub(" ", "_", identificationrpoB ))
 
 
-## Simplification, compress spleen pathogens information by best identified taxa ----
+## Compress metabarcoding affiliation ----
+#by best identified taxa
 
-# Keep only best taxa and samples
+#Keep only best taxa and samples
 taxa_pathos_16s <- pathos_16s_checked %>%
   select(c("identification16s", names(pathos_16s_checked)[(which(names(pathos_16s_checked) == "totalreads") + 1):ncol(pathos_16s_checked)]))
 
@@ -262,7 +269,7 @@ taxa_pathos_rpoB <- pathos_rpoB_checked %>%
   select(c("identificationrpoB", names(beprep_rpoB_sp)[(which(names(beprep_rpoB_sp) == "totalreads") + 1):ncol(beprep_rpoB_sp)]))
 
 
-# Sum rows by best taxa
+#Sum rows by best taxa
 taxa_pathos_16s <- taxa_pathos_16s %>%
   group_by(identification16s) %>%
   summarise(across(where(is.numeric), ~ sum(., na.rm = TRUE)), .groups = "drop")
@@ -271,7 +278,7 @@ taxa_pathos_rpoB <- taxa_pathos_rpoB %>%
   group_by(identificationrpoB) %>%
   summarise(across(where(is.numeric), ~ sum(., na.rm = TRUE)), .groups = "drop")
 
-# Transpose the table
+#Transpose the table
 taxa_transposed_16S <- taxa_pathos_16s |>
   data.table::transpose(
     keep.names = "numero_centre_16s",
@@ -284,7 +291,7 @@ taxa_transposed_rpoB <- taxa_pathos_rpoB |>
     make.names = 1
   )
 
-# Finish sample name transformation to join to host data
+#Finish sample names transformation to join to host data
 taxa_transposed_16S <- taxa_transposed_16S |>
   mutate(numero_centre_16s = gsub(".SP", "", numero_centre_16s ))
 
@@ -298,23 +305,24 @@ taxa_transposed_16S_rpoB <- left_join(taxa_transposed_16S,
                                       by = c("numero_centre_16s" = "numero_centre_rpoB")) %>%
   rename(numero_centre_combined = numero_centre_16s)
 
-# Replace NA by 0 in new data
+#Replace NA by 0 in new data
 taxa_transposed_16S_rpoB <- taxa_transposed_16S_rpoB %>%
   mutate(across(-numero_centre_combined, ~ if_else(is.na(.), 0, .)))
 
-# See benefit of Neoehrlichia_mikurensis columns combining
+#See benefit of Neoehrlichia_mikurensis columns combining
 taxa_transposed_16S_rpoB %>%
   filter(Neoehrlichia_mikurensis.y > 0) %>%
   filter(Neoehrlichia_mikurensis.x == 0) %>%
   select(numero_centre_combined) %>%
   pull()
 
-# Combine Neoehrlichia_mikurensis columns 
+#Combine Neoehrlichia_mikurensis columns 
 taxa_transposed_16S_rpoB <- taxa_transposed_16S_rpoB %>%
   mutate(Neoehrlichia_mikurensis = Neoehrlichia_mikurensis.x + Neoehrlichia_mikurensis.y) %>%
   select(- c("Neoehrlichia_mikurensis.x", "Neoehrlichia_mikurensis.y") ) 
 
-# Control rpoB metabarcoding - identify failed sample
+#Control rpoB metabarcoding - identify failed sample
+#To identify samples which were positives for Bartonella in 16S but are not with rpoB
 taxa_transposed_16S_rpoB %>%
   filter(rowSums(across( names(taxa_transposed_rpoB[,-1]))) == 0) %>%
   filter(Bartonella > 0 ) %>%
@@ -322,14 +330,17 @@ taxa_transposed_16S_rpoB %>%
   pull()
   
 
-## Join 16S-rpoB to lipl32 data ----
+# Lipl32 data treatment ----
 
-# Transform lipl32 qualitative column
+#Transform lipl32 qualitative column
 filelipl32 <- filelipl32 %>%
   mutate(lipL32_result = if_else(lipL32_result == "-", "0", lipL32_result) |> as.numeric()) %>%
   select(ID_rodent, lipL32_result)
 
-# Join data
+
+## Join lipl32 to metabarcoding data ----
+
+#Join data
 taxa_transposed_16S_rpoB_lipl32 <- left_join(taxa_transposed_16S_rpoB, 
                                              filelipl32,
                                       by = c("numero_centre_combined" = "ID_rodent"))
@@ -339,7 +350,7 @@ taxa_transposed_16S_rpoB_lipl32 %>%
   filter(is.na(lipL32_result)) %>%
   select(numero_centre_combined)
 
-# See benefit of Lepto and lipl32 columns combining
+#See benefit of Lepto and lipl32 columns combining
 taxa_transposed_16S_rpoB_lipl32 %>%
   filter(lipL32_result > 0) %>%
   filter(Leptospira == 0) %>%
@@ -352,13 +363,32 @@ taxa_transposed_16S_rpoB_lipl32 %>%
   select(numero_centre_combined) %>%
   pull()
 
-# Combine Leptospira columns 
+#Combine Leptospira columns 
 taxa_transposed_16S_rpoB_lipl32 <- taxa_transposed_16S_rpoB_lipl32 %>%
   mutate(Leptospira = case_when(
     (is.na(Leptospira) | Leptospira == 0) & !is.na(lipL32_result) & lipL32_result > 0 ~ lipL32_result,
     TRUE ~ Leptospira  
     )) %>%
   select(-lipL32_result)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # jsp ce que je voulais faire en bas, mais renommer numero_centre peut-être pas mal (genre rpoB-16s?)
