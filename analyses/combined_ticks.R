@@ -1,11 +1,14 @@
-# Some parameters ----
+# Script parameters ----
 
 set.seed(123)
 
+## Library ----
 library("data.table")
 library("dplyr")
 library("ggplot2")
 
+
+## Filtering parameters ----
 # mission for which tick were passed individually in microfluidic test
 microfluidic_mission <- c("Juin 2023")
 
@@ -15,13 +18,25 @@ macroparasite_mission <- c("Juin 2023", "Octobre 2023")
 # Species of host which interest us
 microfluidic_hostspecies <- c("Apodemus sylvaticus")
 
-# Graphical parameters 
+
+## Graphical parameters ----
 type_order <- c("pine_edge", "hedgerows", "broadleaved_forest")
 type_palette <- c("pine_edge" = "#FFB3BA", "hedgerows" = "#FFDFBA", "broadleaved_forest" = "#B3E2B3")
 treatment_order <- c("CT-LB", "CT-HB", "NC-LB", "NC-HB", "C-LB", "C-HB", "B" )
 mission_order <- c("Juin 2023", "Octobre 2023", "Juin 2024")
 mission_color <- c("Juin 2023" = "#66c2a5", "Octobre 2023" = "#fc8d62", "Juin 2024" = "#8da0cb")
 
+#new g parameters
+category_order <- c("pine_edge", "hedgerows", "broadleaved_forest")
+category_palette <- c("pine_edge" = "#FFB3BA", "hedgerows" = "#FFDFBA", "broadleaved_forest" = "#B3E2B3")
+type_order <- c("CT_LB", "CT_HB", "NC_LB", "NC_HB", "C_LB", "C_HB", "B" )
+type_palette <- c("CT_LB" = "#FFB3BA", "CT_HB" = "#FFB3BA" , "NC_LB" = "#FFDFBA", "NC_HB" = "#FFDFBA" , "C_LB" = "#FFDFBA" , "C_HB"= "#FFDFBA" , "B" = "#B3E2B3")
+brd_palette <- c("LB" = "#FFB3BA", "HB" = "#B3E2B3")
+mission_order <- c("Juin_2023", "Octobre_2023", "Juin_2024", "Septembre_2024")
+mission_color <- c("Juin_2023" = "#66c2a5", "Octobre_2023" = "#fc8d62", "Juin_2024" = "#8da0cb", "Septembre_2024" = "#ab7a82")
+
+
+## Functions ----
 # Function to count individuals number in graphs
 count_summary <- function(x, y_position = max(x) + 0.5) {
   return(data.frame(y = y_position, label = paste0("n = ", length(x))))
@@ -35,9 +50,8 @@ darken_color <- function(color, amount = 0.2) {
 }
 
 
-# First data management  ----
+# Import data ----
 
-## Imports ----
 # Import hosts and line modalities file
 hosts <- readr::read_csv( here::here("data", "raw-data", "host_data", "20250123_bpm_modalities.csv") )
 
@@ -51,20 +65,23 @@ envticks <- readxl::read_excel(here::here("data", "raw-data", "raw-ticks", "coll
 microfluidic <- data.table::fread(file = here::here("data", "raw-data", "raw-ticks", "microfluidic", "20240411_microfluidic_tick.txt") )
 
 
+
+# Data management  ----
+
+## Host data treatment ----
+
 # Take away not dissected individuals from hosts data
 hosts <- hosts %>%
   filter(stringr::str_detect(numero_centre, pattern = "NCHA"))
-
-
-## New data generation ----
-
-### Macroparasite - host data ----
 
 # Convert columns to character type (if necessary) and filter hosts data
 hosts_processed <- hosts %>%
   filter(code_resultat == 1) %>%
   select(numero_centre, taxon_mamm, numero_ligne, code_mission, year, season, connectivity, broadleaved_status, line_treatment, line_type) %>%
   mutate(across(everything(), as.character))
+
+
+## Macroparasite - host data ----
 
 # Convert columns to character type (if necessary) for macroparasite data
 macroparasite_processed <- macroparasite %>%
@@ -82,7 +99,7 @@ host_macro_uptodate <- host_macro %>%
   filter(code_mission %in% macroparasite_mission)
 
 
-### Environment ticks ----
+## Environment ticks ----
 
 # Join environment ticks to line modalities from hosts data
 envticks_processed <- envticks %>%
@@ -129,7 +146,7 @@ if (nrow(unknown_rows) > 0) {
 }
 
 
-### Environment and hosts tick combination ----
+## Environment and hosts tick combination ----
 
 # Add a new column to each table to indicate the source of ticks
 host_macro_combined <- host_macro %>%
@@ -142,7 +159,7 @@ envticks_processed_combined <- envticks_processed %>%
 combined_table <- dplyr::bind_rows(host_macro_combined, envticks_processed_combined)
 
 
-### Microfluidic data ----
+## Microfluidic data ----
 
 # Keep only data for ticks found on rodents (no human)
 microfluidic_processed <- microfluidic %>%
@@ -223,7 +240,7 @@ microfluidic_processed <- microfluidic_processed %>%
   select(- c("Rickettsia.spp._gltA", "Francisella.tularensis_fopA." ) ) 
 
 
-#### Microfluidic prevalence data ----
+### Microfluidic prevalence data ----
 
 # Identify column of pathogen (that were not purposely taken away and that are not empty)
 microfluidic_pathos_name <- microfluidic_processed %>%
@@ -237,7 +254,7 @@ microfluidic_prevalence <- dplyr::left_join(microfluidic_processed, host_macro, 
 
 
 
-#### Microfluidic community data ----
+### Microfluidic community data ----
 
 # Delete rows with "problem" or "unknown" in tick_species
 microfluidic_community <- microfluidic_processed %>%
