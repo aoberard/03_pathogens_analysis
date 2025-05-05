@@ -10,6 +10,7 @@ library("ggplot2")
 category_order <- c("pine_edge", "hedgerows", "broadleaved_forest")
 category_palette <- c("pine_edge" = "#FFB3BA", "hedgerows" = "#FFDFBA", "broadleaved_forest" = "#B3E2B3")
 type_order <- c("CT_LB", "CT_HB", "NC_LB", "NC_HB", "C_LB", "C_HB", "B" )
+type_palette <- c("CT_LB" = "#FFB3BA", "CT_HB" = "#FFB3BA" , "NC_LB" = "#FFDFBA", "NC_HB" = "#FFDFBA" , "C_LB" = "#FFDFBA" , "C_HB"= "#FFDFBA" , "B" = "#B3E2B3")
 brd_palette <- c("LB" = "#FFB3BA", "HB" = "#B3E2B3")
 mission_order <- c("Juin_2023", "Octobre_2023", "Juin_2024", "Septembre_2024")
 mission_color <- c("Juin_2023" = "#66c2a5", "Octobre_2023" = "#fc8d62", "Juin_2024" = "#8da0cb", "Septembre_2024" = "#ab7a82")
@@ -36,13 +37,13 @@ darken_color <- function(color, amount = 0.2) {
 
 # Global data exploration ----
 
-# Number infected per taxa
+#Number infected per taxa
 rodent_pathos %>%
   mutate(across(all_of(pathos_name), ~ replace(., . > 0, 1))) %>%
   group_by(taxon_mamm) %>%
   summarise(across(all_of(pathos_name), sum))
 
-# List of pathogen per species
+#List of pathogen per species
 list_pathos_per_species <- list()
 
 for (i in unique(rodent_pathos$taxon_mamm)) {
@@ -57,72 +58,46 @@ list_pathos_per_species
 
 
 
-
-
-
-
-
-
-
-
-
-
-# REESSAYER DE FAIRE HEATMAP 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Apodemus data exploration ----
 
-# PREVALENCE ALL MISSION
+## Descriptive numbers ----
+
+#PREVALENCE ALL MISSION
 data_for_m %>%
-  summarise(across(all_of(pathos_name_apo), ~ sum(.) * 100 / n()), .groups = "drop") %>%
+  summarise(
+    across(all_of(pathos_name_apo), list(
+      prevalence = ~ sum(. > 0) * 100 / n(),
+      positives = ~ sum(. > 0)
+    )),
+    .groups = "drop"
+  ) %>%
   tidyr::pivot_longer(
-    cols = all_of(pathos_name_apo),
-    names_to = "pathogens",
-    values_to = "prevalence"
-  )
+    cols = everything(),
+    names_to = c("pathogens", ".value"),
+    names_pattern = "^(.*)_(prevalence|positives)$"
+  ) %>% 
+  arrange(desc(positives))
 
-
-# PREVALENCE PER MISSION
+#PREVALENCE PER MISSION
 data_for_m %>%
   group_by(code_mission) %>%
   summarise(across(all_of(pathos_name_apo), ~ sum(.) * 100 / n()), .groups = "drop") 
 
+## Graph divers anciens ----
 
-# PREVALENCES PER SITE (beware, sometiques really few individuals per site rise prevalence + line with no individuals are not integrated)
-# Init pathogen prevalence per grouping factor 
+#PREVALENCES PER SITE (beware, sometiques really few individuals per site rise prevalence + line with no individuals are not integrated)
+#Init pathogen prevalence per grouping factor 
 grouping_prevalence_factor <- c("numero_ligne")
-
 
 # Number of positive individuals per grouping factor
 pp <- data_for_m %>%
   group_by(across(all_of(grouping_prevalence_factor))) %>%
   summarise(
     effectif = n(),
-    type = unique(type),
+    category = unique(category),
     broadleaved_class = unique(broadleaved_class),
     treatment = unique(treatment),
-    category = unique(category),
+    type = unique(type),
     across(all_of(pathos_name_apo), ~ sum(. > 0)),  
     .groups = "drop"
   )
@@ -131,10 +106,10 @@ pp <- data_for_m %>%
 pp_prevalence <- pp %>%
   group_by(across(all_of(grouping_prevalence_factor))) %>%
   summarise(
-    type = unique(type),
+    category = unique(category),
     broadleaved_class = unique(broadleaved_class),
     treatment = unique(treatment),
-    category = unique(category),
+    type = unique(type),
     effectif = sum(effectif),  # Total number of individuals
     across(all_of(pathos_name_apo), sum),  # Sum of positive cases for each pathogen
     .groups = "drop"
@@ -153,7 +128,6 @@ pp_prevalence <- pp_prevalence %>%
 
 # Watch prevalences with plot for all pathos
 pp_prevalence %>%  
-  filter(!pathos %in% c("Siphonaptera", "Ixodida")) %>%
   ggplot(aes(x = prevalence, y = pathos, fill = category)) +
   geom_boxplot(position = position_dodge(0.8), width = 0.6, alpha = 0.6) +
   geom_jitter(aes(color = category), 
@@ -162,25 +136,24 @@ pp_prevalence %>%
   scale_fill_manual(values = category_palette) +
   scale_color_manual(values = category_palette) + 
   labs(x = "Prevalence par ligne de piegeage", y = "Pathogènes") +
-  guides(fill = guide_legend(title = "Type de ligne"), 
-         color = guide_legend(title = "Type de ligne")) +
+  guides(fill = guide_legend(title = "category de ligne"), 
+         color = guide_legend(title = "category de ligne")) +
   theme_minimal()
 
 pp_prevalence %>%  
-  filter(!pathos %in% c("Siphonaptera", "Ixodida")) %>%
-  ggplot(aes(x = prevalence, y = pathos, fill = category)) +
+  ggplot(aes(x = prevalence, y = pathos, fill = type)) +
   geom_boxplot(position = position_dodge(0.8), width = 0.6, alpha = 0.6) +
-  geom_jitter(aes(color = category), 
+  geom_jitter(aes(color = type), 
               position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.8), 
               size = 1.5, alpha = 0.8) + 
-  scale_fill_manual(values = category_palette) +
-  scale_color_manual(values = category_palette) + 
+  scale_fill_manual(values = type_palette) +
+  scale_color_manual(values = type_palette) + 
   labs(x = "Prevalence par ligne de piegeage", y = "Pathogènes") +
-  guides(fill = guide_legend(title = "Type de ligne"), 
-         color = guide_legend(title = "Type de ligne")) +
+  guides(fill = guide_legend(title = "type de ligne"), 
+         color = guide_legend(title = "type de ligne")) +
   theme_minimal() +
   stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
-               aes(group = category),
+               aes(group = type),
                geom = "text", 
                position = position_dodge(0.8),
                color = "black", 
@@ -209,7 +182,7 @@ pp_prevalence %>%
                size = 3)
 
 
-data_for_m %>% count(Neoehrlichia_mikurensis, type)
+data_for_m %>% count(Neoehrlichia_mikurensis, category)
 
 ggplot(data_for_m, aes(x = as.factor(Mycoplasma_haemomuris), y = poids)) +
   geom_dotplot(binaxis='y', stackdir='center', aes(fill = sexe),
@@ -226,7 +199,7 @@ hist(data_for_m$number_pathos)
 
 
 
-## Graph making heatmap matrix ----
+## Graph heatmap matrix ----
 
 # Prevalence matrix calculation (only apodemus)
 #for line_treatment
@@ -273,7 +246,7 @@ superheat::superheat(X = matrix_pathos,
                      heat.na.col = "white",
                      yr = effectif,
                      yr.axis.name = "Headcount",
-                     yr.plot.type = "bar",
+                     yr.plot.category = "bar",
                      heat.pal = cividis_palette,
                      pretty.order.cols = TRUE)
 
@@ -314,9 +287,83 @@ ComplexHeatmap::Heatmap(matrix_pathos,
 
 
 
+## Beta diversity analysis - to move later ----
 
 
 
+
+### Generate matrices (beta diversity) ----
+
+#Subset community matrix
+m_apo_pathos <- d_apo_pathos %>%
+  tibble::column_to_rownames(var = "numero_centre") %>%
+  select(all_of(patho10_apo)) %>%                              #Only on 10% pathos just because was not working other
+  as.matrix()
+
+#Remove rows where all species are 0 (empty rows)
+m_apo_pathos_clean <- m_apo_pathos[rowSums(m_apo_pathos) > 0, ]
+
+#Generate dataframe with keptrows
+kept_rows <- which(rowSums(m_apo_pathos) > 0)
+metadata_clean <- d_apo_pathos[kept_rows, ]
+rm(kept_rows)
+
+#Generat Jaccard matrix
+m_apo_jacc <- vegan::vegdist(m_apo_pathos_clean, method = "jaccard", binary = TRUE)
+
+#Generate Bray-Curtis matrix
+m_apo_bray <- vegan::vegdist(m_apo_pathos_clean, method = "bray" , binary = FALSE)
+
+summary(rowSums(m_apo_pathos_clean))
+summary(colSums(m_apo_pathos_clean))
+nrow(unique(m_apo_pathos_clean))
+
+#PERMANOVA
+vegan::adonis2(formula = m_apo_jacc ~ category, data = metadata_clean) # ACTUELLEMENT CHOIX JACCARD CAR QUE DONNEES DETECTIONS 0/1
+
+#BETADISPER
+vegan::betadisper(m_apo_jacc, metadata_clean$category) %>%   # ACTUELLEMENT CHOIX JACCARD CAR QUE DONNEES DETECTIONS 0/1
+  vegan::permutest(permutations = 9999)
+
+
+# Graphic
+
+#Jaccard nMDS on cleaned matrix
+nmds_jacc <- vegan::metaMDS(
+  comm = m_apo_pathos_clean,
+  distance = "jaccard",
+  k = 2,
+  autotransform = FALSE
+)
+
+cat(paste0(
+  "Final NMDS has a stress of ", round(nmds_jacc$stress, 3), " — ",
+  dplyr::case_when(
+    nmds_jacc$stress < 0.05 ~ "excellent goodness of fit (inferences very reliable)",
+    nmds_jacc$stress < 0.1  ~ "good goodness of fit (inferences confident)",
+    nmds_jacc$stress < 0.2  ~ "fair goodness of fit (some distances misleading)",
+    TRUE                    ~ "poor goodness of fit (risks in interpretation)"
+  ), "\n"
+))
+
+vegan::stressplot(nmds_jacc)
+# Extract scores
+nmdspoint <- vegan::scores(nmds_jacc)$sites %>%
+  as_tibble(rownames = "numero_centre")
+nmdsvariable <- vegan::scores(nmds_jacc)$species %>%
+  as_tibble(rownames = "species")
+
+nmdspoint %>% 
+  left_join(metadata_clean) %>%
+  mutate(category = forcats::fct_relevel(category, category_order)) %>%
+  ggplot(aes(x = NMDS1, y = NMDS2, color = as.factor(category))) +
+  geom_point(size = 2) +
+  stat_ellipse(show.legend = FALSE, size = 2) +
+  geom_text(data = nmdsvariable, 
+            aes(x = NMDS1, y = NMDS2, label = species), 
+            colour = "grey20") +
+  scale_color_manual(values = category_palette) +
+  theme_minimal()
 
 
 
@@ -359,11 +406,11 @@ ComplexHeatmap::Heatmap(matrix_pathos,
 
 # -------------BELOW is TEST GRAPH FOR EWDA POSTER -------
 
-category_palette <- c("pine_edge" = "#8FC08C", "hedgerows" = "#A95738", "broadleaved_forest" = "#B3E2B3")
+category <- c("pine_edge" = "#8FC08C", "hedgerows" = "#A95738", "broadleaved_forest" = "#B3E2B3")
 
 
 # Generate a darker version of the fill colors
-darker_palette <- sapply(category_palette, darken_color, amount = 0.25)
+darker_palette <- sapply(category, darken_color, amount = 0.25)
 
 ## Neoehrlichia solo ----
 
@@ -385,7 +432,7 @@ pp_prevalence %>%
                dotsize = 0.5, 
                color = "black",  
                alpha = 0.8) +  
-  scale_fill_manual(values = c(category_palette, darker_palette)) + 
+  scale_fill_manual(values = c(category, darker_palette)) + 
   scale_color_manual(values = darker_palette) + 
   labs(x = "Overall prevalence per line", y = "Broadeleaved_status") +
   theme_classic()  +
@@ -406,7 +453,7 @@ pp_prevalence %>%
                size = 1.5, 
                width = 0.5,
                alpha = 0.7) +  
-  scale_fill_manual(values = c(category_palette, darker_palette)) + 
+  scale_fill_manual(values = c(category, darker_palette)) + 
   scale_color_manual(values = darker_palette) + 
   labs(x = "Overall prevalence per line", y = "broadleaved_class") +
   theme_classic()  +
@@ -452,9 +499,9 @@ pp_prevalence %>%
                size = 1.2, 
                width = 0.5,
                alpha = 0.7) +  
-  scale_fill_manual(values = c(category_palette, darker_palette)) + 
+  scale_fill_manual(values = c(category, darker_palette)) + 
   scale_color_manual(values = darker_palette) + 
-  labs(x = "Overall prevalence per line", y = "Line type") +
+  labs(x = "Overall prevalence per line", y = "Line category") +
   theme_classic()  +
   stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
                aes(group = category),
@@ -497,9 +544,9 @@ plot2 <- pp_prevalence %>%
                size = 1.2, 
                width = 0.5,
                alpha = 0.7) +  
-  scale_fill_manual(values = c(category_palette, darker_palette)) + 
+  scale_fill_manual(values = c(category, darker_palette)) + 
   scale_color_manual(values = darker_palette) + 
-  labs(x = "Overall prevalence per line", y = "Line type") +
+  labs(x = "Overall prevalence per line", y = "Line category") +
   theme_classic()  +
   stat_summary(fun.data = function(x) count_summary(x, y_position = 1.1), 
                aes(group = category),
@@ -524,7 +571,7 @@ plot <- pp_prevalence %>%
                width = 0.6,      
                alpha = 0.8,
                outlier.size = 5) +    
-  scale_fill_manual(values = c(category_palette, darker_palette)) + 
+  scale_fill_manual(values = c(category, darker_palette)) + 
   scale_color_manual(values = darker_palette) + 
   labs(x = "Overall Prevalence per Line", y = "Broadleaved Status") +
   theme_classic(base_size = 20) + 

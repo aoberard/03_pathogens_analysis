@@ -400,10 +400,10 @@ rodent_pathos <- rodent_pathos %>%
   mutate(across(all_of(pathos_name), ~ replace(., . > 0, 1)))
 
 # Beware if some pathogen for which abundance is important are to be added before this step (ticks for example)
-#please aplly function not on all pathos name but pathos name minus those specific names
+#please apply function not on all pathos name but pathos name minus those specific names
 
 
-# Generate sub-dataset ----
+# Generate sub-datasets ----
 
 ## Apply A. sylvaticus only ----
 
@@ -424,14 +424,6 @@ d_apo_pathos <- d_apo_pathos %>%
 pathos_name_apo <- pathos_name[pathos_name %in% names(d_apo_pathos)]
 setdiff(pathos_name, pathos_name_apo)
 
-
-#Add new variable : pathogen richness
-#But before choose if certain taxa should be excluded from pathogen richness calculation
-candidate_richness_pathos <- setdiff(pathos_name_apo, "Bartonella")
-
-data_for_m <- d_apo_pathos %>%
-  mutate(number_pathos = rowSums(across(all_of(candidate_richness_pathos), ~ (. > 0))))  
-
 # Identify pathos with GLOBAL prevalence >=10 for Apodemus data
 patho10_apo <- d_apo_pathos %>%
   summarise(across(all_of(pathos_name_apo), ~ sum(. > 0) / n() ))  %>%
@@ -442,23 +434,32 @@ patho10_apo
 
 ## More sub datasets based on filters ----
 
-# Take away rows with NA for some of our factor
-data_for_m <- data_for_m %>%
-  filter(!is.na(sexe))
+#Add new variable : pathogen richness
+#But before choose if certain taxa should be excluded from pathogen richness calculation
+candidate_richness_pathos <- setdiff(pathos_name_apo, "Bartonella")
 
+data_for_m <- d_apo_pathos %>%
+  mutate(number_pathos = rowSums(across(all_of(candidate_richness_pathos), ~ (. > 0))))  
+
+#Take away rows with NA for some of our factor
 data_for_m %>%
   filter(is.na(sexe))
 
-# Generate dataset without broadleaved forest analysis
+data_for_m <- data_for_m %>%
+  filter(!is.na(sexe))
+
+
+#Generate dataset without broadleaved forest analysis
 data_for_m_noforests <- data_for_m %>%
   filter(category != "broadleaved_forest")
 
-# Generate dataset without broadleaved forest with lines containing PCA values
+
+#Generate dataset without broadleaved forest with lines containing PCA values
 data_for_m_noforests_pca <- data_for_m_noforests %>%
   filter(!is.na(PCA_lines_local_axis1))
 
   
-# Generate other dataset without broadleaved forest, without year that do not contains them
+#Generate other dataset without broadleaved forest, without year that do not contains them
 data_for_m_forestsyear <- data_for_m %>%
   filter(code_mission %in% (data_for_m %>% 
            filter(category == "broadleaved_forest") %>%
