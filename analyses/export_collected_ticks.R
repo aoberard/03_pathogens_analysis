@@ -1,17 +1,19 @@
 #!/usr/bin/env Rscript
 
+# Script parameters ----
+
+## Library  ----
 library("RPostgreSQL")
 library("data.table")
 library("dplyr")
-library("ggplot2")
 
-# EXTRACT BPM  ----
-
-# database and user parameters 
+## Database and user parameters ----
 host <- "147.99.64.40" ; port <- 5432 ; db   <- "rongeurs" ; user <- "mus" ; pwd  <- "musculus" # read-only account (safe !)
 conn <- dbConnect(PostgreSQL(), host=host, port=port, user=user, password=pwd, dbname=db)
 
+# Database extraction ----
 
+## Query ----
 sql_collected_ticks <- "SELECT mi.code_mission, 
        lo.localite,
        li.numero_ligne,
@@ -26,13 +28,16 @@ GROUP BY mi.code_mission, lo.localite, li.numero_ligne
 ORDER BY date_collecte DESC, li.numero_ligne;"
 
 
+## Extraction ----
+
 # Get query (wait a few seconds)
 bpm_site_ticks <- as.data.table(dbGetQuery(conn, sql_collected_ticks))
 
 # Save results
-xlsx::write.xlsx(bpm_site_ticks, here::here("data/", "raw-data/", "raw-ticks", "collect", "export_site_ticks_alois20240730.xlsx") )
+xlsx::write.xlsx(bpm_site_ticks, here::here("data/", "raw-data/", "raw-ticks", "collect", "export_site_ticks_alois20250505.xlsx") )
 
 dbDisconnect(conn)
+rm(conn)
 
 
 
@@ -41,7 +46,7 @@ dbDisconnect(conn)
 # /!\ The final data file is currently made outside of R :
 
 ## Import data file ---- 
-site_tique <- readxl::read_excel(here::here("data", "raw-data", "raw-ticks", "collect", "20240730_collect_tick.xlsx"))
+site_tique <- readxl::read_excel(here::here("data", "raw-data", "raw-ticks", "collect", "20250505_collect_tick.xlsx"))
 
 
 

@@ -1,15 +1,19 @@
 #!/usr/bin/env Rscript
 
+# Script parameters ----
+
+## Library  ----
 library("RPostgreSQL")
 library("data.table")
 library("dplyr")
 
-
-# EXTRACT BPM  ----
-
-# database and user parameters 
+## Database and user parameters ----
 host <- "147.99.64.40" ; port <- 5432 ; db   <- "rongeurs" ; user <- "mus" ; pwd  <- "musculus" # read-only account (safe !)
 conn <- dbConnect(PostgreSQL(), host=host, port=port, user=user, password=pwd, dbname=db)
+
+# Database extraction ----
+
+## Query ----
 
 sql_rodent_fast_parasite <- "SELECT
 dis.numero_centre, 
@@ -35,12 +39,15 @@ AND pi.code_resultat = 1
 ORDER BY mi.date_debut_2, li.numero_ligne, re.date_releve_2, pg.numero, dis.numero_centre
 ;"
 
+## Extraction ----
+
 # Get query (wait a few seconds)
 bpm_fast_parasite <- as.data.table(dbGetQuery(conn, sql_rodent_fast_parasite))
 # Save results
 fwrite(bpm_fast_parasite, here::here("data/", "raw-data/", "raw-ticks", "rodents_tick", "export_fast_parasite_alois20240328.csv") )
 
 dbDisconnect(conn)
+rm(conn)
 
 
 
