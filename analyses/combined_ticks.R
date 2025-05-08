@@ -10,25 +10,20 @@ library("ggplot2")
 
 ## Filtering parameters ----
 # mission for which tick were passed individually in microfluidic test
-microfluidic_mission <- c("Juin 2023")
+microfluidic_mission <- c("Juin_2023")
 
 # mission for which macroparasite data were written in BPM
-macroparasite_mission <- c("Juin 2023", "Octobre 2023")
+macroparasite_mission <- c("Juin_2023", "Octobre_2023")
 
 # Species of host which interest us
-microfluidic_hostspecies <- c("Apodemus sylvaticus")
+microfluidic_hostspecies <- c("Apodemus_sylvaticus")
 
 
 ## Graphical parameters ----
-type_order <- c("pine_edge", "hedgerows", "broadleaved_forest")
-type_palette <- c("pine_edge" = "#FFB3BA", "hedgerows" = "#FFDFBA", "broadleaved_forest" = "#B3E2B3")
-treatment_order <- c("CT-LB", "CT-HB", "NC-LB", "NC-HB", "C-LB", "C-HB", "B" )
-mission_order <- c("Juin 2023", "Octobre 2023", "Juin 2024")
-mission_color <- c("Juin 2023" = "#66c2a5", "Octobre 2023" = "#fc8d62", "Juin 2024" = "#8da0cb")
-
-#new g parameters
 category_order <- c("pine_edge", "hedgerows", "broadleaved_forest")
 category_palette <- c("pine_edge" = "#FFB3BA", "hedgerows" = "#FFDFBA", "broadleaved_forest" = "#B3E2B3")
+category_palette <- c("pine_edge" = "#8FC08C", "hedgerows" = "#644c34ee", "broadleaved_forest" = "#B3E2B3")
+
 type_order <- c("CT_LB", "CT_HB", "NC_LB", "NC_HB", "C_LB", "C_HB", "B" )
 type_palette <- c("CT_LB" = "#FFB3BA", "CT_HB" = "#FFB3BA" , "NC_LB" = "#FFDFBA", "NC_HB" = "#FFDFBA" , "C_LB" = "#FFDFBA" , "C_HB"= "#FFDFBA" , "B" = "#B3E2B3")
 brd_palette <- c("LB" = "#FFB3BA", "HB" = "#B3E2B3")
@@ -53,32 +48,31 @@ darken_color <- function(color, amount = 0.2) {
 # Import data ----
 
 # Import hosts and line modalities file
-hosts <- readr::read_csv( here::here("data", "raw-data", "host_data", "20250123_bpm_modalities.csv") )
+hosts <- readr::read_csv( here::here("data", "raw-data", "host_data", "2025-04-22_small_mammal_beprep.csv") )
 
 # Import macroparasites from hosts file
 macroparasite <- fread(file = here::here("data/", "derived-data/", "ticks", "rodents_tick", "20240731_macroparasite.csv") )
 
 # Import ticks collected from the environment data
-envticks <- readxl::read_excel(here::here("data", "raw-data", "raw-ticks", "collect", "20240730_collect_tick.xlsx"))
+envticks <- readxl::read_excel(here::here("data", "raw-data", "raw-ticks", "collect", "20250505_collect_tick.xlsx"))
 
 # Import microfluidic information
 microfluidic <- data.table::fread(file = here::here("data", "raw-data", "raw-ticks", "microfluidic", "20240411_microfluidic_tick.txt") )
-
 
 
 # Data management  ----
 
 ## Host data treatment ----
 
-# Take away not dissected individuals from hosts data
+# Select columns of interests (line and rodent informaiton)
+# And convert columns to character type (if necessary) and filter hosts data
 hosts <- hosts %>%
-  filter(stringr::str_detect(numero_centre, pattern = "NCHA"))
-
-# Convert columns to character type (if necessary) and filter hosts data
-hosts_processed <- hosts %>%
-  filter(code_resultat == 1) %>%
-  select(numero_centre, taxon_mamm, numero_ligne, code_mission, year, season, connectivity, broadleaved_status, line_treatment, line_type) %>%
+  select(numero_centre, taxon_mamm, numero_ligne, code_mission, year, season, category, type, broadleaved_class, treatment, PCA_lines_local_axis1, PCA_lines_local_axis2, herbaceous, shrub, tree) %>%
   mutate(across(everything(), as.character))
+
+# Parallel data with only dissected individuals from hosts data
+hosts_processed <- hosts %>%
+  filter(stringr::str_detect(numero_centre, pattern = "NCHA")) 
 
 
 ## Macroparasite - host data ----
@@ -101,49 +95,18 @@ host_macro_uptodate <- host_macro %>%
 
 ## Environment ticks ----
 
+# Generate compatible code_mission to join with line data
+
 # Join environment ticks to line modalities from hosts data
 envticks_processed <- envticks %>%
   left_join(hosts %>%
-              select(numero_ligne, connectivity, broadleaved_status, line_treatment, line_type) %>%
-              mutate(numero_ligne = as.character(numero_ligne)) %>%
-              distinct() )
+              select(code_mission, numero_ligne, year, season, category, type, broadleaved_class, treatment, PCA_lines_local_axis1, PCA_lines_local_axis2, herbaceous, shrub, tree ) %>%
+              distinct(),
+            by = c("month_year"= "code_mission", "numero_ligne" = "numero_ligne")) 
 
-
-# Generate year and month variable
+# Remove rows with NA 
 envticks_processed <- envticks_processed %>%
-  mutate(
-    year = stringr::str_extract(string = code_mission, pattern = "\\d*$"),
-    month = stringr::str_extract(string = code_mission, pattern = "(?<=\\s-\\sBePrep\\s-\\s)\\w+")
-  )
-
-#choose which month correspond to each season
-Spring <- c("Juin")
-Autumn <- c("Octobre")
-
-envticks_processed <- envticks_processed %>%
-  mutate(
-    season = case_when(
-      month %in% Spring ~ "Spring",
-      month %in% Autumn ~ "Autumn",
-      TRUE ~ "unknown"
-    )
-  ) %>%
-  relocate(
-    year, .after = which(names(envticks_processed) == "code_mission") 
-  ) %>%
-  relocate(
-    season, .after = which(names(envticks_processed) == "code_mission") +1
-  ) %>%
-  mutate(
-    code_mission = paste(month, year)
-  ) %>%
-  select(!month)
-
-# Error check for modality attribution
-unknown_rows <- envticks_processed %>% filter(is.na(line_treatment) | line_type == "unknown" | season == "unknown" )
-if (nrow(unknown_rows) > 0) {
-  warning("There are rows with unknown values. Check 'unknown_rows' for details.")
-}
+  filter(!is.na(effectif_tick))
 
 
 ## Environment and hosts tick combination ----
@@ -212,7 +175,7 @@ problem_entries <- microfluidic_processed %>%
   filter(tick_species == "problem")
 
 if (nrow(problem_entries) > 0) {
-  message(paste0("There are ", nrow(problem_entries), " samples with 'problem' species identification"))
+  message(paste0("There are ", nrow(problem_entries), " sample(s) with 'problem' species identification"))
 } else {
   message("No samples with 'problem' species identification were found.")
 }
@@ -298,7 +261,7 @@ microfluidic_matrix_commu <- microfluidic_matrix_commu %>%
 # Calculate beta diversity matrix
 #Bray-Curtis : 
 microfluidic_matrix_bray <- microfluidic_matrix_commu %>%
-  vegan::vegdist(, method="bray", binary = FALSE)
+  vegan::vegdist(method="bray", binary = FALSE)
 
 
 
@@ -329,7 +292,7 @@ dglm_host_effectif_tick <- host_macro_uptodate %>%
 
 # GLM making (poisson) 
 glm_host_effectif_tick <- lme4::glmer.nb(
-  formula = effectif_tick ~ broadleaved_status * connectivity + (1|numero_ligne),
+  formula = effectif_tick ~ broadleaved_class * treatment + (1|numero_ligne),
   data = dglm_host_effectif_tick,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
@@ -346,7 +309,7 @@ TopModels<-subset(SelectionModels, delta < 2)
 TopModels
 
 glm_host_effectif_tick <- lme4::glmer.nb(
-  formula = effectif_tick ~ broadleaved_status + (1|numero_ligne),
+  formula = effectif_tick ~ broadleaved_class + (1|numero_ligne),
   data = dglm_host_effectif_tick,
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
@@ -358,7 +321,7 @@ DHARMa::simulateResiduals(glm_host_effectif_tick, n = 250, refit = F, integerRes
 drop1(glm_host_effectif_tick,.~.,test="Chisq")
 summary(glm_host_effectif_tick)
 
-em <- emmeans::emmeans(glm_host_effectif_tick, "broadleaved_status", type = "response")
+em <- emmeans::emmeans(glm_host_effectif_tick, "broadleaved_class", type = "response")
 em
 plot(em, comparisons = TRUE)
 
@@ -370,25 +333,26 @@ emmeans::contrast(em, "pairwise", adjust = "Tukey")
 ### Exploration 
 
 envticks_processed %>%
-  group_by(code_mission) %>%
+  group_by(month_year) %>%
   summarise(
     effectif_tick = sum(effectif_tick)
   )
 
 envticks_processed %>%
-  group_by(code_mission, line_type) %>%
+  group_by(month_year, category) %>%
   summarise(
     effectif_tick = sum(effectif_tick)
   )
+
 
 hist(envticks_processed$effectif_tick)
 
 envticks_processed %>%
-  ggplot(aes (x = factor(line_type, levels = type_order), y = effectif_tick, , fill = line_type)) + 
-  facet_grid(~ factor(code_mission, levels = mission_order) ) +
+  ggplot(aes (x = factor(category, levels = category_order), y = effectif_tick, , fill = category)) + 
+  facet_grid(~ factor(month_year, levels = mission_order) ) +
   geom_boxplot(position = position_dodge(1)) +
   geom_dotplot(binaxis = 'y', stackdir = 'center', position = position_jitter(width = 0.05), dotsize = 0.5) +
-  scale_fill_manual(values = type_palette) +
+  scale_fill_manual(values = category_palette) +
   labs(x = "Type de ligne", y = "Nbr de tiques collectées au drap par ligne") +
   guides(fill = guide_legend(title = "Type de ligne")) +
   theme_minimal()
@@ -396,14 +360,15 @@ envticks_processed %>%
 
 ### GLMMs 
 
-# Making data frame for glm model /!\ spring 2023 only for poster EWDA -normally should put interaction between type and code_mission
+# Making data frame for glm model (here by excluding broadleaved forests for EVMC 2025)
 dglm_environment_tick <- envticks_processed %>%
-  filter(code_mission == "Juin 2023")
+  #filter(month_year %in% c("Juin_2023", "Juin_2024") )  %>%
+  filter(!category == "broadleaved_forest")
 
 # GLM making (poisson) 
 rm(glm_environment_tick)
 glm_environment_tick <- lme4::glmer(
-  formula = effectif_tick ~ line_type + (1|numero_ligne),
+  formula = effectif_tick ~ category * season + (1|numero_ligne),
   data = dglm_environment_tick,
   family = poisson(link = "log"),  
   na.action = "na.fail",
@@ -422,7 +387,7 @@ TopModels
 
 rm(glm_environment_tick)
 glm_environment_tick <- lme4::glmer(
-  formula = effectif_tick ~ line_type + (1|numero_ligne),
+  formula = effectif_tick ~ category * season + (1|numero_ligne),
   data = dglm_environment_tick,
   family = poisson(link = "log"),  
   na.action = "na.fail",
@@ -431,14 +396,61 @@ glm_environment_tick <- lme4::glmer(
 
 DHARMa::simulateResiduals(glm_environment_tick, n = 250, refit = F, integerResponse = NULL, plot = T, seed = 123) |>
   plot(rank = TRUE)
+
+glm_environment_tick |>
+  RVAideMemoire::overdisp.glmer()
+
 drop1(glm_environment_tick,.~.,test="Chisq")
 summary(glm_environment_tick)
 
-em <- emmeans::emmeans(glm_environment_tick, "line_type", type = "response")
-em
-plot(em, comparisons = TRUE)
+# #Correction model for overdispersion 
+# glm_environment_tick_nb <- glmmTMB::glmmTMB(effectif_tick ~ category * season + (1 | numero_ligne),
+#                    data = dglm_environment_tick,
+#                    family = glmmTMB::nbinom2,
+#                    na.action = "na.fail")
+# 
+# SelectionModels<- MuMIn::dredge(glm_environment_tick_nb, rank = "AICc")              
+# TopModels<-subset(SelectionModels, delta < 2)
+# TopModels
+# 
+# summary(glm_environment_tick_nb)
 
-emmeans::contrast(em, "pairwise", adjust = "Tukey")
+#Post-hoc tests
+em_envtick <- emmeans::emmeans(glm_environment_tick, ~ category | season, type = "response")
+plot(em_envtick, comparisons = TRUE)
+emmeans::contrast(em_envtick, "pairwise", adjust = "Tukey")
+
+
+em_summary_envtick <- as.data.frame(em_envtick)
+
+em_envtick_prob_plot <- ggplot(em_summary_envtick, aes(x = rate, y = reorder(category, rate), color = category)) +
+  geom_point(size = 4.5) +
+  geom_segment(aes(x = asymp.LCL, xend = asymp.UCL, y = category, yend = category), linewidth = 1.5) +
+  scale_color_manual(values = category_palette) + 
+  facet_wrap(~ season, nrow = 2) + 
+  theme_minimal(base_size = 16) +
+  labs(
+    x = "Estimated something probability",
+    y = "Category",
+    color = "Category"
+  ) +
+  theme(
+    axis.text = element_text(color = "gray20", size = 11),
+    axis.title = element_text(color = "gray20", size = 12),
+    strip.text = element_text(color = "gray20", size = 12),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.major.x = element_line(color = "gray90", linewidth = 0.5)
+  ) +
+  guides(
+    color = "none" 
+  )
+em_envtick_prob_plot
+
+ggsave(filename = here::here("figures","envtick_evmc.pdf"),
+       plot = em_envtick_prob_plot, 
+       width = 3000, height = 1100, units = "px", device = "pdf", dpi = 300, bg = NULL)
+
 
 
 ## Environment and hosts tick combination ----

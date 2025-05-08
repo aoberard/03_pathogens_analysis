@@ -409,7 +409,36 @@ rodent_pathos <- rodent_pathos %>%
 
 #Keep only Apodemus sylvaticus for analysis
 d_apo_pathos <- rodent_pathos %>%
-  filter(taxon_mamm == "Apodemus sylvaticus")
+  filter(taxon_mamm == "Apodemus sylvaticus") %>%
+  filter(!category == "broadleaved_forest")                                          #ATTENTION temp pour evmc, retirer ensuite----
+
+d_apo_pathos %>%
+  select(all_of(c(
+    "Borreliella",
+    "Neoehrlichia_mikurensis",
+    "Streptobacillus",
+    "Mycoplasma_haemomuris",
+    "Mycoplasma_coccoides",
+    "Mycoplasma_penetrans",
+    "Ehrlichia",
+    "Neisseria",
+    "Spiroplasma",
+    "Treponema",
+    "Bartonella_taylorii",
+    "Bartonella_grahamii",
+    "Bartonella_doshiae",
+    "Bartonella_birtlesii",
+    "Bartonella_elizabethae",
+    "Leptospira"
+  ))) %>%
+  summarise(across(everything(), ~ sum(. > 0))) %>%
+  tidyr::pivot_longer(cols = everything(),
+               names_to = "pathogen",
+               values_to = "n_positive") %>%
+  fwrite(here::here("nb_indiv_evmc.csv") )
+
+
+
 
 # Filter empty pathogen for Apodemus sylvaticus
 d_apo_pathos <- d_apo_pathos %>%
@@ -437,6 +466,25 @@ patho10_apo
 #Add new variable : pathogen richness
 #But before choose if certain taxa should be excluded from pathogen richness calculation
 candidate_richness_pathos <- setdiff(pathos_name_apo, "Bartonella")
+
+candidate_richness_pathos <- c(                                     # ATTENTION TEMP EVMC ---- 
+  "Borreliella",
+  "Neoehrlichia_mikurensis",
+  "Streptobacillus",
+  "Mycoplasma_haemomuris",
+  "Mycoplasma_coccoides",
+  "Mycoplasma_penetrans",
+  "Ehrlichia",
+  "Neisseria",
+  "Spiroplasma",
+  "Treponema",
+  "Bartonella_taylorii",
+  "Bartonella_grahamii",
+  "Bartonella_doshiae",
+  "Bartonella_birtlesii",
+  "Bartonella_elizabethae",
+  "Leptospira"
+)
 
 data_for_m <- d_apo_pathos %>%
   mutate(number_pathos = rowSums(across(all_of(candidate_richness_pathos), ~ (. > 0))))  

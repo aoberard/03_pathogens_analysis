@@ -83,6 +83,14 @@ data_for_m %>%
   group_by(code_mission) %>%
   summarise(across(all_of(pathos_name_apo), ~ sum(.) * 100 / n()), .groups = "drop") 
 
+#Pathogen richness 
+
+
+# Calculate percentage
+percent_at_least_2 <- mean(data_for_m$number_pathos >= 2) * 100
+label_text <- paste0(round(percent_at_least_2, 1), "% with ≥2 pathogens")
+
+
 ## Graph divers anciens ----
 
 #PREVALENCES PER SITE (beware, sometiques really few individuals per site rise prevalence + line with no individuals are not integrated)
@@ -199,6 +207,7 @@ hist(data_for_m$number_pathos)
 
 
 
+
 ## Graph heatmap matrix ----
 
 # Prevalence matrix calculation (only apodemus)
@@ -246,7 +255,7 @@ superheat::superheat(X = matrix_pathos,
                      heat.na.col = "white",
                      yr = effectif,
                      yr.axis.name = "Headcount",
-                     yr.plot.category = "bar",
+                     yr.plot.type = "bar",
                      heat.pal = cividis_palette,
                      pretty.order.cols = TRUE)
 
@@ -287,9 +296,42 @@ ComplexHeatmap::Heatmap(matrix_pathos,
 
 
 
-## Beta diversity analysis - to move later ----
+## Diversity analysis - to move later ----
 
+### Graph richness ----
 
+# Calculate percentage
+percent_at_least_2 <- mean(data_for_m$number_pathos >= 2) * 100
+label_text <- paste0(round(percent_at_least_2, 1), "% with ≥2 pathogens")
+
+# Create histogram with annotation
+pathos_richness_plot <- ggplot(data_for_m, aes(x = number_pathos)) +
+  geom_histogram(binwidth = 1, fill = "#fddc64", color = "#7a6a45", linewidth = 1.2) +
+  labs(
+    title = "Distribution of Pathogen Richness per Individual",
+    x = "Number of Pathogens Detected",
+    y = "Number of Individuals"
+  ) +
+  theme_classic(base_size = 14) +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12)
+  ) +
+  annotate(
+    "text",
+    x = Inf, y = Inf,
+    label = label_text,
+    hjust = 1.1, vjust = 2,
+    size = 5,
+    fontface = "italic",
+    color = "#7a6a45"
+  )
+pathos_richness_plot
+
+ggsave(filename = here::here("figures","pathos_richness_plot.pdf"),
+       plot = pathos_richness_plot, 
+       width = 1600, height = 1500, units = "px", device = "pdf", dpi = 300, bg = NULL)
 
 
 ### Generate matrices (beta diversity) ----
@@ -326,7 +368,7 @@ vegan::betadisper(m_apo_jacc, metadata_clean$category) %>%   # ACTUELLEMENT CHOI
   vegan::permutest(permutations = 9999)
 
 
-# Graphic
+### nMDS ----
 
 #Jaccard nMDS on cleaned matrix
 nmds_jacc <- vegan::metaMDS(
