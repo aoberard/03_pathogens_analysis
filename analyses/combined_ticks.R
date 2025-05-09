@@ -365,7 +365,7 @@ dglm_environment_tick <- envticks_processed %>%
   #filter(month_year %in% c("Juin_2023", "Juin_2024") )  %>%
   filter(!category == "broadleaved_forest")
 
-# GLM making (poisson) 
+# GLM making (poisson) - category
 rm(glm_environment_tick)
 glm_environment_tick <- lme4::glmer(
   formula = effectif_tick ~ category * season + (1|numero_ligne),
@@ -450,6 +450,7 @@ em_envtick_prob_plot
 ggsave(filename = here::here("figures","envtick_evmc.pdf"),
        plot = em_envtick_prob_plot, 
        width = 3000, height = 1100, units = "px", device = "pdf", dpi = 300, bg = NULL)
+
 
 
 
