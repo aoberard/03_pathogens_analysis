@@ -20,7 +20,7 @@ putative_pathos_family <- c("Sarcocystidae")
 d_host <- readr::read_csv(here::here("data/", "raw-data", "host_data", "2025-04-22_small_mammal_beprep.csv") )
 
 # Import 16S filtered file
-file16s_run00_01_04_05 <- data.table::fread(file = here::here( "data", "raw-data","16s_run00-01-04-05","Run00-01-04-05_16S_filtered-merged_postfrogs.txt"))
+file16s <- data.table::fread(file = here::here( "data", "raw-data","16s","Run00-01-04-05_16S_filtered-merged_postfrogs.txt"))
 
 # Import rpoB filtered file
 filerpoB_run01_05 <- data.table::fread(file = here::here( "data","raw-data","rpoB_run01-05","Run01-05-rpoB_filtered-merged.txt"))
@@ -52,15 +52,15 @@ sm_id <- unique(d_host %>%
 
 
 #Identify taxonomy columns of 16S and rpoB files 
-taxo_name_16s <- colnames(file16s_run00_01_04_05 [, 1:which(colnames(file16s_run00_01_04_05) == "observation_sum") ])
+taxo_name_16s <- colnames(file16s [, 1:which(colnames(file16s) == "observation_sum") ])
 
 taxo_name_rpoB <- colnames(filerpoB_run01_05 [, 1:which(colnames(filerpoB_run01_05) == "observation_sum") ])
 
 #Calculate total run read number per cluster 
 #(considering we added filtering steps prior import of data)
-file16s_run00_01_04_05 <- file16s_run00_01_04_05 %>%
+file16s <- file16s %>%
   mutate(clean_totalrunreads = rowSums(select(., -taxo_name_16s))) %>%
-  relocate(clean_totalrunreads, .after = names(file16s_run00_01_04_05)[which(colnames(file16s_run00_01_04_05) == "observation_sum")])
+  relocate(clean_totalrunreads, .after = names(file16s)[which(colnames(file16s) == "observation_sum")])
 
 filerpoB_run01_05 <- filerpoB_run01_05 %>%
   mutate(clean_totalrunreads = rowSums(select(., -taxo_name_rpoB))) %>%
@@ -72,18 +72,18 @@ taxo_name_16s <- c(taxo_name_16s, "clean_totalrunreads")
 taxo_name_rpoB <- c(taxo_name_rpoB, "clean_totalrunreads")
 
 # #Take away problematic samples - if needed
-# file16s_run00_01_04_05 <- file16s_run00_01_04_05 |>
+# file16s <- file16s |>
 
 #filerpoB_run01_05 <- filerpoB_run01_05 |>
 
 #Generate new file containing only Spleen BePrep's samples
 
 #by selecting those samples (for 16S)
-beprep_sample_16s_sp <- file16s_run00_01_04_05 |>
+beprep_sample_16s_sp <- file16s |>
   select( (contains("NCHA") & contains(".SP")) | contains("PCzymo") ) |>
   select( matches(paste(sm_id, collapse = "|")) | contains("PCzymo") ) 
 #and bind them to the taxonomy columns
-beprep_16s_sp <- file16s_run00_01_04_05 |>
+beprep_16s_sp <- file16s |>
   select(taxo_name_16s) |>
   cbind(beprep_sample_16s_sp)
 
@@ -107,7 +107,7 @@ beprep_rpoB_sp |>
 #Calculate total number of reads for each cluster considering chosen samples
 beprep_16s_sp <- beprep_16s_sp %>%
   mutate(totalreads = rowSums(select(., -taxo_name_16s)))%>%
-  relocate(totalreads, .after = names(beprep_16s_sp)[which(colnames(file16s_run00_01_04_05) == "clean_totalrunreads")])
+  relocate(totalreads, .after = names(beprep_16s_sp)[which(colnames(file16s) == "clean_totalrunreads")])
 
 beprep_rpoB_sp <- beprep_rpoB_sp %>%
   mutate(totalreads = rowSums(select(., -taxo_name_rpoB)))%>%
