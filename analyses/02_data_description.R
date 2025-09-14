@@ -83,13 +83,6 @@ data_for_m %>%
   group_by(code_mission) %>%
   summarise(across(all_of(pathos_name_apo), ~ sum(.) * 100 / n()), .groups = "drop") 
 
-#Pathogen richness 
-
-
-# Calculate percentage
-percent_at_least_2 <- mean(data_for_m$number_pathos >= 2) * 100
-label_text <- paste0(round(percent_at_least_2, 1), "% with ≥2 pathogens")
-
 
 ## Graph divers anciens ----
 
@@ -109,6 +102,7 @@ pp <- data_for_m %>%
     across(all_of(pathos_name_apo), ~ sum(. > 0)),  
     .groups = "drop"
   )
+pp
 
 # Calculate the total number of individuals and prevalence for each pathogen
 pp_prevalence <- pp %>%
@@ -400,7 +394,7 @@ nmdspoint %>%
   mutate(category = forcats::fct_relevel(category, category_order)) %>%
   ggplot(aes(x = NMDS1, y = NMDS2, color = as.factor(category))) +
   geom_point(size = 2) +
-  stat_ellipse(show.legend = FALSE, size = 2) +
+  stat_ellipse(show.legend = FALSE, linewidth = 2) +
   geom_text(data = nmdsvariable, 
             aes(x = NMDS1, y = NMDS2, label = species), 
             colour = "grey20") +

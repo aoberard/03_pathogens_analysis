@@ -10,7 +10,7 @@ library("ggplot2")
 #Beware, using this list should replace prior exploration of the cluster present in the metabarcoding dataset
 putative_pathos_genra <- c("Bartonella", "Neoehrlichia", "Mycoplasma", "Borrelia", "Borreliella", "Streptobacillus", "Ehrlichia", "Spiroplasma","Brevinema",
                            "Orientia", "Rickettsia", "Leptospira", "Yersinia", "Actinobacillus", "Treponema", "Chlamydia", "Neisseria", "Pasteurella",
-                           "Francisella", "Brucella", "Coxiella")
+                           "Francisella", "Brucella", "Coxiella", "Anaplasma")
 putative_pathos_family <- c("Sarcocystidae")
 
 
@@ -18,6 +18,9 @@ putative_pathos_family <- c("Sarcocystidae")
 
 #Import hosts and line modalities file
 d_host <- readr::read_csv(here::here("data/", "raw-data", "host_data", "20250910_SM_beprep.csv") )
+
+#Import nbr of individuals caught per line - mission
+line_commu <- data.table::fread(here::here("data","raw-data","host_data","line_commu.csv"))
 
 # Import 16S filtered file
 file16s <- data.table::fread(file = here::here( "data", "raw-data","16s","2025.09.08-16S.mergedfinal.csv"))
@@ -164,7 +167,7 @@ pathos_16s <- pathos_16s |>
 
 
 #Write files containing Spleen OTUs with BePrep samples only AND only putative pathogens :
-data.table::fwrite(pathos_16s, here::here("data/", "derived-data/","16S", "20250123_beprep_16s_sp_pathos.txt") )
+data.table::fwrite(pathos_16s, here::here("data/", "derived-data/","16S", "20250912_beprep_16s_sp_pathos.txt") )
 
 data.table::fwrite(pathos_rpoB, here::here("data", "derived-data","rpoB", "20250123_beprep_rpoB_sp_pathos.txt") )
 
@@ -173,7 +176,7 @@ data.table::fwrite(pathos_rpoB, here::here("data", "derived-data","rpoB", "20250
 #Seek for species level identification for specific taxa (e.g. Mycoplasma) throught external manipulation (e.g phylogenic tree and Genbank)
 #A new datafile is created BY HAND to add the checked species information (in new column "species_adjusted") and then imported
 #If probable pseudo-gene affiliation is observed in data file they may also get deleted ny operator at this step
-pathos_16s_checked <- data.table::fread(file = here::here( "data","raw-data/","16s_run00-01-04-05","20241204_beprep_16s_sp_pathos-adjusted.txt"))
+pathos_16s_checked <- data.table::fread(file = here::here( "data","derived-data", "16S", "20250912_beprep_16s_sp_pathos-adjusted.txt"))
 pathos_16s_checked$species_adjusted[pathos_16s_checked$species_adjusted == ""] <- NA
 
 pathos_rpoB_checked <- data.table::fread(file = here::here( "data","raw-data/","rpoB_run01-05","20241204_beprep_rpoB_sp_pathos-adjusted.txt"))
@@ -299,11 +302,12 @@ taxa_transposed_16S_rpoB <- taxa_transposed_16S_rpoB %>%
 
 #Control rpoB metabarcoding - identify failed sample
 #To identify samples which were positives for Bartonella in 16S but are not with rpoB
-taxa_transposed_16S_rpoB %>%
+failed_barto_rpob <- taxa_transposed_16S_rpoB %>%
   filter(rowSums(across( names(taxa_transposed_rpoB[,-1]))) == 0) %>%
   filter(Bartonella > 0 ) %>%
   select(numero_centre_combined) %>%
   pull()
+failed_barto_rpob
 
 
 # Lipl32 data treatment ----
@@ -408,12 +412,11 @@ rodent_pathos <- rodent_pathos %>%
 
 #Keep only Apodemus sylvaticus for analysis
 d_apo_pathos <- rodent_pathos %>%
-  filter(taxon_mamm == "Apodemus sylvaticus") %>%
-  filter(!category == "broadleaved_forest")                                          #ATTENTION temp pour evmc, retirer ensuite----
+  filter(taxon_mamm == "Apodemus sylvaticus") 
 
 d_apo_pathos %>%
   select(all_of(c(
-    "Borreliella",
+    "Bartonella",
     "Neoehrlichia_mikurensis",
     "Streptobacillus",
     "Mycoplasma_haemomuris",
@@ -423,6 +426,27 @@ d_apo_pathos %>%
     "Neisseria",
     "Spiroplasma",
     "Treponema",
+    "Borrelia_miyamotoi",
+    "Borreliella",
+    "Mycoplasmopsis_columbina",
+    "Metamycoplasma_sualvi",
+    "Mycoplasma"
+  ))) %>%
+  summarise(across(everything(), ~ sum(. > 0))) %>%
+  tidyr::pivot_longer(
+    cols = everything(),
+    names_to = "pathogen",
+    values_to = "n_positive"
+  ) %>%
+  mutate(
+    n_total = nrow(d_apo_pathos),
+    prevalence = round(100*n_positive / n_total, digits = 1)
+  ) %>%
+  fwrite(here::here("nb_indiv_apo_16s.csv"))
+
+d_apo_pathos %>%
+  filter(year != "2025") %>%
+  select(all_of(c(
     "Bartonella_taylorii",
     "Bartonella_grahamii",
     "Bartonella_doshiae",
@@ -431,10 +455,18 @@ d_apo_pathos %>%
     "Leptospira"
   ))) %>%
   summarise(across(everything(), ~ sum(. > 0))) %>%
-  tidyr::pivot_longer(cols = everything(),
-               names_to = "pathogen",
-               values_to = "n_positive") %>%
-  fwrite(here::here("nb_indiv_evmc.csv") )
+  tidyr::pivot_longer(
+    cols = everything(),
+    names_to = "pathogen",
+    values_to = "n_positive") %>%
+  mutate(
+    n_total = nrow(d_apo_pathos %>%
+                     filter(year != "2025") ),                              # beware table made only when lipl32 and rpob were not done yet
+    prevalence = round(100*n_positive / n_total, digits = 1)
+  )%>%
+  fwrite(here::here("nb_indiv_apo_rpoblipl32.csv") )
+
+
 
 
 
@@ -466,6 +498,7 @@ patho10_apo
 #But before choose if certain taxa should be excluded from pathogen richness calculation
 candidate_richness_pathos <- setdiff(pathos_name_apo, "Bartonella")
 
+
 candidate_richness_pathos <- c(                                     # ATTENTION TEMP EVMC ---- 
   "Borreliella",
   "Neoehrlichia_mikurensis",
@@ -494,6 +527,10 @@ data_for_m %>%
 
 data_for_m <- data_for_m %>%
   filter(!is.na(sexe))
+
+#Join nbr of individuals caught per line - mission
+data_for_m <- data_for_m %>%
+  left_join(line_commu %>% select(code_mission, numero_ligne, `Apodemus sylvaticus`,sm_abund ))
 
 
 #Generate dataset without broadleaved forest analysis
