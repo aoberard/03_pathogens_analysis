@@ -57,7 +57,8 @@ list20232024 <-c(
 
 list20232024_10percent <- intersect(list20232024, patho10_apo)
 
-
+data_for_m_2023224 <- data_for_m %>%
+  filter(year != 2025)
 
 #Associations explorations ----
 
@@ -130,7 +131,6 @@ factoextra::fviz_mca_ind(acm20232024, repel = F)
 
 
 # GLM especes majoritaires ----
-
 
 ##Model : Bartonella spp. ----
 
@@ -343,3 +343,101 @@ MuMIn::sw(avg_mod)
 
 
 
+
+
+# ici données 2023 2024 ----
+
+##Model : Bartonella taylorii  ----
+
+data_for_m_2023224 %>%
+  group_by(category, season) %>%
+  summarise(n_infected = sum(Bartonella_taylorii >0),
+            n = n(), .groups = "drop")
+
+#Global model specification
+if (exists("m_barto_t_r")) rm(m_barto_t_r)
+m_barto_t_r <- lme4::glmer(
+  formula = Bartonella_taylorii ~ category * season + as.factor(year) + scale(poids) + scale(`Apodemus sylvaticus`) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_2023224,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_t_r)
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_barto_t_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+#Take a look at best models averaging
+avg_mod <- MuMIn::model.avg(model_selection, subset = delta < 10)
+summary(avg_mod)
+MuMIn::sw(avg_mod)
+
+#Best model specification
+
+
+
+
+
+##Model : Bartonella birtlesii  ----
+
+data_for_m_2023224 %>%
+  group_by(category, season) %>%
+  summarise(n_infected = sum(Bartonella_birtlesii >0),
+            n = n(), .groups = "drop")
+
+#Global model specification
+if (exists("m_barto_b_r")) rm(m_barto_b_r)
+m_barto_b_r <- lme4::glmer(
+  formula = Bartonella_birtlesii ~ category * season + as.factor(year) + scale(poids) + scale(`Apodemus sylvaticus`) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_2023224,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_b_r)
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_barto_b_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+#Take a look at best models averaging
+avg_mod <- MuMIn::model.avg(model_selection, subset = delta < 10)
+summary(avg_mod)
+MuMIn::sw(avg_mod)
+
+#Best model specification
+
+
+
+
+##Model : Bartonella grahamii  ----
+
+data_for_m_2023224 %>%
+  group_by(category, season) %>%
+  summarise(n_infected = sum(Bartonella_grahamii >0),
+            n = n(), .groups = "drop")
+
+#Global model specification
+if (exists("m_barto_g_r")) rm(m_barto_g_r)
+m_barto_g_r <- lme4::glmer(
+  formula = Bartonella_grahamii ~ category * season + as.factor(year) + scale(poids) + scale(`Apodemus sylvaticus`) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_2023224,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_g_r)
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_barto_g_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+#Take a look at best models averaging
+avg_mod <- MuMIn::model.avg(model_selection, subset = delta < 10)
+summary(avg_mod)
+MuMIn::sw(avg_mod)
