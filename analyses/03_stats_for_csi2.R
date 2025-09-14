@@ -161,7 +161,15 @@ summary(avg_mod)
 MuMIn::sw(avg_mod)
 
 #Best model specification
-
+if (exists("m_barto_r")) rm(m_barto_r)
+m_barto_r <- lme4::glmer(
+  formula = Bartonella ~ season + as.factor(year) + scale(poids) + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_r)
 
 #Best model validation
 DHARMa::simulateResiduals(m_barto_r) %>%
@@ -182,7 +190,7 @@ data_for_m %>%
 #Global model specification
 if (exists("m_mycoplasmacoco_r")) rm(m_mycoplasmacoco_r)
 m_mycoplasmacoco_r <- lme4::glmer(
-  formula = Mycoplasma_coccoides ~ category + season + scale(poids) + scale(`Apodemus sylvaticus`) + sexe + (1|numero_ligne),
+  formula = Mycoplasma_coccoides ~ category * season + as.factor(year) + scale(poids) + scale(`Apodemus sylvaticus`) + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -231,7 +239,7 @@ data_for_m %>%
 #Global model specification
 if (exists("m_mycoplasma_r")) rm(m_mycoplasma_r)
 m_mycoplasma_r <- lme4::glmer(
-  formula = Mycoplasma_haemomuris ~ category *season + scale(poids) + scale(`Apodemus sylvaticus`) + sexe + (1|numero_ligne),
+  formula = Mycoplasma_haemomuris ~ category * season + as.factor(year) + scale(poids) + scale(`Apodemus sylvaticus`) + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -249,7 +257,6 @@ model_selection %>% filter(delta <2)
 avg_mod <- MuMIn::model.avg(model_selection, subset = delta < 10)
 summary(avg_mod)
 MuMIn::sw(avg_mod)
-
 
 #Best model specification
 if (exists("m_mycoplasma_r")) rm(m_mycoplasma_r)
@@ -270,17 +277,17 @@ performance::check_collinearity(m_mycoplasma_r)
 
 
 
-## Model : Neoehrlichia_mikurensis  ----
+## Model : Neoehrlichia mikurensis  ----
 
 data_for_m %>%
   group_by(category, season) %>%
-  summarise(n_infected = sum(Leptospira >0),
+  summarise(n_infected = sum(Neoehrlichia_mikurensis >0),
             n = n(), .groups = "drop")
 
 #Global model specification
 if (exists("m_neoeh_r")) rm(m_neoeh_r)
 m_neoeh_r <- lme4::glmer(
-  formula = Neoehrlichia_mikurensis ~ category + season + as.factor(year) + scale(poids) + scale(`Apodemus sylvaticus`) + sexe + (1|numero_ligne),
+  formula = Neoehrlichia_mikurensis ~ category * season + as.factor(year) + scale(poids) + scale(`Apodemus sylvaticus`) + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -298,9 +305,15 @@ avg_mod <- MuMIn::model.avg(model_selection, subset = delta < 10)
 summary(avg_mod)
 MuMIn::sw(avg_mod)
 
-#Best model specification
-
-
+# #Best model specification
+# if (exists("m_neoeh_r")) rm(m_neoeh_r)
+# m_neoeh_r <- lme4::glmer(
+#   formula = Neoehrlichia_mikurensis ~ category * season + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+#   family = binomial(link = "logit"),
+#   data = data_for_m,
+#   na.action = "na.fail",                                  
+#   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+# )
 
 #Best model validation
 DHARMa::simulateResiduals(m_neoeh_r) %>%
@@ -321,7 +334,7 @@ data_for_m %>%
 #Global model specification
 if (exists("m_mycoplasmasp")) rm(m_mycoplasmasp)
 m_mycoplasmasp <- lme4::glmer(
-  formula = Mycoplasma ~ category + season + scale(poids) + scale(`Apodemus sylvaticus`) + sexe + (1|numero_ligne),
+  formula = Mycoplasma ~ category * season + as.factor(year) + scale(poids) + scale(`Apodemus sylvaticus`) + sexe + (1|numero_ligne),
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",                                  
@@ -340,8 +353,21 @@ summary(avg_mod)
 MuMIn::sw(avg_mod)
 
 #Best model specification
+if (exists("m_mycoplasmasp")) rm(m_mycoplasmasp)
+m_mycoplasmasp <- lme4::glmer(
+  formula = Mycoplasma ~ season + scale(poids) + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
 
+#Best model validation
+DHARMa::simulateResiduals(m_mycoplasmasp) %>%
+  DHARMa::testResiduals()
 
+#Best model collinearity
+performance::check_collinearity(m_mycoplasmasp)
 
 
 
@@ -410,6 +436,18 @@ summary(avg_mod)
 MuMIn::sw(avg_mod)
 
 #Best model specification
+if (exists("m_barto_b_r")) rm(m_barto_b_r)
+m_barto_b_r <- lme4::glmer(
+  formula = Bartonella_birtlesii ~ scale(poids) + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_2023224,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+#Best model validation
+DHARMa::simulateResiduals(m_barto_b_r) %>%
+  DHARMa::testResiduals()
 
 
 
@@ -441,3 +479,18 @@ model_selection %>% filter(delta <2)
 avg_mod <- MuMIn::model.avg(model_selection, subset = delta < 10)
 summary(avg_mod)
 MuMIn::sw(avg_mod)
+
+#Best model specification
+if (exists("m_barto_g_r")) rm(m_barto_g_r)
+m_barto_g_r <- lme4::glmer(
+  formula = Bartonella_grahamii ~ season + as.factor(year) + scale(poids) + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_2023224,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+
+#Best model validation
+DHARMa::simulateResiduals(m_barto_g_r) %>%
+  DHARMa::testResiduals()
+
