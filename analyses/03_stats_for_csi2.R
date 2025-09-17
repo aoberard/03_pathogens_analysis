@@ -57,16 +57,50 @@ list20232024 <-c(
 
 list20232024_10percent <- intersect(list20232024, patho10_apo)
 
-data_for_m_2023224 <- data_for_m %>%
-  filter(year != 2025)
+
+
+
+
+#join brd landscape attribute
+brd_apo <- data.table::fread("brd_apo.csv")
+data_for_m <- data_for_m %>%
+  left_join(brd_apo, by = c("numero_ligne" = "Selected_s"))
+
+
 
 
 #Arrange dataframe per numero_ligne, otherwise there are problem for autocorrelation testing
 data_for_m <- data_for_m %>%
   arrange(numero_ligne)
 
-data_for_m_2023224 <- data_for_m_2023224 %>%
-  arrange(numero_ligne)
+#generate subdatasets
+data_for_m_2023224 <- data_for_m %>%
+  filter(year != 2025)
+
+
+#recalculate richness values
+data_for_m <- data_for_m %>%
+  mutate(number_pathos = rowSums(across(all_of(list2025_10percent), ~ (. > 0))))  
+hist(data_for_m$number_pathos)
+
+data_for_m_2023224 <- data_for_m %>%
+  mutate(number_pathos = rowSums(across(all_of(list20232024_10percent), ~ (. > 0))))  
+hist(data_for_m_2023224$number_pathos)
+
+
+#grouped datasets 
+data_for_m_grouped <- data_for_m %>%
+  mutate(category = if_else(category == "hedgerows", "pine_edge", category))
+
+data_for_m_2023224_grouped <- data_for_m %>%
+  mutate(category = if_else(category == "hedgerows", "pine_edge", category))
+
+#no brd datased
+data_for_mnobrd <- data_for_m %>%
+  filter(category != "broadleaved_forest")
+
+data_for_m_2023224nobrd <- data_for_m_2023224 %>%
+  filter(category != "broadleaved_forest")
 
 
 
@@ -314,6 +348,7 @@ m_barto_r <- lme4::glmer(
 )
 car::vif(m_barto_r)
 
+
 #Model selection
 if (exists("model_selection")) rm(model_selection)
 model_selection <- MuMIn::dredge(m_barto_r, rank = "AICc")
@@ -389,6 +424,7 @@ m_mycoplasmacoco_r <- lme4::glmer(
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
 car::vif(m_mycoplasmacoco_r)
+
 
 #Model selection
 if (exists("model_selection")) rm(model_selection)
@@ -529,6 +565,7 @@ data_for_m %>%
   summarise(n_infected = sum(Neoehrlichia_mikurensis >0),
             n = n(), .groups = "drop")
 
+
 #Global model specification
 if (exists("m_neoeh_r")) rm(m_neoeh_r)
 m_neoeh_r <- lme4::glmer(
@@ -538,6 +575,17 @@ m_neoeh_r <- lme4::glmer(
   na.action = "na.fail",                                  
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
+car::vif(m_neoeh_r)
+
+
+# if (exists("m_neoeh_r")) rm(m_neoeh_r)
+# m_neoeh_r <- lme4::glmer(
+#   formula = Neoehrlichia_mikurensis ~ category * season + as.factor(year) + scale(poids) + scale(`Apodemus sylvaticus`) + sexe + (1|numero_ligne),
+#   family = binomial(link = "logit"),
+#   data = data_for_m_grouped,
+#   na.action = "na.fail",                                  
+#   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+# )
 car::vif(m_neoeh_r)
 
 #Model selection
@@ -553,12 +601,22 @@ MuMIn::sw(avg_mod)
 #Best model specification
 if (exists("m_neoeh_r")) rm(m_neoeh_r)
 m_neoeh_r <- lme4::glmer(
-  formula = Neoehrlichia_mikurensis ~  season + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),   # Attention deux meilleurs modèles
+  formula = Neoehrlichia_mikurensis ~  season + category + scale(poids) + sexe + (1|numero_ligne),   # Attention deux meilleurs modèles
   family = binomial(link = "logit"),
   data = data_for_m,
   na.action = "na.fail",
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
+
+# if (exists("m_neoeh_r")) rm(m_neoeh_r)
+# m_neoeh_r <- lme4::glmer(
+#   formula = Neoehrlichia_mikurensis ~  season + category + scale(poids) + sexe + (1|numero_ligne),   # Attention deux meilleurs modèles
+#   family = binomial(link = "logit"),
+#   data = data_for_m_grouped,
+#   na.action = "na.fail",
+#   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+# )
+
 
 #Best model validation
 DHARMa::simulateResiduals(m_neoeh_r) %>%
@@ -591,7 +649,7 @@ DHARMa::testSpatialAutocorrelation(
 #Best model collinearity
 performance::check_collinearity(m_neoeh_r)
 
-em_neo <- emmeans::emmeans(m_neoeh_r, ~ category, type = "response")
+em_neo <- emmeans::emmeans(m_neoeh_r, ~ category , type = "response")
 plot(em_neo, comparisons = TRUE)
 emmeans::contrast(em_neo, "pairwise", adjust = "Tukey")
 
@@ -727,7 +785,7 @@ m_barto_b_r <- lme4::glmer(
   control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
 )
 car::vif(m_barto_b_r)
-
+  
 #Model selection
 if (exists("model_selection")) rm(model_selection)
 model_selection <- MuMIn::dredge(m_barto_b_r, rank = "AICc")
@@ -853,18 +911,7 @@ drop1(m_barto_g_r,.~.,test="Chisq")
 
 
 # Richness temp ----
-
-##individual scale ----
-
-#recalculate richness values
-data_for_m <- data_for_m %>%
-  mutate(number_pathos = rowSums(across(all_of(list2025_10percent), ~ (. > 0))))  
-hist(data_for_m$number_pathos)
-
-data_for_m_2023224 <- data_for_m %>%
-  mutate(number_pathos = rowSums(across(all_of(list20232024_10percent), ~ (. > 0))))  
-hist(data_for_m_2023224$number_pathos)
-
+#individual scale (infracommunity)
 
 #2025
 #Global model specification
@@ -878,28 +925,160 @@ m_rich2025 <- glmmTMB::glmmTMB(
   na.action = "na.fail",
 )
 
+m_rich2025 <- glmmTMB::glmmTMB(
+  number_pathos ~ category * season + as.factor(year) +
+    scale(poids) + scale(`Apodemus sylvaticus`) + sexe +
+    (1 | numero_ligne),
+  data = data_for_m_2023224_grouped,
+  family = glmmTMB::compois(),                  # Distribution Conway-Maxwell-Poisson
+  na.action = "na.fail",
+)
+
 
 #Model selection
 if (exists("model_selection")) rm(model_selection)
 model_selection <- MuMIn::dredge(m_rich2025, rank = "AICc")
 model_selection %>% filter(delta <2)
 
+#Take a look at best models averaging
+avg_mod <- MuMIn::model.avg(model_selection, subset = delta < 10)
+summary(avg_mod)
+MuMIn::sw(avg_mod)
+
 
 #Best model specification
 if (exists("m_rich2025")) rm(m_rich2025)
-
-
-
-
+m_rich2025 <- glmmTMB::glmmTMB(
+  number_pathos ~ category + season +
+    scale(poids) + sexe +
+    (1 | numero_ligne),
+  data = data_for_m,
+  family = glmmTMB::compois(),                  # Distribution Conway-Maxwell-Poisson
+  na.action = "na.fail",
+)
 
 #Best model validation
 DHARMa::simulateResiduals(m_rich2025) %>%
   DHARMa::testResiduals()
 
+car::Anova(m_rich2025, type = "II", test.statistic = "Chisq")
+
+# Example for "category"
+m_no_category <- update(m_rich2025, . ~ . - category)
+anova(m_rich2025, m_no_category, test = "Chisq")
+
+# Example for "season"
+m_no_season <- update(m_rich2025, . ~ . - season)
+anova(m_rich2025, m_no_season, test = "Chisq")
+
+# Example for "poids"
+m_no_poids <- update(m_rich2025, . ~ . - scale(poids))
+anova(m_rich2025, m_no_poids, test = "Chisq")
+
+# Example for "sexe"
+m_no_sexe <- update(m_rich2025, . ~ . - sexe)
+anova(m_rich2025, m_no_sexe, test = "Chisq")
+
+#Test spatial autocorrelation
+#BEWARE, as in our case we have to recalculate residuals at the numero_ligne scale
+#but our lines are missing sometimes from mission (ex n°6 in 2023 spring) it can mess
+#up the order in which groups are accounted for in the below script,
+#so the safest option is to reorder data used for modelling first according to the spatial unit 
+#used for recalculateResiduals (here done at beggining of script)
+# 1. Simulated residuals
+sim_res <- DHARMa::simulateResiduals(m_rich2025)
+# 2. Aggregate residuals per line
+sim_res_line <- DHARMa::recalculateResiduals(sim_res, group = data_for_m$numero_ligne)
+# 3. Recover order of group used for rescaling (it is there that problem can occur as we aggregate order based on order that may not be consistent)
+group_order <- unique(sim_res_line$group)
+# 4. Extract coordinate of line based on order
+lines_sf <- data_for_m[!duplicated(data_for_m$numero_ligne),
+                       c("numero_ligne", "longitude_lambert93", "latitude_lambert93")]
+lines_sf <- lines_sf[match(group_order, lines_sf$numero_ligne), ]
+# 5. Test spatial correlation
+DHARMa::testSpatialAutocorrelation(
+  sim_res_line,
+  x = lines_sf$longitude_lambert93,
+  y = lines_sf$latitude_lambert93
+)
+
+summary()
+em_rich <- emmeans::emmeans(m_rich2025, ~ category , type = "response")
+plot(em_rich, comparisons = TRUE)
+emmeans::contrast(em_rich, "pairwise", adjust = "Tukey")
 
 
 
-##site_mission scale ----
+
+
+
+
+
+#2023-2024
+#Global model specification
+if (exists("m_rich20232024")) rm(m_rich20232024)
+m_rich20232024 <- glmmTMB::glmmTMB(
+  number_pathos ~ category * season + as.factor(year) +
+    scale(poids) + scale(`Apodemus sylvaticus`) + sexe +
+    (1 | numero_ligne),
+  data = data_for_m_2023224,
+  family = glmmTMB::compois(),                  # Distribution Conway-Maxwell-Poisson
+  na.action = "na.fail",
+)
+
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_rich20232024, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+#Take a look at best models averaging
+avg_mod <- MuMIn::model.avg(model_selection, subset = delta < 10)
+summary(avg_mod)
+MuMIn::sw(avg_mod)
+
+
+#Best model specification
+if (exists("m_rich20232024")) rm(m_rich20232024)
+m_rich20232024 <- glmmTMB::glmmTMB(
+  number_pathos ~ category + season + as.factor(year) +
+    scale(poids)  + sexe +
+    (1 | numero_ligne),
+  data = data_for_m_2023224,
+  family = glmmTMB::compois(),                  # Distribution Conway-Maxwell-Poisson
+  na.action = "na.fail",
+)
+
+#Best model validation
+DHARMa::simulateResiduals(m_rich20232024) %>%
+  DHARMa::testResiduals()
+
+
+# Example for "category"
+m_no_category <- update(m_rich20232024, . ~ . - category)
+anova(m_rich20232024, m_no_category, test = "Chisq")
+
+# Example for "season"
+m_no_season <- update(m_rich20232024, . ~ . - season)
+anova(m_rich20232024, m_no_season, test = "Chisq")
+
+# Example for "year"
+m_no_season <- update(m_rich20232024, . ~ . - as.factor(year) )
+anova(m_rich20232024, m_no_season, test = "Chisq")
+
+# Example for "poids"
+m_no_poids <- update(m_rich20232024, . ~ . - scale(poids))
+anova(m_rich20232024, m_no_poids, test = "Chisq")
+
+# Example for "sexe"
+m_no_sexe <- update(m_rich20232024, . ~ . - sexe)
+anova(m_rich20232024, m_no_sexe, test = "Chisq")
+
+
+em_rich20232024 <- emmeans::emmeans(m_rich20232024, ~ category , type = "response")
+plot(em_rich20232024, comparisons = TRUE)
+emmeans::contrast(em_rich20232024, "pairwise", adjust = "Tukey")
+
 
 
 
@@ -941,6 +1120,56 @@ vegan::betadisper(m_apo_jacc, metadata_clean$category) %>%   # ACTUELLEMENT CHOI
   vegan::permutest(permutations = 9999)
 
 
+library(pairwiseAdonis)
+
+# Post-hoc pairwise comparisons
+
+# Obtenir les niveaux
+levels_cat <- unique(metadata_clean$category)
+
+# Créer toutes les combinaisons deux à deux
+combos <- combn(levels_cat, 2, simplify = FALSE)
+
+# Stocker les résultats
+pairwise_results <- data.frame(
+  group1 = character(),
+  group2 = character(),
+  R2 = numeric(),
+  F = numeric(),
+  p_value = numeric()
+)
+
+# Boucle sur chaque combinaison
+for (cmb in combos) {
+  # Subset des lignes correspondant aux deux groupes
+  idx <- metadata_clean$category %in% cmb
+  subset_matrix <- m_apo_pathos_clean[idx, ]
+  subset_meta <- metadata_clean[idx, ]
+  
+  # Calculer la distance Jaccard
+  dist_subset <- vegan::vegdist(subset_matrix, method = "jaccard", binary = TRUE)
+  
+  # PERMANOVA
+  ad <- vegan::adonis2(dist_subset ~ category, data = subset_meta, permutations = 999)
+  
+  # Extraire résultats
+  pairwise_results <- rbind(
+    pairwise_results,
+    data.frame(
+      group1 = cmb[1],
+      group2 = cmb[2],
+      R2 = ad$R2[1],
+      F = ad$F[1],
+      p_value = ad$`Pr(>F)`[1]
+    )
+  )
+}
+
+# Correction Bonferroni pour les tests multiples
+pairwise_results$p_adj <- p.adjust(pairwise_results$p_value, method = "bonferroni")
+
+pairwise_results
+
 ### nMDS ----
 
 #Jaccard nMDS on cleaned matrix
@@ -968,31 +1197,63 @@ nmdspoint <- vegan::scores(nmds_jacc)$sites %>%
 nmdsvariable <- vegan::scores(nmds_jacc)$species %>%
   as_tibble(rownames = "species")
 
-nmdspoint %>% 
+nmds_2025 <- nmdspoint %>% 
   left_join(metadata_clean) %>%
   mutate(category = forcats::fct_relevel(category, category_order)) %>%
   ggplot(aes(x = NMDS1, y = NMDS2, color = as.factor(category))) +
-  geom_point(size = 2) +
-  stat_ellipse(show.legend = FALSE, linewidth = 2) +
-  geom_text(data = nmdsvariable, 
-            aes(x = NMDS1, y = NMDS2, label = species), 
-            colour = "grey20") +
-  scale_color_manual(values = category_palette) +
-  theme_minimal()
-
-
-nmdspoint %>% 
-  left_join(metadata_clean) %>%
-  mutate(category = forcats::fct_relevel(category, category_order)) %>%
-  ggplot(aes(x = NMDS1, y = NMDS2, color = as.factor(category))) +
-  geom_jitter(width = 0.1, height = 0.1, size = 2, alpha = 0.8) +  # jitter + transparency
+  geom_jitter(width = 0.05, height = 0.05, size = 1.5, alpha = 0.5) +  
   stat_ellipse(show.legend = FALSE, linewidth = 2) +
   geom_text(data = nmdsvariable, 
             aes(x = NMDS1, y = NMDS2, label = species), 
             inherit.aes = FALSE,
             colour = "grey20") +
-  scale_color_manual(values = category_palette) +
-  theme_minimal()
+  scale_color_manual(values = category_palette)  +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "right",
+    legend.title = element_text(size = 13, face = "bold"),
+    legend.text = element_text(size = 12),
+    panel.grid = element_blank(),
+    axis.title = element_text(size = 14, face = "bold"),
+    axis.text = element_text(size = 12, color = "black")
+  )
+nmds_2025
+
+ggsave(filename = here::here("figures","nmds202516s.pdf"),
+       nmds_2025, 
+       width = 2000, height = 1200, units = "px", dpi = 300, bg = NULL)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## test db-rda ----
@@ -1071,3 +1332,352 @@ summary(db_rda)
 
 
 # test posthoc capscale : multiconstrained
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Explo a l'arrache csi 2 ----
+
+
+
+##Model : Bartonella spp. ----
+#Global model specification
+if (exists("m_barto_r")) rm(m_barto_r)
+m_barto_r <- lme4::glmer(
+  formula = Bartonella ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_r)
+
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_barto_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+#Global model specification
+if (exists("m_barto_r")) rm(m_barto_r)
+m_barto_r <- lme4::glmer(
+  formula = Bartonella ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_mnobrd,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_r)
+
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_barto_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+##Model : Mycoplasma coccoides ----
+
+#Global model specification
+if (exists("m_mycoplasmacoco_r")) rm(m_mycoplasmacoco_r)
+m_mycoplasmacoco_r <- lme4::glmer(
+  formula = Mycoplasma_coccoides ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_mycoplasmacoco_r)
+
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_mycoplasmacoco_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+if (exists("m_mycoplasmacoco_r")) rm(m_mycoplasmacoco_r)
+m_mycoplasmacoco_r <- lme4::glmer(
+  formula = Mycoplasma_coccoides ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_mnobrd,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_mycoplasmacoco_r)
+
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_mycoplasmacoco_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+
+##Model : Mycoplasma haemomuris ----
+#data 2025
+#Global model specification
+if (exists("m_mycoplasma_r")) rm(m_mycoplasma_r)
+m_mycoplasma_r <- lme4::glmer(
+  formula = Mycoplasma_haemomuris ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_mycoplasma_r)
+
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_mycoplasma_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+if (exists("m_mycoplasma_r")) rm(m_mycoplasma_r)
+m_mycoplasma_r <- lme4::glmer(
+  formula = Mycoplasma_haemomuris ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_mnobrd,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_mycoplasma_r)
+
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_mycoplasma_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+
+## Model : Neoehrlichia mikurensis  ----
+
+#Global model specification
+if (exists("m_neoeh_r")) rm(m_neoeh_r)
+m_neoeh_r <- lme4::glmer(
+  formula = Neoehrlichia_mikurensis ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_neoeh_r)
+
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_neoeh_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+
+if (exists("m_neoeh_r")) rm(m_neoeh_r)
+m_neoeh_r <- lme4::glmer(
+  formula = Neoehrlichia_mikurensis ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_mnobrd,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_neoeh_r)
+
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_neoeh_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+
+
+
+##Model : Mycoplasma sp. ----
+#Global model specification
+if (exists("m_mycoplasmasp")) rm(m_mycoplasmasp)
+m_mycoplasmasp <- lme4::glmer(
+  formula = Mycoplasma ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_mycoplasmasp)
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_mycoplasmasp, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+if (exists("m_mycoplasmasp")) rm(m_mycoplasmasp)
+m_mycoplasmasp <- lme4::glmer(
+  formula = Mycoplasma ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_mnobrd,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_mycoplasmasp)
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_mycoplasmasp, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+##Model : Bartonella taylorii  ----
+#Global model specification
+if (exists("m_barto_t_r")) rm(m_barto_t_r)
+m_barto_t_r <- lme4::glmer(
+  formula = Bartonella_taylorii ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_2023224,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_t_r)
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_barto_t_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+#Global model specification
+if (exists("m_barto_t_r")) rm(m_barto_t_r)
+m_barto_t_r <- lme4::glmer(
+  formula = Bartonella_taylorii ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_2023224nobrd,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_t_r)
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_barto_t_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+
+##Model : Bartonella birtlesii  ----
+#Global model specification
+if (exists("m_barto_b_r")) rm(m_barto_b_r)
+m_barto_b_r <- lme4::glmer(
+  formula = Bartonella_birtlesii ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_2023224,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_b_r)
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_barto_b_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+if (exists("m_barto_b_r")) rm(m_barto_b_r)
+m_barto_b_r <- lme4::glmer(
+  formula = Bartonella_birtlesii ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_2023224nobrd,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_b_r)
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_barto_b_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+
+
+##Model : Bartonella grahamii  ----
+
+#Global model specification
+if (exists("m_barto_g_r")) rm(m_barto_g_r)
+m_barto_g_r <- lme4::glmer(
+  formula = Bartonella_grahamii ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_2023224,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_g_r)
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_barto_g_r, rank = "AICc")
+model_selection %>% filter(delta <2)
+
+
+
+
+
+#Global model specification
+if (exists("m_barto_g_r")) rm(m_barto_g_r)
+m_barto_g_r <- lme4::glmer(
+  formula = Bartonella_grahamii ~ Broadleaved + season + herb_cover + shrub_cover + tree_cover + as.factor(year) + scale(poids) + sexe + (1|numero_ligne),
+  family = binomial(link = "logit"),
+  data = data_for_m_2023224nobrd,
+  na.action = "na.fail",                                  
+  control = lme4::glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e6))
+)
+car::vif(m_barto_g_r)
+
+#Model selection
+if (exists("model_selection")) rm(model_selection)
+model_selection <- MuMIn::dredge(m_barto_g_r, rank = "AICc")
+model_selection %>% filter(delta <2)
