@@ -8,7 +8,10 @@ library("ggplot2")
 ## Graphical parameters ----
 
 category_order <- c("pine_edge", "hedgerows", "broadleaved_forest")
-category_palette <- c("pine_edge" = "#FFB3BA", "hedgerows" = "#FFDFBA", "broadleaved_forest" = "#B3E2B3")
+category_palette <- c("pine_edge"          = "#3f826d",
+                      "hedgerows"          = "#f2d0a4",
+                      "broadleaved_forest" = "#a4a8d1")
+
 type_order <- c("CT_LB", "CT_HB", "NC_LB", "NC_HB", "C_LB", "C_HB", "B" )
 type_palette <- c("CT_LB" = "#FFB3BA", "CT_HB" = "#FFB3BA" , "NC_LB" = "#FFDFBA", "NC_HB" = "#FFDFBA" , "C_LB" = "#FFDFBA" , "C_HB"= "#FFDFBA" , "B" = "#B3E2B3")
 brd_palette <- c("LB" = "#FFB3BA", "HB" = "#B3E2B3")
